@@ -1,0 +1,68 @@
+body, html {
+    height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.double-carrousel {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    height: 100vh;
+}
+
+.carrousel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.slides {
+    width: 300px;
+}
+
+.slide {
+    display: none;
+    width: 300px;          /* largeur fixe */
+    height: 200px;         /* hauteur fixe */
+    object-fit: cover;     /* recadre l’image sans la déformer */
+    border-radius: 10px;
+}
+
+.slide.active {
+    display: block;
+}
+
+.description {
+    margin-top: 10px;
+    font-size: 0.9em;
+    color: rgba(0, 0, 0, 0.5);
+    font-family: 'DM Serif Display', serif;
+    text-decoration: none;
+}
+
+.prev, .next {
+    background: none;
+    border: none;
+    font-size: 2em;
+    cursor: pointer;
+    color: #335533;
+}
+
+.background {
+    background-color: rgb(224, 224, 213);
+    border-radius: 20px;
+    border: none;
+    width: 300px;
+    padding: 12px;
+    font-size: 0.95em;
+}
+
+.ligne-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9em;
+    padding: 0 10px;
+}
