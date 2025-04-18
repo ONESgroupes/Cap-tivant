@@ -1,10 +1,232 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="UTF-8" />
+    <title>Paiement</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="payement.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <script src="info-bateau.js"></script>
+    <style>
+    </style>
 </head>
 <body>
+
+<!-- Menu hamburger -->
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu.png" alt="Menu">
+</div>
+
+<!-- Fil d’Ariane -->
+<div class="top-left retour-offre">
+    <a id="lien-retour-offre">Offre &gt;</a>
+    <a id="lien-info-bateau"><label id="titre-bateau-label" style="cursor: pointer;"></label><span> &gt;</span></a>
+    <label style="font-size: 0.85em; color: rgba(224,224,213,0.65); font-family: 'DM Serif Display', serif;">Reservation</label>
+</div>
+
+<!-- Logo et titre -->
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo.png" alt="Logo">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title" id="titre-bateau" style="color: #E0E0D5">Paiement</h1>
+    </div>
+</div>
+
+<!-- Menu overlay -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<!-- Lien langue / compte -->
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #E0E0D5; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #E0E0D5; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<!-- Bloc central : infos + sélection -->
+<div class="background">
+    <div class="conteneur-info">
+        <div class="carte-bateau" id="carte-bateau">
+            <h2 id="titre-fiche"></h2>
+            <p><strong>Port :</strong> <span id="port"></span></p>
+            <p><strong>Nombre de personnes maximum :</strong> <span id="personnes"></span></p>
+            <p><strong>Cabines :</strong> <span id="cabines"></span></p>
+            <p><strong>Longueur :</strong> <span id="longueur"></span></p>
+            <p><strong>Prix :</strong> <span id="prix"></span></p>
+            <p><strong>Avis :</strong> <span id="avis"></span></p>
+        </div>
+
+        <div>
+            <div class="select-personnes-container">
+                <label for="select-personnes"><strong>Sélectionnez le nombre de personnes :</strong></label>
+                <select id="select-personnes"></select>
+            </div>
+
+            <div class="enfant-a-bord">
+                <input type="checkbox" id="enfant-checkbox" />
+                <label for="enfant-checkbox">Enfant à bord</label>
+            </div>
+
+            <div class="options-bateau">
+                <h3>Options supplémentaires</h3>
+                <br>
+                <label><input type="checkbox" class="option-checkbox" data-prix="200"> Skipper (+200€)</label><br>
+                <label><input type="checkbox" class="option-checkbox" data-prix="80"> Nettoyage final (+80€)</label><br>
+                <label><input type="checkbox" class="option-checkbox" data-prix="50"> Literie et serviettes (+50€)</label>
+            </div>
+
+            
+
+        </div>
+
+    </div>
+</div>
+
+<!-- Paiement -->
+<div class="total-et-paiement" id="zone-paiement">
+    <br>
+    <p><strong>Total à payer :</strong> <span id="total-prix">0€</span></p>
+    <button id="btn-payer">Payer</button>
+</div>
+
+<!-- Pied de page -->
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text">Mentions légales</a>
+    <span class="bottom-text">•</span>
+    <a href="Contact.html" class="bottom-text">Contact</a>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+    const categorie = params.get("categorie");
+    const lienRetour = document.getElementById("lien-retour-offre");
+    if (categorie) {
+        lienRetour.href = `offre.html?categorie=${categorie}`;
+    } else {
+        lienRetour.href = "offre.html";
+    }
+
+    if (typeof bateaux !== "undefined") {
+        const bateau = bateaux.find(b => b.id === id);
+
+        if (bateau) {
+            document.getElementById("titre-bateau-label").textContent = bateau.titre;
+            document.getElementById("titre-fiche").textContent = bateau.titre;
+            document.getElementById("port").textContent = bateau.port;
+            document.getElementById("personnes").textContent = bateau.personnes;
+            document.getElementById("cabines").textContent = bateau.cabines;
+            document.getElementById("longueur").textContent = bateau.longueur;
+            document.getElementById("prix").textContent = bateau.prix;
+            document.getElementById("avis").textContent = bateau.avis;
+
+            document.getElementById("lien-info-bateau").href = `info-bateau.html?id=${bateau.id}`;
+
+            const chiffres = bateau.prix.match(/\d+/g);
+            const prixBase = chiffres ? parseInt(chiffres.join("")) : 0;
+            const totalPrixElem = document.getElementById("total-prix");
+            totalPrixElem.textContent = prixBase + "€";
+
+            const options = document.querySelectorAll('.option-checkbox');
+            options.forEach(option => {
+                option.addEventListener('change', () => {
+                    let total = prixBase;
+                    options.forEach(opt => {
+                        if (opt.checked) {
+                            total += parseInt(opt.getAttribute("data-prix"));
+                        }
+                    });
+                    totalPrixElem.textContent = total + "€";
+                });
+            });
+
+            const nbPersonnesMax = parseInt(bateau.personnes.match(/\d+/));
+            const select = document.getElementById("select-personnes");
+            select.innerHTML = "";
+            const defaultOption = document.createElement("option");
+            defaultOption.disabled = true;
+            defaultOption.selected = true;
+            defaultOption.textContent = "Choisissez un nombre";
+            select.appendChild(defaultOption);
+            for (let i = 1; i <= nbPersonnesMax; i++) {
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = i + (i === 1 ? " personne" : " personnes");
+                select.appendChild(option);
+            }
+
+            document.getElementById("btn-payer").addEventListener("click", function () {
+                const popup = document.createElement("div");
+                popup.className = "avis-popup-overlay";
+                popup.innerHTML = `
+                    <div class="avis-popup-bulle">
+                        <h2>Merci pour votre réservation !</h2>
+                        <p>Laissez-nous un avis sur votre expérience :</p>
+                        <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
+                        <label>Note :</label>
+                        <select id="etoiles">
+                            <option value="1">⭐</option>
+                            <option value="2">⭐⭐</option>
+                            <option value="3">⭐⭐⭐</option>
+                            <option value="4">⭐⭐⭐⭐</option>
+                            <option value="5">⭐⭐⭐⭐⭐</option>
+                        </select><br><br>
+                        <button onclick="validerAvis('${bateau.titre}')">Valider l'avis</button>
+                        <button onclick="fermerAvisPopup()">Fermer</button>
+                    </div>
+                `;
+                document.body.appendChild(popup);
+            });
+        }
+    }
+
+    function validerAvis(titreBateau) {
+        const commentaire = document.getElementById("commentaire").value.trim();
+        const etoiles = parseInt(document.getElementById("etoiles").value);
+
+        if (!commentaire || isNaN(etoiles)) {
+            alert("Merci de remplir tous les champs.");
+            return;
+        }
+
+        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+        avis.push({
+            titre: titreBateau,
+            commentaire: commentaire,
+            etoiles: etoiles,
+            date: new Date().toLocaleDateString()
+        });
+
+        localStorage.setItem("avis", JSON.stringify(avis));
+        alert("Merci pour votre avis !");
+        window.location.href = "avis.html";
+    }
+
+    function fermerAvisPopup() {
+        const popup = document.querySelector(".avis-popup-overlay");
+        if (popup) popup.remove();
+    }
+</script>
 
 </body>
 </html>
