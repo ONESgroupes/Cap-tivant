@@ -2,58 +2,106 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Location</title>
+    <title>Connexion</title>
+    <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="location.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <nav class="navbar">
-        <div class="nav-left">
-            <a href="menu.html" class="menu-btn">&#9776;</a>
-        </div>
-        <div class="nav-center">
-            <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
-        </div>
-        <div class="nav-right">
-            <a href="langue.html"><img src="/images/drapeau-fr.png" alt="Français" class="flag"></a>
-            <a href="#">À PROPOS</a>
-            <a href="#">SE CONNECTER</a>
-            <span class="heart">&#10084;</span>
-        </div>
-    </nav>
-</header>
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu.png" alt="Menu">
+</div>
 
-<main>
-    <h1>Location</h1>
-    <div class="input-group">
-        <label for="date-depart" class="input-label"><span class="icon">📅</span> Date de départ</label>
-        <input type="date" id="date-depart" class="input-field">
-        <label for="date-arrivee" class="input-label"><span class="icon">📅</span> Date d'arrivée</label>
-        <input type="date" id="date-arrivee" class="input-field">
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
+</div>
 
-    <div class="input-group">
-        <label for="port" class="input-label"><span class="icon">📍</span> Lieu de location</label>
-        <select id="port" class="input-field">
-            <option value="">Sélectionner un port</option>
-            <option value="marseille">Marseille</option>
-            <option value="nice">Nice</option>
-            <option value="cannes">Cannes</option>
-            <option value="toulon">Toulon</option>
-        </select>
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" class="top-infos">À propos</a>
+    <a href="Connexion.html" class="top-infos">Mon compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo.png" alt="Logo">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title" style="color: #e0e0d5">Location</h1>
     </div>
-
-    <div class="input-group">
-        <button class="boat-btn">🚤 Moteur</button>
-        <button class="boat-btn">⛵ Voilier</button>
+    <div class="formulaire-connexion">
+        <div class="background">
+            <div class="champ-double">
+                <input type="date" id="départ" placeholder="Date de départ" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
+                <input type="text" id="lieu" placeholder="Lieu de location" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
+            </div>
+            <div class="champ-trois">
+                <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">Moteur</button>
+                <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">À voile</button>
+            </div>
+            <div class="champ" style="padding: 22px;">
+                <a id="lien-recherche" href="offre.html" class="connexion" style="color: #FFFFFF;">Recherche</a>
+            </div>
+        </div>
     </div>
+</div>
 
-    <a href="offre.html" class="search-btn">Recherche</a>
-</main>
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text">Mentions légales</a>
+    <span class="bottom-text">•</span>
+    <a href="Contact.html" class="bottom-text">Contact</a>
+</div>
 
-<footer>
-    <a href="Contact.html">Contact</a> <a &bull; href="MentionsLegales.html">Mentions légales</a>
-</footer>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
+    }
+
+    let typeSelectionne = "";
+
+    function selectType(button) {
+        const boutonClique = button.textContent.trim().toLowerCase(); // "moteur" ou "à voile"
+        const lienRecherche = document.getElementById("lien-recherche");
+
+        // Si on reclique sur le même bouton déjà actif, on désactive tout
+        if (button.classList.contains("active")) {
+            button.classList.remove("active");
+            typeSelectionne = "";
+            lienRecherche.href = "offre.html";
+        } else {
+            // On désactive les autres boutons
+            document.querySelectorAll('.bouton-type').forEach(btn => btn.classList.remove('active'));
+            // On active celui qu'on vient de cliquer
+            button.classList.add("active");
+            typeSelectionne = boutonClique;
+
+            if (typeSelectionne === "moteur") {
+                lienRecherche.href = "offre.html?type=moteur";
+            } else if (typeSelectionne === "à voile") {
+                lienRecherche.href = "offre.html?type=voile";
+            } else {
+                lienRecherche.href = "offre.html";
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
