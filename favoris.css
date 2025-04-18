@@ -1,0 +1,54 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.favoris-container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    flex-wrap: wrap;
+    gap: 30px;
+    padding: 40px 20px;
+}
+
+.favori-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    max-width: 320px;
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+}
+
+.favori-card img {
+    width: 100%;
+    height: 200px; /* ou la hauteur que tu veux */
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.favori-card a {
+    color: #577550;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.favori-card button {
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    background: #f29066;
+    color: white;
+    cursor: pointer;
+}
