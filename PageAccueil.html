@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Cap'Tivant - Accueil</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PageAccueil.css">
+</head>
+<body>
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" class="top-infos">À propos</a>
+    <a href="Connexion.html" class="top-infos">Mon compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<div class="top-center">
+    <img src="/images/logo.png" alt="Logo">
+</div>
+
+<div class="image-container">
+    <div class="texte-wrapper">
+        <div class="texte principal">Cap'Tivant</div>
+        <div class="texte secondaire">Location de bateau</div>
+    </div>
+</div>
+
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text">Mentions légales</a>
+    <span class="bottom-text">•</span>
+    <a href="Contact.html" class="bottom-text">Contact</a>
+</div>
+
+<!-- ✅ Fonction toggleMenu -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
+    }
+</script>
+</body>
+</html>
