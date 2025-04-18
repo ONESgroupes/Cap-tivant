@@ -1,10 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Mentions légales</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="MentionsLegales.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
 
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title">Mentions légales</h1>
+    </div>
+
+    <div class="texte-legale" style="max-width: 800px; margin-top: 100px; padding: 20px; font-family: 'DM Serif Display', serif; font-size: 0.95em; line-height: 1.6em; color: #335533; text-align: justify;">
+        <p>Compagnie Cap’Tivant, Société Anonyme au capital de 2 500 000€ immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro B 542 056 385.</p>
+        <p>Numéro de TVA intracommunautaire : FR66572826359</p>
+        <p>SIRET : 57006875500219</p>
+        <p>Adresse du Siège Social : Port de la conférence, 75008 Paris</p>
+        <p>Contact : Téléphone : +33 1 43 25 86 10</p>
+        <p>Hébergeur : OVH</p>
+        <p><strong>Crédits photos :</strong></p>
+        <ul>
+            <li>Page Accueil - Belle vue © LR Photographies/Fotolia</li>
+            <li>Page Nos offres – Bateaux à louer © Erika / Fotolia</li>
+            <li>Page Nos ports – France © Cartographie / Fotolia</li>
+        </ul>
+        <p><strong>Données personnelles</strong></p>
+        <p>La Compagnie Cap’Tivant a mis en place une politique de confidentialité pour protéger vos données personnelles.</p>
+        <p>DPO : Patricia Conde Cespedes</p>
+    </div>
+</div>
+
+<div class="bottom-center">
+    <span class="bottom-text" style="color: #577550">•</span>
+    <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+    <span class="bottom-text" style="color: #577550">•</span>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+</script>
 </body>
 </html>
