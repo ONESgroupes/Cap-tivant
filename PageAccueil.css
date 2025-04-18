@@ -156,13 +156,19 @@ body, html {
      position: fixed;
      top: 0;
      left: 0;
-     height: 100vh;
-     width: 100vw;
-     background-color: rgba(197, 216, 211, 0.95); /* même vert que le fond */
-     display: none;
-     z-index: 1000;
+     width: 100%;
+     height: 100%;
+     background: rgba(0, 51, 51, 0.85); /* Vert marin foncé avec transparence */
+     transform: translateX(-100%);
+     transition: transform 0.4s ease-in-out;
+     display: flex;
      justify-content: center;
      align-items: center;
+     z-index: 999;
+ }
+
+ .menu-overlay.active {
+     transform: translateX(0%);
  }
 
  .menu-content {
@@ -174,24 +180,24 @@ body, html {
 
  .menu-content a {
      font-family: 'DM Serif Display', serif;
-     font-size: 1.2em;
-     text-decoration: none;
-     color: #335533;
-     border: 1px solid #335533;
+     font-size: 1.3rem;
+     color: white;
+     border: 1px solid white;
      padding: 10px 30px;
-     border-radius: 10px;
-     transition: all 0.3s ease;
+     text-decoration: none;
+     transition: background-color 0.3s ease, color 0.3s ease;
  }
 
  .menu-content a:hover {
-     background-color: #335533;
-     color: white;
+     background-color: white;
+     color: #003333;
  }
 
  .close-menu {
-     margin-top: 30px;
+     position: absolute;
+     top: 20px;
+     right: 30px;
+     font-size: 2rem;
+     color: white;
      cursor: pointer;
-     font-size: 1.5em;
-     color: #335533;
  }
-

@@ -49,16 +49,13 @@
     <a href="Contact.html" class="bottom-text">Contact</a>
 </div>
 
-<!-- ✅ Fonction toggleMenu -->
+
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
-        if (menu.style.display === "flex") {
-            menu.style.display = "none";
-        } else {
-            menu.style.display = "flex";
-        }
+        menu.classList.toggle("active");
     }
+
 </script>
 </body>
 </html>
