@@ -1,0 +1,93 @@
+body {
+    background-color: #c5d8d3;
+    font-family: 'DM Serif Display', serif;
+}
+
+.formulaire-connexion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.champ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.champ img {
+    width: 24px;
+    height: auto;
+}
+
+.champ input {
+    width: 500px;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    font-size: 1em;
+    text-align: center;
+}
+
+.champ-double {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* espace entre les boutons */
+}
+
+.champ-double input {
+    margin-top: 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    width: 230px;
+    padding: 12px;
+    font-size: 0.95em;
+}
+
+.champ-msg {
+    display: flex;
+    justify-content: center;
+    gap: 150px;
+}
+
+.champ-msg input {
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    width: 500px;
+    padding: 32px;
+    font-size: 0.95em;
+}
+
+.connexion {
+    margin-top: 40px;
+    padding: 12px 24px;
+    background-color: rgba(242, 144, 102, 0.8);
+    color: white;
+    font-size: 1em;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+.inscription {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #ee9c72;
+    font-family: 'DM Serif Display', cursive;
+    text-align: center;
+}
+
+.mdp-oublier {
+    margin-top: 10px;
+    font-size: 0.7em;
+    color: rgba(0, 0, 0, 0.62);
+    font-family: 'DM Serif Display', cursive;
+    text-align: center;
+}
