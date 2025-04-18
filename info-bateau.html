@@ -1,10 +1,204 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Détail du Bateau</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="offre.css">
+    <link rel="stylesheet" href="info-bateau.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <script src="info-bateau.js"></script>
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
+
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
+<div class="top-left retour-offre">
+    <a href="offre.html">Offre ></a>
+    <label id="titre-bateau-label" style="font-size: 0.85em; color: rgba(0, 0, 0, 0.44); font-family: 'DM Serif Display', serif;" ></label>
+</div>
+
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title" id="titre-bateau"></h1>
+    </div>
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<div class="double-carrousel" id="contenu"></div>
+
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550;">•</span>
+    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+</script>
+
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+    const bateau = bateaux.find(b => b.id === id);
+
+    if (bateau) {
+        document.getElementById("titre-bateau").textContent = bateau.titre;
+        document.getElementById("titre-bateau-label").textContent = bateau.titre;
+        document.getElementById("contenu").innerHTML = `
+                </div>
+                <div class="detail-container">
+                    <div class="bloc-gauche">
+                        <div class="carrousel" data-id="${bateau.id}">
+                            <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+                            <div class="slides">
+                                <img src="${bateau.image1}" class="slide active">
+                                <img src="${bateau.image2}" class="slide">
+                            </div>
+                            <button class="next" onclick="changeSlide(this, 1)">❯</button>
+                        </div>
+                        <div class="texte-photo">
+                            <p>
+                                <span>${bateau.avis}</span>
+                                <span style="margin-left: 80px;">${bateau.port}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="background">
+                        <p class="infos">${bateau.personnes}</p>
+                        <p class="infos">${bateau.cabines}</p>
+                        <p class="infos">${bateau.longueur}</p>
+                    </div>
+                    <div class="texte-photo">
+                    <p>
+                        <span><strong>${bateau.prix}</strong></span>
+                    </p>
+                    </div>
+                </div>
+
+                <div class="boutons-actions">
+                    <a href="payement.html?id=${bateau.id}" class="btn-reserver">Réserver</a>
+                    <a style="gap: 60px"></a>
+                    <button class="btn-favoris" onclick="ajouterAuxFavoris(${bateau.id})">Ajouter aux favoris</button>
+                </div>
+        `;
+    } else {
+        document.getElementById("contenu").innerHTML = "<p style='text-align:center;'>Bateau introuvable</p>";
+    }
+</script>
+
+<!-- Script : Carrousel -->
+<script>
+    const carrouselIndexes = new Map();
+
+    function changeSlide(button, direction) {
+        const carrousel = button.closest('.carrousel');
+        const slides = carrousel.querySelectorAll('.slide');
+
+        if (!carrouselIndexes.has(carrousel)) {
+            carrouselIndexes.set(carrousel, 0);
+        }
+
+        let currentIndex = carrouselIndexes.get(carrousel);
+        slides[currentIndex].classList.remove('active');
+
+        currentIndex = (currentIndex + direction + slides.length) % slides.length;
+
+        slides[currentIndex].classList.add('active');
+        carrouselIndexes.set(carrousel, currentIndex);
+    }
+</script>
+
+<script>
+    let popupIndex = 0;
+    let popupImages = [];
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("slide")) {
+            const carrousel = e.target.closest(".carrousel");
+            popupImages = Array.from(carrousel.querySelectorAll(".slide")).map(img => img.src);
+            popupIndex = popupImages.indexOf(e.target.src);
+
+            openPopup(popupIndex);
+        }
+    });
+
+    function openPopup(index) {
+        const popup = document.createElement("div");
+        popup.classList.add("image-popup");
+        popup.innerHTML = `
+            <span class="close" onclick="document.querySelector('.image-popup').remove()">✖</span>
+            <div class="controls">
+                <span class="arrow" onclick="navigatePopup(-1)">❮</span>
+                <span class="arrow" onclick="navigatePopup(1)">❯</span>
+            </div>
+            <img src="${popupImages[index]}" id="popup-image">
+        `;
+        document.body.appendChild(popup);
+    }
+
+    function navigatePopup(direction) {
+        popupIndex = (popupIndex + direction + popupImages.length) % popupImages.length;
+        const popupImage = document.getElementById("popup-image");
+        popupImage.src = popupImages[popupIndex];
+    }
+
+    // Optionnel : fermer avec "Échap"
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && document.querySelector(".image-popup")) {
+            document.querySelector(".image-popup").remove();
+        }
+    });
+</script>
+
+<script>
+    function ajouterAuxFavoris(id) {
+        const bateau = bateaux.find(b => b.id === id);
+        if (!bateau) return;
+
+        let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+
+        // Évite les doublons
+        if (!favoris.some(fav => fav.id === bateau.id)) {
+            favoris.push(bateau);
+            localStorage.setItem("favoris", JSON.stringify(favoris));
+            alert("Bateau ajouté aux favoris !");
+        } else {
+            alert("Ce bateau est déjà dans vos favoris.");
+        }
+    }
+</script>
 
 </body>
 </html>
