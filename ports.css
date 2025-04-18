@@ -1,90 +1,154 @@
+/* Général */
 body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #c8d8d3;
+    color: #333;
+}
+
+/* En-tête */
+.top-left {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+.top-left img {
+    width: 30px;
+}
+
+.top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    z-index: 1000;
+}
+
+.top-right img {
+    width: 24px;
+    height: auto;
+}
+
+.top-infos {
+    text-decoration: none;
+    color: #3d5943;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.top-center {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.top-center img {
+    width: 60px;
+}
+
+/* Titre */
+h1 {
+    text-align: center;
+    margin-top: 10px;
+    font-size: 2.5rem;
+    color: #4a4a4a;
+    font-family: 'Georgia', serif;
+}
+
+/* Carte */
+#map {
+    width: 90%;
+    max-width: 800px;
+    height: 500px;
+    margin: 20px auto;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Popups */
+.popup-content h3 {
+    margin: 5px 0;
+    font-size: 1.2rem;
+}
+
+.popup-content p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+}
+
+/* Menu latéral */
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(50, 60, 50, 0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.menu-content {
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    margin: 0;
-}
-main {
-    flex: 1;
-}
-
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #d1e0db;
-}
-.navbar {
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #d1e0db;
+    gap: 30px;
 }
 
-.nav-left, .nav-center, .nav-right {
-    display: flex;
-    align-items: center;
-}
-
-.nav-center {
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.nav-right a, .nav-right {
-    margin-left: 15px;
+.menu-content a {
+    color: #fff;
     text-decoration: none;
-    color: #000;
+    font-size: 1.5rem;
+    font-weight: bold;
 }
 
-.menu-btn {
-    font-size: 24px;
-    background: none;
-    border: none;
+.close-menu {
+    color: #fff;
+    font-size: 2rem;
     cursor: pointer;
+    position: absolute;
+    top: 30px;
+    right: 40px;
 }
 
-.logo {
-    height: 50px;
-    align-items: center;
-}
-
-.flag {
-    width: 25px;
-    height: auto;
-}
-.heart {
-    font-size: 20px;
-    cursor: pointer;
-    margin-left: 15px;
-    color  : #f80707;
-}
-body {
-    font-family: Arial, sans-serif;
-    background-color: #d1e0db;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-h1 {
-    font-size: 24px;
-    color: #4a4a4a;
-    margin-top: 20px;
-}
-#map {
-    height: 450px;
-    width: 70%;
-    margin: auto;
-}
-.popup-content img {
-    width: 150px;
-    height: auto;
-    align-items: center;
-
-}
+/* Pied de page */
 footer {
+    text-align: center;
     margin-top: 30px;
-    font-size: 14px;
-    color: #d1e0db;
+    padding: 20px 0;
+    font-size: 0.9rem;
 }
 
+footer a {
+    text-decoration: none;
+    color: #333;
+    margin: 0 10px;
+}
+
+/* Responsive */
+@media screen and (max-width: 600px) {
+    .top-right {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .top-infos {
+        font-size: 0.8rem;
+    }
+
+    #map {
+        height: 400px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+}
