@@ -1,0 +1,21 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    height: 100%;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+.texte-sous-titre {
+    max-width: 800px;
+    margin: 180px auto 60px;
+    padding: 20px;
+    font-family: 'DM Serif Display', serif;
+    font-size: 0.95em;
+    line-height: 1.6em;
+    color: #000000;
+    text-align: justify;
+}
