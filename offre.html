@@ -1,10 +1,153 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Mes Favoris</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="offre.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title">Offres</h1>
+    </div>
+</div>
+
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+
+<div class="double-carrousel">
+    <!-- Carrousel 1 -->
+    <div class="carrousel moteur" data-id="0">
+        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+        <div class="slides">
+            <a href="info-bateau.html?id=1">
+                <img src="images/moteur1.png" class="slide active">
+                <img src="images/moteur2.png" class="slide">
+                <div class="background">
+                    <p class="description">Marseille pour 6 personnes, 6 mètres</p>
+                    <div class="ligne-info">
+                        <p class="description" style="color: #000000"><strong>1695€/semaine</strong></p>
+                        <p class="description" style="color: #000000">⭐4.7 (58)</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <button class="next" onclick="changeSlide(this, 1)">❯</button>
+    </div>
+
+    <!-- Carrousel 2 -->
+    <div class="carrousel voile" data-id="1">
+        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+        <div class="slides">
+            <a href="info-bateau.html?id=2">
+                <img src="images/catamaran1.png" class="slide active">
+                <img src="images/catamaran2.png" class="slide">
+                <div class="background">
+                    <p class="description">Marseille pour 12 personnes, 21 mètres</p>
+                    <div class="ligne-info">
+                        <p class="description" style="color: #000000"><strong>3995€/semaine</strong></p>
+                        <p class="description" style="color: #000000">⭐4.9 (16)</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <button class="next" onclick="changeSlide(this, 1)">❯</button>
+    </div>
+</div>
+
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550;">•</span>
+    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
+    }
+</script>
+
+<script>
+    const carrouselIndexes = new Map(); // Pour suivre chaque carrousel
+
+    function changeSlide(button, direction) {
+        const carrousel = button.closest('.carrousel');
+        const slides = carrousel.querySelectorAll('.slide');
+
+        if (!carrouselIndexes.has(carrousel)) {
+            carrouselIndexes.set(carrousel, 0);
+        }
+
+        let currentIndex = carrouselIndexes.get(carrousel);
+        slides[currentIndex].classList.remove('active');
+
+        currentIndex = (currentIndex + direction + slides.length) % slides.length;
+
+        slides[currentIndex].classList.add('active');
+        carrouselIndexes.set(carrousel, currentIndex);
+    }
+</script>
+
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const params = new URLSearchParams(window.location.search);
+        const type = params.get('type');
+
+        if (type === "moteur" || type === "voile") {
+            document.querySelectorAll('.carrousel').forEach(carrousel => {
+                if (carrousel.classList.contains(type)) {
+                    carrousel.style.display = "flex";
+                } else {
+                    carrousel.style.display = "none";
+                }
+            });
+        } else {
+            // Si aucun type n'est précisé, tout afficher
+            document.querySelectorAll('.carrousel').forEach(carrousel => {
+                carrousel.style.display = "flex";
+            });
+        }
+    });
+</script>
+
 
 </body>
 </html>
