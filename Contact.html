@@ -1,10 +1,82 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Connexion</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="Contact.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
+</div>
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title">Nous contacter</h1>
+        <p class="texte" style="text-shadow: none;">Pour toute question, veuillez nous contacter par mail à captivant@gmail.com ou via le formulaire de contact ci-dessous.</p>
+    </div>
+
+    <div class="formulaire-connexion">
+        <div class="champ-double">
+            <input type="text" id="nom" placeholder="Nom">
+            <input type="text" id="mail" placeholder="E-mail">
+        </div>
+        <div class="champ">
+            <input type="text" id="tel" placeholder="Entrez votre téléphone">
+            <br>
+            <label for="msg">Message</label>
+        </div>
+        <div class="champ-msg">
+            <textarea id="msg" placeholder="Entrez votre message"></textarea>
+        </div>
+        <div class="connexion">Envoyer</div>
+    </div>
+</div>
+
+<div class="bottom-center">
+    <span class="bottom-text" style=" color: #577550">•</span>
+    <a href="MentionsLegales.html" class="bottom-text" style=" color: #577550">Mentions légales</a>
+    <span class="bottom-text" style=" color: #577550">•</span>
+</div>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
+    }
+</script>
 
 </body>
 </html>
