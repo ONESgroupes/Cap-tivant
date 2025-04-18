@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Avis</title>
+  <link rel="stylesheet" href="PageAccueil.css">
+  <link rel="stylesheet" href="Avis.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="top-left" onclick="toggleMenu()">
+  <img src="/images/menu-vert.png" alt="Menu">
+</div>
 
+<div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content">
+    <a href="location.html">LOCATION</a>
+    <a href="ports.html">NOS PORTS</a>
+    <a href="MonCompte.html">MON COMPTE</a>
+    <a href="faq.html">FAQ</a>
+    <a href="avis.html">AVIS</a>
+    <span onclick="toggleMenu()" class="close-menu">✕</span>
+  </div>
+</div>
+
+<div class="top-right">
+  <img src="/images/drapeau-francais.png" alt="Langue">
+  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+  <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon compte</a>
+  <a href="favoris.html">
+    <img src="/images/favoris.png" alt="Favoris">
+  </a>
+</div>
+
+<div class="top-center">
+  <div class="logo-block">
+    <a href="PageAccueil.html">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+    </a>
+    <p class="logo-slogan">Cap'Tivant</p>
+    <h1 class="page-title">Avis</h1>
+  </div>
+</div>
+
+<div class="background" id="avis-container">
+  <!-- Avis affichés ici -->
+</div>
+
+<div class="bottom-center">
+  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
+  <span class="bottom-text" style="color: #577550;">•</span>
+  <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menu-overlay");
+    menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+  }
+
+  const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+  const container = document.getElementById("avis-container");
+
+  if (avis.length === 0) {
+    container.innerHTML = "<p style='text-align:center;'>Aucun avis pour le moment.</p>";
+  } else {
+    avis.forEach(entry => {
+      container.innerHTML += `
+        <div class="avis-card">
+          <h3>${entry.titre}</h3>
+          <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
+          <p class="commentaire">"${entry.commentaire}"</p>
+          <p class="date">${entry.date}</p>
+        </div>
+      `;
+    });
+  }
+</script>
 </body>
 </html>
