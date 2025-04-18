@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    <link rel="stylesheet" href="recherche.css">
+</head>
+<body>
+<header>
+    <nav class="navbar">
+        <div class="nav-left">
+            <a href="menu.html" class="menu-btn">&#9776;</a>
+        </div>
+        <div class="nav-center">
+            <a href="index.html"><img src="/images/logo.png" alt="Logo" class="logo"></a>
+        </div>
+        <div class="nav-right">
+            <a href="langue.html"><img src="/images/drapeau-fr.png" alt="Français" class="flag"></a>
+            <a href="#">À PROPOS</a>
+            <a href="#">SE CONNECTER</a>
+            <span class="heart">&#10084;</span>
+        </div>
+    </nav>
+</header>
+
+<main>
+    <h1>Location</h1>
+    <div class="input-group">
+        <label for="date-depart" class="input-label"><span class="icon">📅</span> Date de départ</label>
+        <input type="date" id="date-depart" class="input-field">
+        <label for="date-arrivee" class="input-label"><span class="icon">📅</span> Date d'arrivée</label>
+        <input type="date" id="date-arrivee" class="input-field">
+    </div>
+
+    <div class="input-group">
+        <label for="port" class="input-label"><span class="icon">📍</span> Lieu de location</label>
+        <select id="port" class="input-field">
+            <option value="">Sélectionner un port</option>
+            <option value="marseille">Marseille</option>
+            <option value="nice">Nice</option>
+            <option value="cannes">Cannes</option>
+            <option value="toulon">Toulon</option>
+        </select>
+    </div>
+
+    <div class="input-group">
+        <button class="boat-btn">🚤 Moteur</button>
+        <button class="boat-btn">⛵ Voilier</button>
+    </div>
+
+    <a href="offres.html" class="search-btn">Recherche</a>
+</main>
+
+<footer>
+    <a href="contact.html">Contact</a> <a &bull; href="mentionslégales.html">Mentions légales</a>
+</footer>
+</body>
+</html>

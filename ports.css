@@ -1,0 +1,90 @@
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+main {
+    flex: 1;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #d1e0db;
+}
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #d1e0db;
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-center {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.nav-right a, .nav-right {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #000;
+}
+
+.menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.logo {
+    height: 50px;
+    align-items: center;
+}
+
+.flag {
+    width: 25px;
+    height: auto;
+}
+.heart {
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 15px;
+    color  : #f80707;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #d1e0db;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+h1 {
+    font-size: 24px;
+    color: #4a4a4a;
+    margin-top: 20px;
+}
+#map {
+    height: 450px;
+    width: 70%;
+    margin: auto;
+}
+.popup-content img {
+    width: 150px;
+    height: auto;
+    align-items: center;
+
+}
+footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #d1e0db;
+}
+

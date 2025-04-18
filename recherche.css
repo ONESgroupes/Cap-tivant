@@ -1,0 +1,100 @@
+.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 20px;
+    background-color: #d1e0db; /* Ajuste selon ton design */
+}
+
+.nav-left, .nav-center, .nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-center {
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.nav-right a, .nav-right .heart {
+    margin-left: 15px;
+    text-decoration: none;
+    color: #000;
+}
+
+.menu-btn {
+    font-size: 24px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.logo {
+    height: 40px; /* Ajuste selon la taille du logo */
+}
+
+.flag {
+    width: 25px; /* Ajuste la taille du drapeau */
+    height: auto;
+}
+
+.heart {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #c5d3cd;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+
+h1 {
+    font-size: 24px;
+    color: #4a4a4a;
+    margin-top: 20px;
+}
+
+.input-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.input-btn, .boat-btn, .search-btn, .suggest-btn {
+    background: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.boat-btn {
+    background: white;
+    border: 2px solid black;
+}
+
+.search-btn {
+    background: white;
+    font-weight: bold;
+    margin-top: 10px;
+    align-items: center;
+}
+
+
+
+footer {
+    margin-top: 30px;
+    font-size: 14px;
+    color: #666;
+}
