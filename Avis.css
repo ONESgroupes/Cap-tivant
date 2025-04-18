@@ -1,0 +1,80 @@
+body {
+    background-color: #c5d8d3;
+    font-family: 'DM Serif Display', serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Conteneur principal des avis */
+#avis-container {
+    background-color: #FFEFDC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    gap: 30px;
+    max-width: 600px;
+    margin: 180px auto;
+    max-height: 400px; /* limite de hauteur */
+    overflow-y: auto;  /* active le scroll vertical */
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Apparence de la barre de défilement (Chrome/Edge) */
+#avis-container::-webkit-scrollbar {
+    width: 8px;
+}
+
+#avis-container::-webkit-scrollbar-thumb {
+    background-color: #577550;
+    border-radius: 4px;
+}
+
+#avis-container::-webkit-scrollbar-track {
+    background-color: #c5d8d3;
+}
+
+/* Carte individuelle d’un avis */
+.avis-card {
+    background-color: white;
+    border-radius: 20px;
+    padding: 24px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+}
+
+.avis-card h3 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #577550;
+}
+
+.avis-card p {
+    margin: 10px 0;
+    color: #333;
+    font-size: 0.95em;
+}
+
+/* Date de l’avis (dernier paragraphe) */
+.avis-card p:last-child {
+    font-size: 0.75em;
+    color: gray;
+}
+
+/* Étoiles */
+.etoiles {
+    color: #f6a700;
+    font-size: 1.1em;
+}
+
+/* Commentaire */
+.commentaire {
+    font-style: italic;
+    color: #444;
+}
+
+
