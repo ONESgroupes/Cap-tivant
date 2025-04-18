@@ -1,100 +1,124 @@
-.navbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px 20px;
-    background-color: #d1e0db; /* Ajuste selon ton design */
-}
-
-.nav-left, .nav-center, .nav-right {
-    display: flex;
-    align-items: center;
-}
-
-.nav-center {
-    flex-grow: 1;
-    justify-content: center;
-}
-
-.nav-right a, .nav-right .heart {
-    margin-left: 15px;
-    text-decoration: none;
-    color: #000;
-}
-
-.menu-btn {
-    font-size: 24px;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-.logo {
-    height: 40px; /* Ajuste selon la taille du logo */
-}
-
-.flag {
-    width: 25px; /* Ajuste la taille du drapeau */
-    height: auto;
-}
-
-.heart {
-    font-size: 20px;
-    cursor: pointer;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    background-color: #c5d3cd;
-    text-align: center;
-    margin: 0;
-    padding: 0;
+    background: url("images/fond-bateau.png") no-repeat center center fixed;
+    background-size: cover;
+    font-family: 'DM Serif Display', serif;
 }
 
 
-
-
-h1 {
-    font-size: 24px;
-    color: #4a4a4a;
-    margin-top: 20px;
-}
-
-.input-group {
+.formulaire-connexion {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 20px 0;
+    flex-direction: column;
+    align-items: center;
 }
 
-.input-btn, .boat-btn, .search-btn, .suggest-btn {
-    background: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
+.champ {
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 10px;
 }
 
-.boat-btn {
-    background: white;
-    border: 2px solid black;
+.champ img {
+    width: 24px;
+    height: auto;
 }
 
-.search-btn {
-    background: white;
-    font-weight: bold;
+.champ input {
+    width: 500px;
+    padding: 12px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    font-size: 1em;
+    text-align: center;
+}
+
+.champ-double {
+    display: flex;
+    justify-content: center;
+    gap: 40px; /* espace entre les boutons */
+}
+
+.champ-double input {
+    margin-top: 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    width: 230px;
+    padding: 12px;
+    font-size: 0.95em;
+}
+
+.champ-trois {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.champ-trois input {
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    width: 230px;
+    padding: 12px;
+    font-size: 0.95em;
+}
+
+.background {
+    margin-top: 60px;
+    background-color: rgba(197, 216, 211, 0.8);
+    border-radius: 20px;
+    border: none;
+}
+
+.connexion {
+    margin-top: -5px;
+    padding: 12px 24px;
+    background-color: rgba(242, 144, 102, 0.8);
+    color: white;
+    font-size: 1em;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.connexion:hover {
+    background-color: rgba(242, 144, 102, 1);
+}
+
+.inscription {
+    margin-top: 15px;
+    font-size: 0.9em;
+    color: #ee9c72;
+    font-family: 'DM Serif Display', cursive;
+    text-align: center;
+}
+
+.mdp-oublier {
     margin-top: 10px;
-    align-items: center;
+    font-size: 0.7em;
+    color: rgba(0, 0, 0, 0.62);
+    font-family: 'DM Serif Display', cursive;
+    text-align: center;
 }
 
+.bouton-type {
+    background-color: #e6ece9;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 24px;
+    font-size: 1em;
+    cursor: pointer;
+    margin: 0 10px;
+    transition: background-color 0.3s, color 0.3s;
+    font-family: 'DM Serif Display', serif;
+}
 
-
-footer {
-    margin-top: 30px;
-    font-size: 14px;
-    color: #666;
+.bouton-type.active {
+    background-color: rgba(242, 144, 102, 0.9);
+    color: white;
 }
