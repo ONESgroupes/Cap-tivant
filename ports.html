@@ -1,77 +1,60 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Location</title>
-  <link rel="stylesheet" href="ports.css">
-  <link rel="stylesheet" href="PageAccueil.css">
-  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Location</title>
+    <link rel="stylesheet" href="ports.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
-<body style="background-color: #c5d8d3;">
+<body>
 <div class="top-left" onclick="toggleMenu()">
-  <img src="/images/menu-vert.png" alt="Menu">
+    <img src="/images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-  <div class="menu-content">
-    <a href="location.html">LOCATION</a>
-    <a href="ports.html">NOS PORTS</a>
-    <a href="MonCompte.html">MON COMPTE</a>
-    <a href="faq.html">FAQ</a>
-    <a href="avis.html">AVIS</a>
-    <span onclick="toggleMenu()" class="close-menu">✕</span>
-  </div>
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" class="top-infos">À propos</a>
+    <a href="Connexion.html" class="top-infos">Mon compte</a>
+    <a href="favoris.html">
+        <img src="/images/favoris.png" alt="Favoris">
+    </a>
 </div>
 
 <div class="top-center">
-  <div class="logo-block">
-    <a href="PageAccueil.html">
-      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
-    </a>
-    <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Nos Ports</h1>
-  </div>
-
-</div>
-
-
-<div class="top-right">
-  <img src="/images/drapeau-francais.png" alt="Langue">
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
-  <a href="favoris.html">
-    <img src="/images/favoris.png" alt="Favoris">
-  </a>
+    <img src="/images/logo.png" alt="Logo">
 </div>
 
 
 <main>
-  <div class="carte-container">
+    <h1>Nos Ports</h1>
     <div id="map"></div>
     <script src="ports.js"></script>
-  </div>
 </main>
 
-<div class="bottom-center">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
-  <span class="bottom-text" style="color: #577550">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
-</div>
+<footer>
+    <a href="Contact.html">Contact</a> <a &bull; href="MentionsLegales.html">Mentions légales</a>
+</footer>
+</body>
 
 <script>
-  function toggleMenu() {
-    const menu = document.getElementById("menu-overlay");
-    if (menu.style.display === "flex") {
-      menu.style.display = "none";
-    } else {
-      menu.style.display = "flex";
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
     }
-  }
 </script>
 
-</body>
+
 </html>
