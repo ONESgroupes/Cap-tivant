@@ -1,10 +1,143 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Mes Favoris</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="favoris.css">
+    <link rel="stylesheet" href="top-vert.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <style>
+    </style>
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title">Mes Favoris</h1>
+    </div>
+</div>
+
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+</div>
+
+<!-- CONTENEUR DES FAVORIS -->
+<div class="favoris-container" id="favoris-container">
+    <!-- Cartes JS ici -->
+</div>
+
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550">•</span>
+    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+<!-- Menu toggle -->
+<!-- Ajouter ce script dans ta page payement.html -->
+<script>
+    document.getElementById("btn-payer").addEventListener("click", function () {
+        const avis = prompt("Merci pour votre réservation ! Laissez un commentaire sur votre expérience :");
+        let note;
+
+        // Boucle tant que l'utilisateur ne donne pas un nombre valide entre 1 et 5
+        do {
+            note = prompt("Notez votre expérience entre 1 et 5 étoiles :");
+        } while (!note || isNaN(note) || note < 1 || note > 5);
+
+        // Récupération du bateau
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+        const bateau = bateaux.find(b => b.id === id);
+
+        if (bateau) {
+            bateau.avisClient = {
+                commentaire: avis,
+                note: parseInt(note)
+            };
+
+            let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+
+            // Ajoute ou met à jour le bateau dans les favoris
+            const index = favoris.findIndex(f => f.id === bateau.id);
+            if (index !== -1) {
+                favoris[index] = bateau;
+            } else {
+                favoris.push(bateau);
+            }
+
+            localStorage.setItem("favoris", JSON.stringify(favoris));
+        }
+
+        alert("Merci ! Votre avis a été enregistré. Vous allez maintenant être redirigé vers la page d'accueil.");
+        window.location.href = "PageAccueil.html";
+    });
+</script>
+
+<!-- Puis, modifie le JS de ta page favoris.html pour afficher l'avis -->
+<script>
+    let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+    const container = document.getElementById("favoris-container");
+
+    if (favoris.length === 0) {
+        container.innerHTML = "<p style='text-align:center; width: 100%; font-family: DM Serif Display;'>Aucun favori pour le moment.</p>";
+    } else {
+        favoris.forEach(bateau => {
+            container.innerHTML += `
+                <div class="favori-card">
+                    <img src="${bateau.image1}" alt="${bateau.titre}">
+                    <h3>${bateau.titre}</h3>
+                    <p>${bateau.personnes} • ${bateau.cabines}</p>
+                    ${bateau.avisClient ? `<p><strong>Note :</strong> ${'⭐'.repeat(bateau.avisClient.note)}</p>
+                    <p><em>"${bateau.avisClient.commentaire}"</em></p>` : ''}
+                    <a href="info-bateau.html?id=${bateau.id}">Voir le bateau</a>
+                    <button onclick="retirerFavori(${bateau.id})">Retirer</button>
+                </div>
+            `;
+        });
+    }
+</script>
+
+<script>
+    function retirerFavori(id) {
+        let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+        favoris = favoris.filter(bateau => bateau.id !== id);
+        localStorage.setItem("favoris", JSON.stringify(favoris));
+        location.reload();
+    }
+</script>
+
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
+    }
+</script>
 
 </body>
 </html>
