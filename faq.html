@@ -1,10 +1,113 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Mes Favoris</title>
+  <link rel="stylesheet" href="PageAccueil.css">
+  <link rel="stylesheet" href="faq.css">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
+<div class="top-left" onclick="toggleMenu()">
+  <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content">
+    <a href="location.html">LOCATION</a>
+    <a href="ports.html">NOS PORTS</a>
+    <a href="MonCompte.html">MON COMPTE</a>
+    <a href="faq.html">FAQ</a>
+    <a href="avis.html">AVIS</a>
+    <span onclick="toggleMenu()" class="close-menu">✕</span>
+  </div>
+</div>
+
+
+<div class="top-center">
+  <div class="logo-block">
+    <a href="PageAccueil.html">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+    </a>
+    <p class="logo-slogan">Cap'Tivant</p>
+    <h1 class="page-title">Foire aux questions</h1>
+  </div>
+</div>
+
+
+<div class="top-right">
+  <img src="/images/drapeau-francais.png" alt="Langue">
+  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+  <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+  <a href="favoris.html">
+    <img src="/images/favoris.png" alt="Favoris">
+  </a>
+</div>
+
+<div class="faq-container">
+  <div class="faq-item" style="margin-top: 200px;">
+    <button class="faq-question">Si je ne réserve pas et me déconnecte, ma réservation reste-t-elle ?</button>
+    <div class="faq-answer">
+      <p>Oui, votre liste de favoris est associée à votre compte. En vous reconnectant, vous la retrouverez...</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Y a-t-il des gilets de sauvetage dans le bateau ?</button>
+    <div class="faq-answer">
+      <p>Oui, chaque bateau est équipé de gilets pour adultes et enfants.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <button class="faq-question">Peut-on annuler notre réservation en cas de mauvais temps ?</button>
+    <div class="faq-answer">
+      <p>Oui, en cas de conditions météo défavorables, une annulation sans frais est possible.</p>
+    </div>
+  </div>
+</div>
+
+
+<div class="bottom-center">
+  <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
+  <span class="bottom-text" style="color: #577550;">•</span>
+  <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menu-overlay");
+    if (menu.style.display === "flex") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "flex";
+    }
+  }
+</script>
+
+<script>
+  const questions = document.querySelectorAll('.faq-question');
+
+  questions.forEach(q => {
+    q.addEventListener('click', () => {
+      const answer = q.nextElementSibling;
+
+      // Si tu veux qu'une seule réponse soit ouverte à la fois :
+      document.querySelectorAll('.faq-answer').forEach(a => {
+        if (a !== answer) {
+          a.style.maxHeight = null;
+        }
+      });
+
+      if (answer.style.maxHeight) {
+        answer.style.maxHeight = null;
+      } else {
+        answer.style.maxHeight = answer.scrollHeight + "px";
+      }
+    });
+  });
+</script>
 
 </body>
 </html>
