@@ -1,10 +1,81 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Connexion</title>
+  <link rel="stylesheet" href="PageAccueil.css">
+  <link rel="stylesheet" href="Connexion.css">
+  <link rel="stylesheet" href="top-vert.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
+<div class="top-left" onclick="toggleMenu()">
+  <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content">
+    <a href="location.html">LOCATION</a>
+    <a href="ports.html">NOS PORTS</a>
+    <a href="MonCompte.html">MON COMPTE</a>
+    <a href="faq.html">FAQ</a>
+    <a href="avis.html">AVIS</a>
+    <span onclick="toggleMenu()" class="close-menu">✕</span>
+  </div>
+</div>
+
+
+<div class="top-right">
+  <img src="/images/drapeau-francais.png" alt="Langue">
+  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+  <a href="favoris.html">
+    <img src="/images/favoris.png" alt="Favoris">
+  </a>
+</div>
+
+<div class="top-center">
+  <div class="logo-block">
+    <a href="PageAccueil.html">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+    </a>
+    <p class="logo-slogan">Cap'Tivant</p>
+    <h1 class="page-title">Connexion</h1>
+  </div>
+
+  <div class="formulaire-connexion">
+    <div class="champ">
+      <img src="/images/email.png" alt="email">
+      <input type="email" id="email" placeholder="Entrez votre adresse mail">
+    </div>
+    <div class="champ">
+      <img src="/images/mdp.png" alt="mot de passe">
+      <input type="password" id="password" placeholder="Entrez votre mot de passe">
+    </div>
+  </div>
+  <div class="connexion">Se connecter</div>
+  <div class="logo-block">
+    <a href="inscription.html" class="inscription" style="text-decoration: none;">Inscription</a>
+    <a href="mdp-oublier.html" class="mdp-oublier" style="text-decoration: none;">Mot de passe oublié</a>
+  </div>
+</div>
+
+<div class="bottom-center">
+  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+  <span class="bottom-text" style="color: #577550">•</span>
+  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+</div>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById("menu-overlay");
+    if (menu.style.display === "flex") {
+      menu.style.display = "none";
+    } else {
+      menu.style.display = "flex";
+    }
+  }
+</script>
 
 </body>
 </html>
