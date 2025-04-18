@@ -1,0 +1,183 @@
+.body {
+    background: url("images/fond-bateau.png") no-repeat center center fixed;
+}
+
+.detail-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 30px;
+    margin-top: 100px;
+    padding: 20px;
+}
+
+.main-image {
+    width: 400px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.side-images {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.side-images img {
+    width: 100px;
+    height: 75px;
+    object-fit: cover;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.details {
+    max-width: 300px;
+    font-family: 'DM Serif Display', serif;
+}
+
+.details h2 {
+    margin-bottom: 10px;
+}
+
+.infos {
+    margin-top: 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    padding: 12px;
+    font-size: 0.95em;
+    font-family: 'DM Serif Display', serif;
+    text-align: center;
+    width: 280px;
+}
+
+
+.retour-offre {
+    position: absolute;
+    top: 140px;
+    left: 150px;
+    z-index: 1001;
+}
+
+.retour-offre a {
+    font-size: 0.85em;
+    color: rgba(0, 0, 0, 0.44);
+    text-decoration: none;
+    font-family: 'DM Serif Display', serif;
+}
+
+.texte-photo {
+    margin-top: 5px;
+    text-align: center;
+    font-family: 'DM Serif Display', serif;
+    font-size: 1em;
+    color: #333;
+    padding: 10px;
+}
+
+.bloc-gauche {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.image-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    flex-direction: column;
+}
+
+.image-popup img {
+    max-width: 80%;
+    max-height: 80%;
+    border-radius: 12px;
+    box-shadow: 0 0 20px #000;
+}
+
+.image-popup .controls {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+.image-popup .arrow {
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+.image-popup .close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    user-select: none;
+}
+
+.double-carrousel {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn-reserver,
+.btn-favoris {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    font-family: 'DM Serif Display', serif;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.btn-reserver {
+    background-color: #f29066;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 20px;
+    padding: 18px 40px;
+    font-size: 1em;
+    font-family: 'DM Serif Display', serif;
+    text-align: center;
+    width: 220px;
+}
+
+.btn-favoris {
+    background-color: rgba(255, 255, 255, 0.44);
+    color: #f29066;
+    border: 2px solid #f29066;
+    border-radius: 20px;
+    padding: 18px 40px;
+    font-size: 1em;
+    font-family: 'DM Serif Display', serif;
+    text-align: center;
+    width: 220px;
+}
+
+.boutons-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding-bottom: 80px;
+    flex-wrap: wrap;
+}
+
