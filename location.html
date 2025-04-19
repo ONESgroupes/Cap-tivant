@@ -67,10 +67,13 @@
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+        if (menu.style.display === "flex") {
+            menu.style.display = "none";
+        } else {
+            menu.style.display = "flex";
+        }
     }
-</script>
-<script>
+
     let typeSelectionne = "";
 
     function selectType(button) {

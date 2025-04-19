@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Historique</title>
+    <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="top-vert.css">
+    <link rel="stylesheet" href="historique.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+</head>
+<body style="background-color: #c5d8d3;">
+
+<!-- Menu hamburger -->
+<div class="top-left" onclick="toggleMenu()">
+    <img src="/images/menu-vert.png" alt="Menu">
+</div>
+
+<!-- Menu overlay -->
+<div id="menu-overlay" class="menu-overlay">
+    <div class="menu-content">
+        <a href="location.html">LOCATION</a>
+        <a href="ports.html">NOS PORTS</a>
+        <a href="MonCompte.html">MON COMPTE</a>
+        <a href="faq.html">FAQ</a>
+        <a href="avis.html">AVIS</a>
+        <a href="historique.html">HISTORIQUE</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
+</div>
+
+<!-- Logo et titre -->
+<div class="top-center">
+    <div class="logo-block">
+        <a href="PageAccueil.html">
+            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        </a>
+        <p class="logo-slogan">Cap'Tivant</p>
+        <h1 class="page-title">Historique</h1>
+    </div>
+</div>
+
+<!-- Lien langue / compte -->
+<div class="top-right">
+    <img src="/images/drapeau-francais.png" alt="Langue">
+    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+</div>
+
+<!-- Contenu central -->
+<div id="historique-container" class="historique-container">
+    <!-- Contenu généré par JavaScript -->
+</div>
+
+<!-- Pied de page -->
+<div class="bottom-center">
+    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550;">•</span>
+    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+</div>
+
+<!-- Script menu -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
+    }
+</script>
+
+<!-- Script pour afficher l'historique -->
+<script>
+    const historique = JSON.parse(localStorage.getItem("historique") || "[]");
+    const container = document.getElementById("historique-container");
+
+    if (historique.length === 0) {
+        container.innerHTML = "<p style='text-align:center;'>Aucune réservation enregistrée pour le moment.</p>";
+    } else {
+        historique.forEach(bateau => {
+            container.innerHTML += `
+                <div class="historique-card">
+                    <h2>${bateau.titre}</h2>
+                    <p><strong>Port :</strong> ${bateau.port}</p>
+                    <p><strong>Personnes :</strong> ${bateau.personnes}</p>
+                    <p><strong>Cabines :</strong> ${bateau.cabines}</p>
+                    <p><strong>Longueur :</strong> ${bateau.longueur}</p>
+                    <p><strong>Prix :</strong> ${bateau.prix}</p>
+                    <img src="${bateau.image1}" alt="${bateau.titre}">
+                    <button onclick="laisserAvis('${bateau.titre}')">Laisser un avis</button>
+                </div>
+            `;
+        });
+    }
+
+    function laisserAvis(titreBateau) {
+        const popup = document.createElement("div");
+        popup.className = "avis-popup-overlay";
+        popup.innerHTML = `
+            <div class="avis-popup-bulle">
+                <h2>Merci pour votre réservation !</h2>
+                <p>Laissez-nous un avis sur votre expérience :</p>
+                <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
+                <label>Note :</label>
+                <select id="etoiles">
+                    <option value="1">⭐</option>
+                    <option value="2">⭐⭐</option>
+                    <option value="3">⭐⭐⭐</option>
+                    <option value="4">⭐⭐⭐⭐</option>
+                    <option value="5">⭐⭐⭐⭐⭐</option>
+                </select><br><br>
+                <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
+                <button onclick="fermerAvisPopup()">Fermer</button>
+            </div>
+        `;
+        document.body.appendChild(popup);
+    }
+
+    function validerAvis(titreBateau) {
+        const commentaire = document.getElementById("commentaire").value.trim();
+        const etoiles = parseInt(document.getElementById("etoiles").value);
+
+        if (!commentaire || isNaN(etoiles)) {
+            alert("Merci de remplir tous les champs.");
+            return;
+        }
+
+        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+        avis.push({
+            titre: titreBateau,
+            commentaire: commentaire,
+            etoiles: etoiles,
+            date: new Date().toLocaleDateString()
+        });
+
+        localStorage.setItem("avis", JSON.stringify(avis));
+        alert("Merci ! Votre avis a été enregistré.");
+        fermerAvisPopup();
+    }
+
+    function fermerAvisPopup() {
+        const popup = document.querySelector(".avis-popup-overlay");
+        if (popup) popup.remove();
+    }
+</script>
+
+</body>
+</html>
