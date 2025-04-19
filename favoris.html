@@ -5,7 +5,6 @@
     <title>Mes Favoris</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="favoris.css">
-    <link rel="stylesheet" href="top-vert.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <style>
@@ -54,7 +53,12 @@
     <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
 </div>
 
-<!-- Menu toggle -->
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
+    }
+</script>
 <!-- Ajouter ce script dans ta page payement.html -->
 <script>
     document.getElementById("btn-payer").addEventListener("click", function () {
@@ -125,17 +129,6 @@
         favoris = favoris.filter(bateau => bateau.id !== id);
         localStorage.setItem("favoris", JSON.stringify(favoris));
         location.reload();
-    }
-</script>
-
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        if (menu.style.display === "flex") {
-            menu.style.display = "none";
-        } else {
-            menu.style.display = "flex";
-        }
     }
 </script>
 
