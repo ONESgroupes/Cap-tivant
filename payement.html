@@ -40,6 +40,7 @@
         <a href="location.html">LOCATION</a>
         <a href="ports.html">NOS PORTS</a>
         <a href="MonCompte.html">MON COMPTE</a>
+        <a href="historique.html">MON HISTORIQUE</a>
         <a href="faq.html">FAQ</a>
         <a href="avis.html">AVIS</a>
         <span onclick="toggleMenu()" class="close-menu">✕</span>
@@ -52,11 +53,11 @@
     <a href="a-propos.html" style="color: #E0E0D5; text-decoration: none;">À propos</a>
     <a href="Connexion.html" style="color: #E0E0D5; text-decoration: none;">Mon Compte</a>
     <a href="favoris.html">
-        <img src="/images/favoris.png" alt="Favoris">
+        <img src="/images/panier.png" alt="panier">
     </a>
 </div>
 
-<!-- Bloc central : infos + sélection -->
+<!-- Bloc central -->
 <div class="background">
     <div class="conteneur-info">
         <div class="carte-bateau" id="carte-bateau">
@@ -110,28 +111,20 @@
         const menu = document.getElementById("menu-overlay");
         menu.classList.toggle("active");
     }
-</script>
-<script>
+
     const avisList = JSON.parse(localStorage.getItem("avis") || "[]");
 
     function calculerMoyenneAvis(titre) {
         const avisBateau = avisList.filter(a => a.titre === titre && !isNaN(a.etoiles));
         const nbAvis = avisBateau.length;
-
-        if (nbAvis === 0) {
-            return { moyenne: 0, total: 0 };
-        }
-
+        if (nbAvis === 0) return { moyenne: 0, total: 0 };
         const somme = avisBateau.reduce((acc, cur) => acc + Number(cur.etoiles), 0);
         const moyenne = (somme / nbAvis).toFixed(1);
-
-        return { moyenne: moyenne, total: nbAvis };
+        return { moyenne, total: nbAvis };
     }
 
     function genererAvisTexte(note, totalAvis) {
-        if (totalAvis === 0) {
-            return `⭐ - (0 avis)`;
-        }
+        if (totalAvis === 0) return `⭐ - (0 avis)`;
         return `⭐ ${parseFloat(note).toFixed(1)}/5 (${totalAvis} avis)`;
     }
 
@@ -139,15 +132,10 @@
     const id = parseInt(params.get("id"));
     const categorie = params.get("categorie");
     const lienRetour = document.getElementById("lien-retour-offre");
-    if (categorie) {
-        lienRetour.href = `offre.html?categorie=${categorie}`;
-    } else {
-        lienRetour.href = "offre.html";
-    }
+    lienRetour.href = categorie ? `offre.html?categorie=${categorie}` : "offre.html";
 
     if (typeof bateaux !== "undefined") {
         const bateau = bateaux.find(b => b.id === id);
-
         if (bateau) {
             const { moyenne, total } = calculerMoyenneAvis(bateau.titre);
             document.getElementById("titre-bateau-label").textContent = bateau.titre;
@@ -158,7 +146,6 @@
             document.getElementById("longueur").textContent = bateau.longueur;
             document.getElementById("prix").textContent = bateau.prix;
             document.getElementById("avis").textContent = genererAvisTexte(moyenne, total);
-
             document.getElementById("lien-info-bateau").href = `info-bateau.html?id=${bateau.id}`;
 
             const chiffres = bateau.prix.match(/\d+/g);
@@ -194,56 +181,25 @@
                 select.appendChild(option);
             }
 
-            document.getElementById("btn-payer").addEventListener("click", function () {
-                const popup = document.createElement("div");
-                popup.className = "avis-popup-overlay";
-                popup.innerHTML = `
-                    <div class="avis-popup-bulle">
-                        <h2>Merci pour votre réservation !</h2>
-                        <p>Laissez-nous un avis sur votre expérience :</p>
-                        <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
-                        <label>Note :</label>
-                        <select id="etoiles">
-                            <option value="1">⭐</option>
-                            <option value="2">⭐⭐</option>
-                            <option value="3">⭐⭐⭐</option>
-                            <option value="4">⭐⭐⭐⭐</option>
-                            <option value="5">⭐⭐⭐⭐⭐</option>
-                        </select><br><br>
-                        <button onclick="validerAvis('${bateau.titre}')">Valider l'avis</button>
-                        <button onclick="fermerAvisPopup()">Fermer</button>
-                    </div>
-                `;
-                document.body.appendChild(popup);
+            // Appel direct de la fonction "payer" au clic
+            document.getElementById("btn-payer").addEventListener("click", () => {
+                payer(id); // "id" est bien récupéré plus haut depuis l'URL
             });
         }
     }
 
-    function validerAvis(titreBateau) {
-        const commentaire = document.getElementById("commentaire").value.trim();
-        const etoiles = parseInt(document.getElementById("etoiles").value);
-
-        if (!commentaire || isNaN(etoiles)) {
-            alert("Merci de remplir tous les champs.");
-            return;
+    function payer(id) {
+        const bateau = bateaux.find(b => b.id === id);
+        if (!bateau) return;
+        let historique = JSON.parse(localStorage.getItem("historique") || "[]");
+        if (!historique.some(h => Number(h.id) === Number(bateau.id))) {
+            historique.push(bateau);
+            localStorage.setItem("historique", JSON.stringify(historique));
+            alert("Merci d'avoir réservé chez nous ! À bientôt");
+            window.location.href = "historique.html";
+        } else {
+            alert("Vous avez déjà réservé ce bateau.");
         }
-
-        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
-        avis.push({
-            titre: titreBateau,
-            commentaire: commentaire,
-            etoiles: etoiles,
-            date: new Date().toLocaleDateString()
-        });
-
-        localStorage.setItem("avis", JSON.stringify(avis));
-        alert("Merci pour votre avis !");
-        window.location.href = "avis.html";
-    }
-
-    function fermerAvisPopup() {
-        const popup = document.querySelector(".avis-popup-overlay");
-        if (popup) popup.remove();
     }
 </script>
 
