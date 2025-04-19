@@ -12,6 +12,7 @@ var ports = [
     { name: "Brest", coords: [48.3904, -4.4861], boats: 5, image: "/images/brest" }
 ];
 
+
 ports.forEach(port => {
     L.marker(port.coords, {
         icon: L.icon({
@@ -29,3 +30,22 @@ ports.forEach(port => {
         </div>
     `);
 });
+
+// Fonction pour récupérer le paramètre de l'URL
+function getParametrePort() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("port");
+}
+
+const portDemande = getParametrePort();
+
+if (portDemande) {
+    const portTrouve = ports.find(p => p.name.toLowerCase() === portDemande.toLowerCase());
+    if (portTrouve) {
+        const marker = L.marker(portTrouve.coords).addTo(map);
+        marker.bindPopup(`<strong>${portTrouve.name}</strong><br>${portTrouve.boats} bateaux disponibles`).openPopup();
+        map.setView(portTrouve.coords, 10); // zoom sur le port
+    }
+}
+
+
