@@ -77,18 +77,3 @@ textarea {
     width: 500px;
 }
 
-.inscription {
-    margin-top: 15px;
-    font-size: 0.9em;
-    color: #ee9c72;
-    font-family: 'DM Serif Display', cursive;
-    text-align: center;
-}
-
-.mdp-oublier {
-    margin-top: 10px;
-    font-size: 0.7em;
-    color: rgba(0, 0, 0, 0.62);
-    font-family: 'DM Serif Display', cursive;
-    text-align: center;
-}
