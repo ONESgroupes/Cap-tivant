@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
 <body style="background-color: #c5d8d3;">
+
+<!-- Menu -->
 <div class="top-left" onclick="toggleMenu()">
     <img src="/images/menu-vert.png" alt="Menu">
 </div>
@@ -25,6 +27,7 @@
     </div>
 </div>
 
+<!-- En-tête -->
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.html">
@@ -35,6 +38,7 @@
     </div>
 </div>
 
+<!-- Liens à droite -->
 <div class="top-right">
     <img src="/images/drapeau-francais.png" alt="Langue">
     <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
@@ -44,19 +48,51 @@
     </a>
 </div>
 
+<!-- Carrousel -->
 <div class="double-carrousel" id="carrousel-container"></div>
 
+<!-- Pied de page -->
 <div class="bottom-center">
     <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
     <span class="bottom-text" style="color: #577550;">•</span>
     <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
 </div>
 
+<!-- Script -->
 <script src="info-bateau.js"></script>
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
         menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+    }
+
+    const avisList = JSON.parse(localStorage.getItem("avis") || "[]");
+
+    function calculerMoyenneAvis(titre) {
+        const avisBateau = avisList.filter(a => a.titre === titre && !isNaN(a.etoiles));
+        const nbAvis = avisBateau.length;
+
+        if (nbAvis === 0) {
+            return {
+                moyenne: 0,
+                total: 0
+            };
+        }
+
+        const somme = avisBateau.reduce((acc, cur) => acc + Number(cur.etoiles), 0);
+        const moyenne = (somme / nbAvis).toFixed(1);
+
+        return {
+            moyenne: moyenne,
+            total: nbAvis
+        };
+    }
+
+    function genererAvisTexte(note, totalAvis) {
+        if (totalAvis === 0) {
+            return `⭐ - (0 avis)`;
+        }
+        return `⭐ ${parseFloat(note).toFixed(1)}/5 (${totalAvis} avis)`;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -76,33 +112,35 @@
         }
 
         filteredBateaux.forEach((bateau, index) => {
+            const { moyenne, total } = calculerMoyenneAvis(bateau.titre);
+            const avisTexte = genererAvisTexte(moyenne, total);
+
             const div = document.createElement("div");
             div.className = `carrousel ${bateau.categorie}`;
             div.setAttribute('data-id', index);
             div.innerHTML = `
-        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-        <div class="slides">
-            <a href="info-bateau.html?id=${bateau.id}">
-                <img src="${bateau.image1}" class="slide active">
-                <img src="${bateau.image2}" class="slide">
-                <div class="background" >
-                    <a class="description">${bateau.port} pour ${bateau.personnes}, ${bateau.longueur}</a>
-                    <div class="ligne-info">
-                        <p class="description" style="color: #000000"><strong>${bateau.prix}</strong></p>
-                        <p class="description" style="color: #000000">${bateau.avis}</p>
-                    </div>
+                <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+                <div class="slides">
+                    <a href="info-bateau.html?id=${bateau.id}">
+                        <img src="${bateau.image1}" class="slide active">
+                        <img src="${bateau.image2}" class="slide">
+                        <div class="background">
+                            <a class="description">${bateau.port} pour ${bateau.personnes}, ${bateau.longueur}</a>
+                            <div class="ligne-info">
+                                <p class="description" style="color: #000000"><strong>${bateau.prix}</strong></p>
+                                <p class="description" style="color: #000000">${avisTexte}</p>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </a>
-        </div>
-        <button class="next" onclick="changeSlide(this, 1)">❯</button>
-    `;
+                <button class="next" onclick="changeSlide(this, 1)">❯</button>
+            `;
             container.appendChild(div);
         });
 
         if (filteredBateaux.length === 0) {
             container.innerHTML = "<p style='text-align:center; font-size:1.2em;'>Aucun bateau trouvé pour ce port.</p>";
         }
-
     });
 
     const carrouselIndexes = new Map();
