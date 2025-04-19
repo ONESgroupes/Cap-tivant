@@ -51,9 +51,21 @@ if (portDemande) {
     const portTrouve = ports.find(p => p.name.toLowerCase() === portDemande.toLowerCase());
     if (portTrouve) {
         const marker = L.marker(portTrouve.coords).addTo(map);
-        marker.bindPopup(`<strong>${portTrouve.name}</strong><br>${portTrouve.boats} bateaux disponibles`).openPopup();
-        map.setView(portTrouve.coords, 10); // zoom sur le port
+
+        const popupContent = `
+            <div class="popup-content" style="text-align: center;">
+                <h3>${portTrouve.name}</h3>
+                <img src="${portTrouve.image}" alt="${portTrouve.name}" style="max-width: 100%; display: block; margin: 0 auto;">
+                <p>Nombre de bateaux disponibles : ${portTrouve.boats}</p>
+                <a href="offre.html?port=${encodeURIComponent(portTrouve.name)}"
+                   style="display: inline-block; margin-top: 10px; padding: 8px 16px; background-color: #f29066; color: white; border-radius: 8px; text-decoration: none;">
+                  Voir les offres
+                </a>
+            </div>
+        `;
+
+        marker.bindPopup(popupContent).openPopup();
+        map.setView(portTrouve.coords, 10);
     }
 }
-
 
