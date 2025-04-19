@@ -141,7 +141,10 @@
                         </div>`;
                     L.marker(port.coords).addTo(map)
                         .bindPopup(popupContent)
-                        .openPopup();
+                        .on('click', () => {
+                            window.location.href = `ports.html?port=${encodeURIComponent(port.name)}&lat=${port.coords[0]}&lng=${port.coords[1]}&zoom=13`;
+                        });
+
                 }
             }, 0);
         } else {
