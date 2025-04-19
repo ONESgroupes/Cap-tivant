@@ -14,15 +14,22 @@ var ports = [
 
 
 ports.forEach(port => {
-    L.marker(port.coords, {
+    const marker = L.marker(port.coords, {
         icon: L.icon({
             iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
             iconSize: [32, 32],
             iconAnchor: [16, 32],
             popupAnchor: [0, -32]
         })
-    }).addTo(map)
-        .bindPopup(`
+    }).addTo(map);
+
+    marker.on('click', () => {
+        window.location.href = `offre.html?port=${encodeURIComponent(port.name)}`;
+    });
+
+
+    // Si tu veux garder aussi le popup :
+    marker.bindPopup(`
         <div class="popup-content" style="text-align: center;">
             <h3>${port.name}</h3>
             <img src="${port.image}" alt="${port.name}" style="max-width: 100%; display: block; margin: 0 auto;">
@@ -30,6 +37,7 @@ ports.forEach(port => {
         </div>
     `);
 });
+
 
 // Fonction pour récupérer le paramètre de l'URL
 function getParametrePort() {
