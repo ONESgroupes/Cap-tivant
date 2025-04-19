@@ -20,8 +20,8 @@
     <img src="/images/menu.png" alt="Menu">
 </div>
 <div class="top-left retour-offre">
-    <a href="offre.html" style="color: floralwhite">Offre ></a>
-    <label id="titre-bateau-label" style="font-size: 0.85em; color: floralwhite; font-family: 'DM Serif Display', serif;"></label>
+    <a href="offre.html" style="color: rgba(224,224,213,0.65)">Offre ></a>
+    <label id="titre-bateau-label" style="font-size: 0.85em; color: rgba(224,224,213,0.65); font-family: 'DM Serif Display', serif;"></label>
 </div>
 
 <div class="top-center">
@@ -68,12 +68,44 @@
         menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
 
+    const avisList = JSON.parse(localStorage.getItem("avis") || "[]");
+
+    function calculerMoyenneAvis(titre) {
+        const avisBateau = avisList.filter(a => a.titre === titre && !isNaN(a.etoiles));
+        const nbAvis = avisBateau.length;
+
+        if (nbAvis === 0) {
+            return {
+                moyenne: 0,
+                total: 0
+            };
+        }
+
+        const somme = avisBateau.reduce((acc, cur) => acc + Number(cur.etoiles), 0);
+        const moyenne = (somme / nbAvis).toFixed(1);
+
+        return {
+            moyenne: moyenne,
+            total: nbAvis
+        };
+    }
+
+    function genererAvisTexte(note, totalAvis) {
+        if (totalAvis === 0) {
+            return `⭐ - (0 avis)`;
+        }
+        return `⭐ ${parseFloat(note).toFixed(1)}/5 (${totalAvis} avis)`;
+    }
+
     window.onload = function () {
         const params = new URLSearchParams(window.location.search);
         const id = parseInt(params.get("id"));
         const bateau = bateaux.find(b => b.id === id);
 
         if (bateau) {
+            const { moyenne, total } = calculerMoyenneAvis(bateau.titre);
+            const texteAvis = genererAvisTexte(moyenne, total);
+
             document.getElementById("titre-bateau").textContent = bateau.titre;
             document.getElementById("titre-bateau-label").textContent = bateau.titre;
 
@@ -91,7 +123,7 @@
                 </div>
                 <div class="texte-photo" style="color: floralwhite">
                     <p>
-                        <span>${bateau.avis}</span>
+                        <span>${texteAvis}</span>
                         <strong><a href="ports.html?port=${encodeURIComponent(bateau.port)}" style="margin-left: 80px; color: floralwhite;">${bateau.port}</a></strong>
                     </p>
                 </div>
@@ -119,7 +151,7 @@
             <button class="btn-favoris" onclick="ajouterAuxFavoris(${bateau.id})">Ajouter aux favoris</button>
         </div>`;
 
-            // Affichage de la carte Leaflet
+            // Carte Leaflet
             setTimeout(() => {
                 const port = ports.find(p => p.name.toLowerCase() === bateau.port.toLowerCase());
                 if (port) {
@@ -144,7 +176,6 @@
                         .on('click', () => {
                             window.location.href = `ports.html?port=${encodeURIComponent(port.name)}&lat=${port.coords[0]}&lng=${port.coords[1]}&zoom=13`;
                         });
-
                 }
             }, 0);
         } else {
@@ -152,6 +183,7 @@
         }
     }
 </script>
+
 
 <script>
     const carrouselIndexes = new Map();
