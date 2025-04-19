@@ -65,9 +65,11 @@
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
-        menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
+        menu.classList.toggle("active");
     }
+</script>
 
+<script>
     const avisList = JSON.parse(localStorage.getItem("avis") || "[]");
 
     function calculerMoyenneAvis(titre) {
