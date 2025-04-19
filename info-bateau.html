@@ -2,32 +2,35 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détail du Bateau</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="offre.css">
     <link rel="stylesheet" href="info-bateau.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-    <script src="info-bateau.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="ports-info.js"></script>
+    <script src="info-bateau.js" defer></script>
 </head>
-<body style="background-color: #c5d8d3;">
+<body>
 
 <div class="top-left" onclick="toggleMenu()">
-    <img src="/images/menu-vert.png" alt="Menu">
+    <img src="/images/menu.png" alt="Menu">
 </div>
 <div class="top-left retour-offre">
-    <a href="offre.html">Offre ></a>
-    <label id="titre-bateau-label" style="font-size: 0.85em; color: rgba(0, 0, 0, 0.44); font-family: 'DM Serif Display', serif;" ></label>
+    <a href="offre.html" style="color: floralwhite">Offre ></a>
+    <label id="titre-bateau-label" style="font-size: 0.85em; color: floralwhite; font-family: 'DM Serif Display', serif;"></label>
 </div>
-
 
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.html">
-            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="/images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title" id="titre-bateau"></h1>
+        <h1 class="page-title" id="titre-bateau" style="color: #e0e0d5;"></h1>
     </div>
 </div>
 
@@ -44,8 +47,8 @@
 
 <div class="top-right">
     <img src="/images/drapeau-francais.png" alt="Langue">
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="a-propos.html" style="color: #e0e0d5; text-decoration: none;">À propos</a>
+    <a href="Connexion.html" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
     <a href="favoris.html">
         <img src="/images/favoris.png" alt="Favoris">
     </a>
@@ -54,87 +57,110 @@
 <div class="double-carrousel" id="contenu"></div>
 
 <div class="bottom-center">
-    <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
-    <span class="bottom-text" style="color: #577550;">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+    <a href="MentionsLegales.html" class="bottom-text" >Mentions légales</a>
+    <span class="bottom-text" >•</span>
+    <a href="Contact.html" class="bottom-text" >Contact</a>
 </div>
-
 
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
         menu.style.display = (menu.style.display === "flex") ? "none" : "flex";
     }
-</script>
 
+    window.onload = function () {
+        const params = new URLSearchParams(window.location.search);
+        const id = parseInt(params.get("id"));
+        const bateau = bateaux.find(b => b.id === id);
 
-<script>
-    const params = new URLSearchParams(window.location.search);
-    const id = parseInt(params.get("id"));
-    const bateau = bateaux.find(b => b.id === id);
+        if (bateau) {
+            document.getElementById("titre-bateau").textContent = bateau.titre;
+            document.getElementById("titre-bateau-label").textContent = bateau.titre;
 
-    if (bateau) {
-        document.getElementById("titre-bateau").textContent = bateau.titre;
-        document.getElementById("titre-bateau-label").textContent = bateau.titre;
-        document.getElementById("contenu").innerHTML = `
+            document.getElementById("contenu").innerHTML = `
+        <div class="detail-container">
+            <!-- Colonne gauche : carrousel -->
+            <div class="bloc-gauche">
+                <div class="carrousel" data-id="${bateau.id}">
+                    <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+                    <div class="slides">
+                        <img src="${bateau.image1}" class="slide active">
+                        <img src="${bateau.image2}" class="slide">
+                    </div>
+                    <button class="next" onclick="changeSlide(this, 1)">❯</button>
                 </div>
-                <div class="detail-container">
-                    <div class="bloc-gauche">
-                        <div class="carrousel" data-id="${bateau.id}">
-                            <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-                            <div class="slides">
-                                <img src="${bateau.image1}" class="slide active">
-                                <img src="${bateau.image2}" class="slide">
-                            </div>
-                            <button class="next" onclick="changeSlide(this, 1)">❯</button>
-                        </div>
-                        <div class="texte-photo">
-                            <p>
-                                <span>${bateau.avis}</span>
-                                <span style="margin-left: 80px;">${bateau.port}</span>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="background">
-                        <p class="infos">${bateau.personnes}</p>
-                        <p class="infos">${bateau.cabines}</p>
-                        <p class="infos">${bateau.longueur}</p>
-                    </div>
-                    <div class="texte-photo">
+                <div class="texte-photo" style="color: floralwhite">
                     <p>
-                        <span><strong>${bateau.prix}</strong></span>
+                        <span>${bateau.avis}</span>
+                        <strong><a href="ports.html?port=${encodeURIComponent(bateau.port)}" style="margin-left: 80px; color: floralwhite;">${bateau.port}</a></strong>
                     </p>
-                    </div>
                 </div>
+            </div>
 
-                <div class="boutons-actions">
-                    <a href="payement.html?id=${bateau.id}" class="btn-reserver">Réserver</a>
-                    <a style="gap: 60px"></a>
-                    <button class="btn-favoris" onclick="ajouterAuxFavoris(${bateau.id})">Ajouter aux favoris</button>
+            <!-- Colonne centre : infos -->
+            <div class="background">
+                <p class="infos">${bateau.personnes}</p>
+                <p class="infos">${bateau.cabines}</p>
+                <p class="infos">${bateau.longueur}</p>
+            </div>
+
+            <!-- Colonne droite : prix + carte -->
+            <div class="detail-infos">
+                <div class="carte-container">
+                    <div id="map"></div>
                 </div>
-        `;
-    } else {
-        document.getElementById("contenu").innerHTML = "<p style='text-align:center;'>Bateau introuvable</p>";
+            </div>
+        </div>
+
+        <p class="detail-prix">${bateau.prix}</p>
+        <!-- Boutons en bas -->
+        <div class="boutons-actions">
+            <a href="payement.html?id=${bateau.id}" class="btn-reserver">Réserver</a>
+            <button class="btn-favoris" onclick="ajouterAuxFavoris(${bateau.id})">Ajouter aux favoris</button>
+        </div>`;
+
+            // Affichage de la carte Leaflet
+            setTimeout(() => {
+                const port = ports.find(p => p.name.toLowerCase() === bateau.port.toLowerCase());
+                if (port) {
+                    const map = L.map('map').setView(port.coords, 10);
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; OpenStreetMap contributors'
+                    }).addTo(map);
+
+                    const popupContent = `
+                        <div class="popup-content">
+                            <h3>${port.name}</h3>
+                            <p>${port.boats} bateaux disponibles</p>
+                            <img src="${port.image}" alt="${port.name}" style="width:100%; border-radius: 8px; margin-top:5px;">
+                            <br><br>
+                            <a href="ports.html?port=${encodeURIComponent(port.name)}&lat=${port.coords[0]}&lng=${port.coords[1]}&zoom=13"
+                                style="color:#577550; text-decoration:underline;">
+                                Voir les offres
+                            </a>
+                        </div>`;
+                    L.marker(port.coords).addTo(map)
+                        .bindPopup(popupContent)
+                        .openPopup();
+                }
+            }, 0);
+        } else {
+            document.getElementById("contenu").innerHTML = "<p style='text-align:center;'>Bateau introuvable</p>";
+        }
     }
 </script>
 
-<!-- Script : Carrousel -->
 <script>
     const carrouselIndexes = new Map();
-
     function changeSlide(button, direction) {
         const carrousel = button.closest('.carrousel');
         const slides = carrousel.querySelectorAll('.slide');
-
         if (!carrouselIndexes.has(carrousel)) {
             carrouselIndexes.set(carrousel, 0);
         }
-
         let currentIndex = carrouselIndexes.get(carrousel);
         slides[currentIndex].classList.remove('active');
-
         currentIndex = (currentIndex + direction + slides.length) % slides.length;
-
         slides[currentIndex].classList.add('active');
         carrouselIndexes.set(carrousel, currentIndex);
     }
@@ -143,38 +169,32 @@
 <script>
     let popupIndex = 0;
     let popupImages = [];
-
     document.addEventListener("click", function (e) {
         if (e.target.classList.contains("slide")) {
             const carrousel = e.target.closest(".carrousel");
             popupImages = Array.from(carrousel.querySelectorAll(".slide")).map(img => img.src);
             popupIndex = popupImages.indexOf(e.target.src);
-
             openPopup(popupIndex);
         }
     });
-
     function openPopup(index) {
         const popup = document.createElement("div");
         popup.classList.add("image-popup");
         popup.innerHTML = `
-            <span class="close" onclick="document.querySelector('.image-popup').remove()">✖</span>
-            <div class="controls">
-                <span class="arrow" onclick="navigatePopup(-1)">❮</span>
-                <span class="arrow" onclick="navigatePopup(1)">❯</span>
-            </div>
-            <img src="${popupImages[index]}" id="popup-image">
-        `;
+        <span class="close" onclick="document.querySelector('.image-popup').remove()">✖</span>
+        <div class="controls">
+            <span class="arrow" onclick="navigatePopup(-1)">❮</span>
+            <span class="arrow" onclick="navigatePopup(1)">❯</span>
+        </div>
+        <img src="${popupImages[index]}" id="popup-image">
+    `;
         document.body.appendChild(popup);
     }
-
     function navigatePopup(direction) {
         popupIndex = (popupIndex + direction + popupImages.length) % popupImages.length;
         const popupImage = document.getElementById("popup-image");
         popupImage.src = popupImages[popupIndex];
     }
-
-    // Optionnel : fermer avec "Échap"
     document.addEventListener("keydown", function (e) {
         if (e.key === "Escape" && document.querySelector(".image-popup")) {
             document.querySelector(".image-popup").remove();
@@ -186,10 +206,7 @@
     function ajouterAuxFavoris(id) {
         const bateau = bateaux.find(b => b.id === id);
         if (!bateau) return;
-
         let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
-
-        // Évite les doublons
         if (!favoris.some(fav => fav.id === bateau.id)) {
             favoris.push(bateau);
             localStorage.setItem("favoris", JSON.stringify(favoris));
