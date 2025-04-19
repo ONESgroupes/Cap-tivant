@@ -3,6 +3,7 @@ body, html {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+
 .double-carrousel {
     display: flex;
     justify-content: center;
@@ -50,7 +51,7 @@ body, html {
 }
 
 .background {
-    background-color: rgb(224, 224, 213);
+    background-color: rgba(255, 255, 255, 0.82);
     border-radius: 20px;
     border: none;
     width: 300px;
