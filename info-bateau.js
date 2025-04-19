@@ -9,7 +9,7 @@ const bateaux = [
         longueur: "6 mètres",
         prix: "1695€/semaine",
         avis: "⭐ 4.7 (58)",
-        port: "📍Port de Marseille",
+        port: "Vannes",
         categorie: "moteur",
     },
     {
@@ -20,7 +20,7 @@ const bateaux = [
         description: "Marseille pour 12 personnes, 21 mètres",
         prix: "3995€/semaine",
         avis: "⭐ 4.9 (16)",
-        port: "📍Port de Saint-Malo",
+        port: "Brest",
         personnes: "12 pers",
         cabines: "5 cabines",
         longueur: "21m",
