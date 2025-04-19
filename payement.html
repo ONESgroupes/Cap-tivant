@@ -8,8 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
-    <style>
-    </style>
 </head>
 <body>
 
@@ -89,11 +87,7 @@
                 <label><input type="checkbox" class="option-checkbox" data-prix="80"> Nettoyage final (+80€)</label><br>
                 <label><input type="checkbox" class="option-checkbox" data-prix="50"> Literie et serviettes (+50€)</label>
             </div>
-
-            
-
         </div>
-
     </div>
 </div>
 
@@ -117,6 +111,29 @@
         menu.style.display = menu.style.display === "flex" ? "none" : "flex";
     }
 
+    const avisList = JSON.parse(localStorage.getItem("avis") || "[]");
+
+    function calculerMoyenneAvis(titre) {
+        const avisBateau = avisList.filter(a => a.titre === titre && !isNaN(a.etoiles));
+        const nbAvis = avisBateau.length;
+
+        if (nbAvis === 0) {
+            return { moyenne: 0, total: 0 };
+        }
+
+        const somme = avisBateau.reduce((acc, cur) => acc + Number(cur.etoiles), 0);
+        const moyenne = (somme / nbAvis).toFixed(1);
+
+        return { moyenne: moyenne, total: nbAvis };
+    }
+
+    function genererAvisTexte(note, totalAvis) {
+        if (totalAvis === 0) {
+            return `⭐ - (0 avis)`;
+        }
+        return `⭐ ${parseFloat(note).toFixed(1)}/5 (${totalAvis} avis)`;
+    }
+
     const params = new URLSearchParams(window.location.search);
     const id = parseInt(params.get("id"));
     const categorie = params.get("categorie");
@@ -131,6 +148,7 @@
         const bateau = bateaux.find(b => b.id === id);
 
         if (bateau) {
+            const { moyenne, total } = calculerMoyenneAvis(bateau.titre);
             document.getElementById("titre-bateau-label").textContent = bateau.titre;
             document.getElementById("titre-fiche").textContent = bateau.titre;
             document.getElementById("port").textContent = bateau.port;
@@ -138,7 +156,7 @@
             document.getElementById("cabines").textContent = bateau.cabines;
             document.getElementById("longueur").textContent = bateau.longueur;
             document.getElementById("prix").textContent = bateau.prix;
-            document.getElementById("avis").textContent = bateau.avis;
+            document.getElementById("avis").textContent = genererAvisTexte(moyenne, total);
 
             document.getElementById("lien-info-bateau").href = `info-bateau.html?id=${bateau.id}`;
 
