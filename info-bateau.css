@@ -1,86 +1,178 @@
-.body {
+body {
     background: url("images/fond-bateau.png") no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'DM Serif Display', serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#contenu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
 }
 
 .detail-container {
     display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 30px;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 60px;
+    max-width: 1400px;
     margin-top: 100px;
-    padding: 20px;
-}
-
-.main-image {
-    width: 400px;
-    height: 300px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.side-images {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.side-images img {
-    width: 100px;
-    height: 75px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-}
-
-.details {
-    max-width: 300px;
-    font-family: 'DM Serif Display', serif;
-}
-
-.details h2 {
-    margin-bottom: 10px;
-}
-
-.infos {
-    margin-top: 20px;
-    border-radius: 20px;
-    border: none;
-    background-color: #e6ece9;
-    padding: 12px;
-    font-size: 0.95em;
-    font-family: 'DM Serif Display', serif;
-    text-align: center;
-    width: 280px;
-}
-
-
-.retour-offre {
-    position: absolute;
-    top: 140px;
-    left: 150px;
-    z-index: 1001;
-}
-
-.retour-offre a {
-    font-size: 0.85em;
-    color: rgba(0, 0, 0, 0.44);
-    text-decoration: none;
-    font-family: 'DM Serif Display', serif;
-}
-
-.texte-photo {
-    margin-top: 5px;
-    text-align: center;
-    font-family: 'DM Serif Display', serif;
-    font-size: 1em;
-    color: #333;
-    padding: 10px;
 }
 
 .bloc-gauche {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    margin-top: 75px;
+}
+
+.carrousel {
+    position: relative;
+    width: 300px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.slide {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.slide.active {
+    display: block;
+}
+
+.prev,
+.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.3);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.background {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.infos {
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    padding: 12px;
+    font-size: 0.95em;
+    text-align: center;
+    width: 200px;
+    margin: 5px 0;
+}
+
+.texte-photo {
+    font-size: 1em;
+    color: #ee9c72;
+    padding: 10px 0;
+}
+
+.detail-droite {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: flex-start;
+    max-width: 300px;
+    margin-top: 30px;
+}
+
+.detail-prix {
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #f29066;
+    text-align: center;
+    margin-top: -80px;
+}
+
+.carte-container {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+}
+
+#map {
+    width: 350px;
+    max-width: 400px;
+    height: 205px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    margin-top: 25px
+}
+
+.boutons-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    padding-bottom: 80px;
+    width: 100%;
+}
+
+.btn-reserver,
+.btn-favoris {
+    padding: 15px 40px;
+    font-size: 1.2em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    font-family: 'DM Serif Display', serif;
+    text-align: center;
+    width: 250px;
+}
+
+.btn-reserver {
+    background-color: #f29066;
+    color: white;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-favoris {
+    background-color: rgba(255, 250, 240, 0.74);
+    color: #f29066;
+    border: 2px solid #f29066;
 }
 
 .image-popup {
@@ -89,7 +181,7 @@
     left: 0;
     width: 100vw;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.72);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,54 +222,15 @@
     user-select: none;
 }
 
-.double-carrousel {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.retour-offre {
+    position: absolute;
+    top: 140px;
+    left: 150px;
+    z-index: 1001;
 }
 
-.btn-reserver,
-.btn-favoris {
-    padding: 15px 40px;
-    font-size: 1.2em;
-    border-radius: 10px;
-    font-family: 'DM Serif Display', serif;
-    cursor: pointer;
-    transition: 0.3s ease;
-}
-
-.btn-reserver {
-    background-color: #f29066;
-    color: white;
+.retour-offre a {
+    font-size: 0.85em;
+    color: rgba(0, 0, 0, 0.44);
     text-decoration: none;
-    border: none;
-    border-radius: 20px;
-    padding: 18px 40px;
-    font-size: 1em;
-    font-family: 'DM Serif Display', serif;
-    text-align: center;
-    width: 220px;
 }
-
-.btn-favoris {
-    background-color: rgba(255, 255, 255, 0.44);
-    color: #f29066;
-    border: 2px solid #f29066;
-    border-radius: 20px;
-    padding: 18px 40px;
-    font-size: 1em;
-    font-family: 'DM Serif Display', serif;
-    text-align: center;
-    width: 220px;
-}
-
-.boutons-actions {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    padding-bottom: 80px;
-    flex-wrap: wrap;
-}
-
