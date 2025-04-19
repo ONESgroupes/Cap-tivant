@@ -48,7 +48,7 @@
 </div>
 
 <!-- Contenu central -->
-<div id="historique-container" style="padding: 100px 20px; text-align: center; font-family: 'DM Serif Display', serif; color: #2f4f2f;">
+<div id="historique-container" class="historique-container">
     <!-- Contenu généré par JavaScript -->
 </div>
 
@@ -73,7 +73,7 @@
     const container = document.getElementById("historique-container");
 
     if (historique.length === 0) {
-        container.innerHTML = "<p>Aucune réservation enregistrée pour le moment.</p>";
+        container.innerHTML = "<p style='text-align:center;'>Aucune réservation enregistrée pour le moment.</p>";
     } else {
         historique.forEach(bateau => {
             container.innerHTML += `
