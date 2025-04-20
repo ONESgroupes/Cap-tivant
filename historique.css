@@ -48,16 +48,29 @@
     cursor: pointer;
 }
 
+.avis-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* fond sombre */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
 .avis-popup-bulle {
     background-color: white;
+    border-radius: 15px;
     padding: 30px;
-    border-radius: 20px;
-    max-width: 500px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     width: 90%;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    max-width: 500px;
     text-align: center;
-    font-family: 'DM Serif Display', serif;
 }
+
 
 .avis-popup-bulle textarea {
     width: 90%;

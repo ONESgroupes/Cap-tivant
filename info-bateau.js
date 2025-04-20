@@ -2,8 +2,8 @@ const bateaux = [
     {
         id: 1,
         titre: "Bateau Moteur - 2022",
-        image1: "images/moteur1.png",
-        image2: "images/moteur2.png",
+        image1: "images/bateau1.png",
+        image2: "images/bateau2.png",
         personnes: "3 personnes",
         cabines: "1 cabines",
         longueur: "6 mètres",
@@ -34,5 +34,17 @@ const bateaux = [
         cabines: "3 cabines",
         longueur: "35m",
         categorie: "voile",
+    },
+    {
+        id: 4,
+        titre: "Bateau à moteur",
+        image1: "images/moteur1.png",
+        image2: "images/moteur2.png",
+        prix: "2185€/semaine",
+        port: "Marseille",
+        personnes: "4 pers",
+        cabines: "2 cabines",
+        longueur: "20m",
+        categorie: "moteur",
     }
 ];

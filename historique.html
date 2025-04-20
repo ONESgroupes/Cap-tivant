@@ -45,6 +45,9 @@
     <img src="/images/drapeau-francais.png" alt="Langue">
     <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
     <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/panier.png" alt="panier">
+    </a>
 </div>
 
 <!-- Contenu central -->
@@ -92,27 +95,37 @@
     }
 
     function laisserAvis(titreBateau) {
+        const avisExistants = JSON.parse(localStorage.getItem("avis") || "[]");
+
+        // Vérifie si un avis existe déjà pour ce bateau
+        const dejaCommente = avisExistants.some(a => a.titre === titreBateau);
+        if (dejaCommente) {
+            alert("Vous avez déjà laissé un avis pour ce bateau.");
+            return;
+        }
+
         const popup = document.createElement("div");
         popup.className = "avis-popup-overlay";
         popup.innerHTML = `
-            <div class="avis-popup-bulle">
-                <h2>Merci pour votre réservation !</h2>
-                <p>Laissez-nous un avis sur votre expérience :</p>
-                <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
-                <label>Note :</label>
-                <select id="etoiles">
-                    <option value="1">⭐</option>
-                    <option value="2">⭐⭐</option>
-                    <option value="3">⭐⭐⭐</option>
-                    <option value="4">⭐⭐⭐⭐</option>
-                    <option value="5">⭐⭐⭐⭐⭐</option>
-                </select><br><br>
-                <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
-                <button onclick="fermerAvisPopup()">Fermer</button>
-            </div>
-        `;
+        <div class="avis-popup-bulle">
+            <h2>Merci pour votre réservation !</h2>
+            <p>Laissez-nous un avis sur votre expérience :</p>
+            <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
+            <label>Note :</label>
+            <select id="etoiles">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select><br><br>
+            <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
+            <button onclick="fermerAvisPopup()">Fermer</button>
+        </div>
+    `;
         document.body.appendChild(popup);
     }
+
 
     function validerAvis(titreBateau) {
         const commentaire = document.getElementById("commentaire").value.trim();

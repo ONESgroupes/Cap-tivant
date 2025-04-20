@@ -12,7 +12,8 @@ var ports = [
     { name: "Concarneau", coords: [47.875, -3.9183], image: "/images/concarneau.jpeg" },
     { name: "Bordeaux", coords: [44.8378, -0.5792], image: "/images/bordeaux.jpg" },
     { name: "Vannes", coords: [47.6559, -2.7603], image: "/images/vannes.jpeg" },
-    { name: "Brest", coords: [48.3904, -4.4861], image: "/images/brest" }
+    { name: "Brest", coords: [48.3904, -4.4861], image: "/images/brest" },
+    { name: "Marseille", coords: [43.2965, 5.3698], image: "/images/marseille.jpg" }
 ];
 
 const marqueursParNom = {}; // Stocker les marqueurs par nom pour les réutiliser plus tard

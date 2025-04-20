@@ -1,32 +1,50 @@
 body, html {
-    height: 100%;
+    margin: 0;
+    padding: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #c5d8d3;
 }
-
 
 .double-carrousel {
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
     gap: 40px;
-    height: 100vh;
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 100px auto;
+}
+
+.bouton-bas{
+    margin-top: auto;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #c5d8d3;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
 }
 
 .carrousel {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
+    width: 300px;
+    position: relative;
+    margin: 20px;
 }
 
+
 .slides {
-    width: 300px;
+    width: 100%;
+    position: relative;
 }
 
 .slide {
     display: none;
-    width: 300px;          /* largeur fixe */
-    height: 200px;         /* hauteur fixe */
-    object-fit: cover;     /* recadre l’image sans la déformer */
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -48,13 +66,25 @@ body, html {
     font-size: 2em;
     cursor: pointer;
     color: #335533;
+    position: absolute;
+    top: 40%;
+    transform: translateY(-50%);
+    z-index: 2;
+}
+
+.prev {
+    left: -25px;
+}
+
+.next {
+    right: -25px;
 }
 
 .background {
     background-color: rgba(255, 255, 255, 0.82);
     border-radius: 20px;
     border: none;
-    width: 300px;
+    width: 100%;
     padding: 12px;
     font-size: 0.95em;
 }
@@ -66,4 +96,14 @@ body, html {
     gap: 10px;
     font-size: 0.9em;
     padding: 0 10px;
+}
+
+@media screen and (max-width: 768px) {
+    .carrousel {
+        width: 90%;
+    }
+
+    .prev, .next {
+        display: none;
+    }
 }
