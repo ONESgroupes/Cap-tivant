@@ -1,13 +1,11 @@
 .historique-container {
     display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    gap: 20px;
-    padding: 20px;
+    flex-wrap: wrap;
     justify-content: center;
-    align-items: center;
-    height: 80vh;
-    margin-top: 50px;
+    gap: 30px;
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: 100px auto;
 }
 
 
@@ -101,4 +99,20 @@
 
 .avis-popup-bulle button:last-of-type {
     background-color: #aaa;
+}
+
+.bouton-bas{
+    margin-top: auto;
+    padding: 20px 0;
+    text-align: center;
+    background-color: #c5d8d3;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+}
+
+@media screen and (max-width: 768px) {
+    .historique-card {
+        width: 90%;
+    }
 }
