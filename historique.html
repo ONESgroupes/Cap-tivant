@@ -56,11 +56,13 @@
 </div>
 
 <!-- Pied de page -->
-<div class="bouton-bas">
+<footer class="bouton-bas">
+    <button onclick="viderHistorique()" class="btn-vider-historique">Vider l'historique</button>
     <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
     <span class="bottom-text" style="color: #577550;">•</span>
     <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
-</div>
+</footer>
+
 
 <!-- Script menu -->
 <script>
@@ -154,6 +156,16 @@
         if (popup) popup.remove();
     }
 </script>
+
+<script>
+    function viderHistorique() {
+        if (confirm("Es-tu sûr de vouloir supprimer tout l'historique ?")) {
+            localStorage.removeItem("historique");
+            location.reload(); // recharge la page pour mettre à jour l'affichage
+        }
+    }
+</script>
+
 
 </body>
 </html>

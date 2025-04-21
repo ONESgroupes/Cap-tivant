@@ -4,10 +4,18 @@
      box-sizing: border-box;
  }
 
-body, html {
-    height: 100%;
-    font-family: l, sans-serif;
-}
+ html, body {
+     height: 100%;
+     margin: 0;
+     padding: 0;
+     display: flex;
+     flex-direction: column;
+ }
+
+ #historique-container {
+     flex: 1; /* pour pousser le footer vers le bas */
+ }
+
 
  .top-right {
      position: absolute;
