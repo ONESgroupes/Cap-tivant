@@ -4,9 +4,11 @@
   <meta charset="UTF-8">
   <title>Mes Favoris</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="faq.css">
+  <link rel="stylesheet" href="favoris.css">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+  </style>
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
@@ -25,17 +27,15 @@
   </div>
 </div>
 
-
 <div class="top-center">
   <div class="logo-block">
     <a href="PageAccueil.html">
       <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Frequently Asked Questions</h1>
+    <h1 class="page-title">My basket</h1>
   </div>
 </div>
-
 
 <div class="top-right">
   <div class="language-selector">
@@ -45,40 +45,18 @@
       <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
     </div>
   </div>
-  <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
-  <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
-  <a href="favoris-en.html">
-    <img src="/images/panier.png" alt="Panier">
-  </a>
+  <a href="a-propos.html" style="color: #577550; text-decoration: none;">About</a>
+  <a href="Connexion.html" style="color: #577550; text-decoration: none;">My account</a>
 </div>
 
-<div class="faq-container">
-  <div class="faq-item" style="margin-top: 200px;">
-    <button class="faq-question">If I don't book and log out, does my booking remain?</button>
-    <div class="faq-answer">
-      <p>Yes, your favorites list is associated with your account. You'll find it again when you log back in.</p>
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">Are there life jackets on the boat?</button>
-    <div class="faq-answer">
-      <p>Yes, each boat is equipped with life jackets for adults and children.</p>
-    </div>
-  </div>
-
-  <div class="faq-item">
-    <button class="faq-question">Can we cancel our reservation in case of bad weather?</button>
-    <div class="faq-answer">
-      <p>Yes, in case of adverse weather conditions, cancellation without charge is possible.</p>
-    </div>
-  </div>
+<!-- CONTENEUR DES FAVORIS -->
+<div class="favoris-container" id="favoris-container">
+  <!-- Cartes JS ici -->
 </div>
-
 
 <div class="bouton-bas">
-  <a href="MentionsLegales-en.html" class="bottom-text" style="color : #577550;">Lagal Notice</a>
-  <span class="bottom-text" style="color: #577550;">•</span>
+  <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550">Legal Notice</a>
+  <span class="bottom-text" style="color: #577550">•</span>
   <a href="Contact-en.html" class="bottom-text" style="color: #577550;">Contact</a>
 </div>
 
@@ -101,9 +79,9 @@
 
   function changerLangue(langue) {
     if (langue === 'fr') {
-      window.location.href = "faq.html";
+      window.location.href = "favoris.html";
     } else if (langue === 'en') {
-      window.location.href = "faq-en.html";
+      window.location.href = "favoris-en.html";
     }
   }
 
@@ -131,31 +109,76 @@
   });
 </script>
 
+<!-- Ajouter ce script dans ta page payement.html -->
 <script>
-  const questions = document.querySelectorAll('.faq-question');
+  document.getElementById("btn-payer").addEventListener("click", function () {
+    const avis = prompt("Thank you for your reservation! Leave a review of your experience :");
+    let note;
 
-  questions.forEach(q => {
-    q.addEventListener('click', () => {
-      const answer = q.nextElementSibling;
+    // Boucle tant que l'utilisateur ne donne pas un nombre valide entre 1 et 5
+    do {
+      note = prompt("Rate your experience between 1 and 5 stars :");
+    } while (!note || isNaN(note) || note < 1 || note > 5);
 
-      // Si tu veux qu'une seule réponse soit ouverte à la fois :
-      document.querySelectorAll('.faq-answer').forEach(a => {
-        if (a !== answer) {
-          a.style.maxHeight = null;
-        }
-      });
+    // Récupération du bateau
+    const params = new URLSearchParams(window.location.search);
+    const id = parseInt(params.get("id"));
+    const bateau = bateaux.find(b => b.id === id);
 
-      if (answer.style.maxHeight) {
-        answer.style.maxHeight = null;
+    if (bateau) {
+      bateau.avisClient = {
+        commentaire: avis,
+        note: parseInt(note)
+      };
+
+      let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+
+      // Ajoute ou met à jour le bateau dans les favoris
+      const index = favoris.findIndex(f => f.id === bateau.id);
+      if (index !== -1) {
+        favoris[index] = bateau;
       } else {
-        answer.style.maxHeight = answer.scrollHeight + "px";
+        favoris.push(bateau);
       }
-    });
-  });
 
-  function toggleMenu() {
-    const menu = document.getElementById("menu-overlay");
-    menu.classList.toggle("active");
+      localStorage.setItem("favoris", JSON.stringify(favoris));
+    }
+
+    alert("Thank you! Your review has been recorded. You will now be redirected to the home page.");
+    window.location.href = "PageAccueil-en.html";
+  });
+</script>
+
+<!-- Puis, modifie le JS de ta page favoris.html pour afficher l'avis -->
+<script>
+  let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+  const container = document.getElementById("favoris-container");
+
+  if (favoris.length === 0) {
+    container.innerHTML = "<p style='text-align:center; width: 100%; font-family: DM Serif Display;'>No favorites yet.</p>";
+  } else {
+    favoris.forEach(bateau => {
+      container.innerHTML += `
+                <div class="favori-card">
+                    <img src="${bateau.image1}" alt="${bateau.titre}">
+                    <h3>${bateau.titre}</h3>
+                    <p>${bateau.personnes} • ${bateau.cabines}</p>
+                    ${bateau.avisClient ? `<p><strong>Note :</strong> ${'⭐'.repeat(bateau.avisClient.note)}</p>
+                    <p><em>"${bateau.avisClient.commentaire}"</em></p>` : ''}
+                    <a href="info-bateau.html?id=${bateau.id}">See the boat</a>
+                    <button onclick="retirerFavori(${bateau.id})">Withdraw</button>
+                </div>
+            `;
+    });
+  }
+</script>
+
+<script>
+  function retirerFavori(id) {
+    let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+    favoris = favoris.filter(bateau => bateau.id !== id);
+    localStorage.setItem("favoris", JSON.stringify(favoris));
+    location.reload();
   }
 </script>
 

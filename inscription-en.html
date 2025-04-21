@@ -4,13 +4,14 @@
   <meta charset="UTF-8">
   <title>Connexion</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="location.css">
+  <link rel="stylesheet" href="inscription.css">
+  <link rel="stylesheet" href="trop-vert.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
-  <img src="/images/menu.png" alt="Menu">
+  <img src="/images/menu-vert.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
@@ -25,6 +26,7 @@
   </div>
 </div>
 
+
 <div class="top-right">
   <div class="language-selector">
     <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
@@ -33,8 +35,8 @@
       <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
     </div>
   </div>
-  <a href="a-propos-en.html" class="top-infos">About</a>
-  <a href="Connexion-en.html" class="top-infos">My account</a>
+  <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+  <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
   <a href="favoris-en.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
@@ -43,32 +45,41 @@
 <div class="top-center">
   <div class="logo-block">
     <a href="PageAccueil.html">
-      <img src="/images/logo.png" alt="Logo">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title" style="color: #e0e0d5">Rent</h1>
+    <h1 class="page-title">Inscription</h1>
   </div>
-  <div class="formulaire-connexion">
-    <div class="background">
-      <div class="champ-double">
-        <input type="date" id="départ" placeholder="Departure date" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
-        <input type="text" id="lieu" placeholder="Rental location" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
-      </div>
-      <div class="champ-trois">
-        <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">Motor</button>
-        <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">Sailling</button>
-      </div>
-      <div class="champ" style="padding: 22px;">
-        <a id="lien-recherche" href="offre-en.html" class="connexion" style="color: #FFFFFF;">Research</a>
-      </div>
+
+  <div class="formulaire-inscription">
+    <div class="champ">
+      <br>
+      <input type="text" placeholder="Name">
+      <input type="text" placeholder="Frist name">
+      <img src="/images/email.png" alt="E-mail">
+      <input type="email" placeholder="File your mail address">
+      <img src="/images/mdp.png" alt="mot de passe">
+      <input type="password" placeholder="File your password">
+      <input type="password" placeholder="Confirm your password">
     </div>
+  </div>
+  <div class="conditions-general">
+    <label class="checkbox-container">
+      <input type="checkbox" id="mentions" required>
+      <span class="checkmark"></span>
+      <span class="conditions">Accept the terms of use</span>
+    </label>
+  </div>
+  <div class="inscription">Register</div>
+  <div class="logo-block">
+    <a href="Connexion-en.html" class="connexion">Log in</a>
   </div>
 </div>
 
-<div class="bouton-bas" style="background: transparent">
-  <a href="MentionsLegales-en.html" class="bottom-text">Legal Notice</a>
-  <span class="bottom-text">•</span>
-  <a href="Contact-en.html" class="bottom-text">Contact</a>
+<div class="bouton-bas">
+  <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550">Legal Notice</a>
+  <span class="bottom-text" style="color: #577550">•</span>
+  <a href="Contact-en.html" class="bottom-text" style="color: #577550">Contact</a>
 </div>
 
 <script>
@@ -90,9 +101,9 @@
 
   function changerLangue(langue) {
     if (langue === 'fr') {
-      window.location.href = "location.html";
+      window.location.href = "Inscription.html";
     } else if (langue === 'en') {
-      window.location.href = "location-en.html";
+      window.location.href = "inscription-en.html";
     }
   }
 
@@ -118,35 +129,6 @@
       dropdown.style.display = "none";
     }
   });
-</script>
-<script>
-  let typeSelectionne = "";
-
-  function selectType(button) {
-    const boutonClique = button.textContent.trim().toLowerCase(); // "moteur" ou "à voile"
-    const lienRecherche = document.getElementById("lien-recherche");
-
-    // Si on reclique sur le même bouton déjà actif, on désactive tout
-    if (button.classList.contains("active")) {
-      button.classList.remove("active");
-      typeSelectionne = "";
-      lienRecherche.href = "offre-en.html";
-    } else {
-      // On désactive les autres boutons
-      document.querySelectorAll('.bouton-type').forEach(btn => btn.classList.remove('active'));
-      // On active celui qu'on vient de cliquer
-      button.classList.add("active");
-      typeSelectionne = boutonClique;
-
-      if (typeSelectionne === "moteur") {
-        lienRecherche.href = "offre-en.html?type=moteur";
-      } else if (typeSelectionne === "à voile") {
-        lienRecherche.href = "offre-en.html?type=voile";
-      } else {
-        lienRecherche.href = "offre-en.html";
-      }
-    }
-  }
 </script>
 
 </body>

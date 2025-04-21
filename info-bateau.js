@@ -18,9 +18,9 @@ const bateaux = [
         image2: "images/catamaran2.png",
         prix: "3995€/semaine",
         port: "Brest",
-        personnes: "12 pers",
+        personnes: "12 personnes",
         cabines: "5 cabines",
-        longueur: "21m",
+        longueur: "21 mètres",
         categorie: "voile",
     },
     {
@@ -30,9 +30,9 @@ const bateaux = [
         image2: "images/bateau-voile2.png",
         prix: "3695€/semaine",
         port: "Concarneau",
-        personnes: "8 pers",
+        personnes: "8 personnes",
         cabines: "3 cabines",
-        longueur: "35m",
+        longueur: "35 mètres",
         categorie: "voile",
     },
     {
@@ -42,9 +42,9 @@ const bateaux = [
         image2: "images/moteur2.png",
         prix: "2185€/semaine",
         port: "Marseille",
-        personnes: "4 pers",
+        personnes: "4 personnes",
         cabines: "2 cabines",
-        longueur: "20m",
+        longueur: "20 mètres",
         categorie: "moteur",
     }
 ];

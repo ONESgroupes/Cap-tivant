@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Historique</title>
     <link rel="stylesheet" href="PageAccueil.css">
-    <link rel="stylesheet" href="top-vert.css">
     <link rel="stylesheet" href="historique.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -90,9 +89,9 @@
 
     function changerLangue(langue) {
         if (langue === 'fr') {
-            window.location.href = "PageAccueil.html";
+            window.location.href = "historique.html";
         } else if (langue === 'en') {
-            window.location.href = "PageAccueil-en.html";
+            window.location.href = "historique-en.html";
         }
     }
 
@@ -132,11 +131,11 @@
             container.innerHTML += `
                 <div class="historique-card">
                     <h2>${bateau.titre}</h2>
-                    <p><strong>Port :</strong> ${bateau.port}</p>
-                    <p><strong>Personnes :</strong> ${bateau.personnes}</p>
-                    <p><strong>Cabines :</strong> ${bateau.cabines}</p>
-                    <p><strong>Longueur :</strong> ${bateau.longueur}</p>
-                    <p><strong>Prix :</strong> ${bateau.prix}</p>
+                    <p><strong>Harbour :</strong> ${bateau.port}</p>
+                    <p><strong>People :</strong> ${bateau.personnes}</p>
+                    <p><strong>Cabins :</strong> ${bateau.cabines}</p>
+                    <p><strong>Length :</strong> ${bateau.longueur}</p>
+                    <p><strong>Price :</strong> ${bateau.prix}</p>
                     <img src="${bateau.image1}" alt="${bateau.titre}">
                     <button onclick="laisserAvis('${bateau.titre}')">Leave a review</button>
                 </div>
@@ -150,7 +149,7 @@
         // Vérifie si un avis existe déjà pour ce bateau
         const dejaCommente = avisExistants.some(a => a.titre === titreBateau);
         if (dejaCommente) {
-            alert("Vous avez déjà laissé un avis pour ce bateau.");
+            alert("You have already left a review for this boat.");
             return;
         }
 
@@ -160,7 +159,7 @@
         <div class="avis-popup-bulle">
             <h2>Merci pour votre réservation !</h2>
             <p>Laissez-nous un avis sur votre expérience :</p>
-            <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
+            <textarea id="commentaire" placeholder="Your comment..."></textarea><br><br>
             <label>Note :</label>
             <select id="etoiles">
                 <option value="1">⭐</option>
@@ -169,8 +168,8 @@
                 <option value="4">⭐⭐⭐⭐</option>
                 <option value="5">⭐⭐⭐⭐⭐</option>
             </select><br><br>
-            <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
-            <button onclick="fermerAvisPopup()">Fermer</button>
+            <button onclick="validerAvis('${titreBateau}')">Validate the notice</button>
+            <button onclick="fermerAvisPopup()">Close</button>
         </div>
     `;
         document.body.appendChild(popup);
@@ -182,7 +181,7 @@
         const etoiles = parseInt(document.getElementById("etoiles").value);
 
         if (!commentaire || isNaN(etoiles)) {
-            alert("Merci de remplir tous les champs.");
+            alert("Please fill in all fields.");
             return;
         }
 
@@ -195,7 +194,7 @@
         });
 
         localStorage.setItem("avis", JSON.stringify(avis));
-        alert("Merci ! Votre avis a été enregistré.");
+        alert("Thank you! Your review has been recorded.");
         fermerAvisPopup();
     }
 
@@ -207,7 +206,7 @@
 
 <script>
     function viderHistorique() {
-        if (confirm("Es-tu sûr de vouloir supprimer tout l'historique ?")) {
+        if (confirm("Are you sure you want to delete all history?")) {
             localStorage.removeItem("historique");
             location.reload(); // recharge la page pour mettre à jour l'affichage
         }

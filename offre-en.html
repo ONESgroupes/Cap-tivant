@@ -5,7 +5,7 @@
     <title>Offres</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="offre.css">
-    <script src="info-bateau.js"></script>
+    <script src="info-bateau-en.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
@@ -18,12 +18,12 @@
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
+        <a href="location-en.html">RENT</a>
+        <a href="ports-en.html">OUR HARBOUR</a>
+        <a href="MonCompte-en.html">MY ACCOUNT</a>
+        <a href="historique-en.html">HISTORY</a>
+        <a href="faq-en.html">FAQ</a>
+        <a href="avis-en.html">OPINION</a>
         <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
 </div>
@@ -35,7 +35,7 @@
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Offres</h1>
+        <h1 class="page-title">Offers</h1>
     </div>
 </div>
 
@@ -48,9 +48,9 @@
             <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
         </div>
     </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
-    <a href="favoris.html">
+    <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+    <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
+    <a href="favoris-en.html">
         <img src="/images/panier.png" alt="Panier">
     </a>
 </div>
@@ -60,13 +60,13 @@
 
 <!-- Pied de page -->
 <div class="bouton-bas">
-    <a href="MentionsLegales.html" class="bottom-text" style="color : #577550;">Mentions légales</a>
+    <a href="MentionsLegales-en.html" class="bottom-text" style="color : #577550;">Legal Notice</a>
     <span class="bottom-text" style="color: #577550;">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+    <a href="Contact-en.html" class="bottom-text" style="color: #577550;">Contact</a>
 </div>
 
 <!-- Script -->
-<script src="info-bateau.js"></script>
+<script src="info-bateau-en.js"></script>
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
@@ -171,7 +171,7 @@
             div.innerHTML = `
                 <button class="prev" onclick="changeSlide(this, -1)">❮</button>
                 <div class="slides">
-                    <a href="info-bateau.html?id=${bateau.id}">
+                    <a href="info-bateau-en.html?id=${bateau.id}">
                         <img src="${bateau.image1}" class="slide active">
                         <img src="${bateau.image2}" class="slide">
                         <div class="background">

@@ -2,15 +2,15 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Connexion</title>
+  <title>Mentions légales</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="location.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="MentionsLegales.css">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
-  <img src="/images/menu.png" alt="Menu">
+  <img src="/images/menu-vert.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
@@ -33,8 +33,8 @@
       <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
     </div>
   </div>
-  <a href="a-propos-en.html" class="top-infos">About</a>
-  <a href="Connexion-en.html" class="top-infos">My account</a>
+  <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+  <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
   <a href="favoris-en.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
@@ -43,32 +43,35 @@
 <div class="top-center">
   <div class="logo-block">
     <a href="PageAccueil.html">
-      <img src="/images/logo.png" alt="Logo">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title" style="color: #e0e0d5">Rent</h1>
+    <h1 class="page-title">Legal Notice</h1>
   </div>
-  <div class="formulaire-connexion">
-    <div class="background">
-      <div class="champ-double">
-        <input type="date" id="départ" placeholder="Departure date" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
-        <input type="text" id="lieu" placeholder="Rental location" style="border-radius: 20px; border: none; background-color: #e6ece9; width: 230px; padding: 12px; font-size: 0.95em;">
-      </div>
-      <div class="champ-trois">
-        <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">Motor</button>
-        <button class="bouton-type" onclick="selectType(this)" style="width: 230px; padding: 12px;">Sailling</button>
-      </div>
-      <div class="champ" style="padding: 22px;">
-        <a id="lien-recherche" href="offre-en.html" class="connexion" style="color: #FFFFFF;">Research</a>
-      </div>
-    </div>
+
+  <div class="texte-legale" style="max-width: 800px; margin-top: 100px; padding: 20px; font-family: 'DM Serif Display', serif; font-size: 0.95em; line-height: 1.6em; color: #335533; text-align: justify;">
+    <p>Compagnie Cap’Tivant, a public limited company with capital of €2,500,000, registered with the Paris Trade and Companies Register under number B 542 056 385.</p>
+    <p>Intra-community VAT number: FR66572826359</p>
+    <p>SIRET : 57006875500219</p>
+    <p>Head Office Address: Port de la Conférence, 75008 Paris</p>
+    <p>Contact : Téléphone : +33 1 43 25 86 10</p>
+    <p>Host: OVH</p>
+    <p><strong>Photo credits:</strong></p>
+    <ul>
+      <li>Home Page - Beautiful view © LR Photographies/Fotolia</li>
+      <li>Our Offers Page – Boats for Rent © Erika / Fotolia</li>
+      <li>Our ports page – France © Cartography / Fotolia</li>
+    </ul>
+    <p><strong>Personal data</strong></p>
+    <p>The Cap’Tivant Company has implemented a confidentiality policy to protect your personal data.</p>
+    <p>DPO: Patricia Conde Cespedes</p>
   </div>
 </div>
 
-<div class="bouton-bas" style="background: transparent">
-  <a href="MentionsLegales-en.html" class="bottom-text">Legal Notice</a>
-  <span class="bottom-text">•</span>
-  <a href="Contact-en.html" class="bottom-text">Contact</a>
+<div class="bouton-bas">
+  <span class="bottom-text" style="color: #577550">•</span>
+  <a href="Contact-en.html" class="bottom-text" style="color: #577550">Contact</a>
+  <span class="bottom-text" style="color: #577550">•</span>
 </div>
 
 <script>
@@ -90,9 +93,9 @@
 
   function changerLangue(langue) {
     if (langue === 'fr') {
-      window.location.href = "location.html";
+      window.location.href = "MentionsLegales.html";
     } else if (langue === 'en') {
-      window.location.href = "location-en.html";
+      window.location.href = "MentionsLegales-en.html";
     }
   }
 
@@ -118,35 +121,6 @@
       dropdown.style.display = "none";
     }
   });
-</script>
-<script>
-  let typeSelectionne = "";
-
-  function selectType(button) {
-    const boutonClique = button.textContent.trim().toLowerCase(); // "moteur" ou "à voile"
-    const lienRecherche = document.getElementById("lien-recherche");
-
-    // Si on reclique sur le même bouton déjà actif, on désactive tout
-    if (button.classList.contains("active")) {
-      button.classList.remove("active");
-      typeSelectionne = "";
-      lienRecherche.href = "offre-en.html";
-    } else {
-      // On désactive les autres boutons
-      document.querySelectorAll('.bouton-type').forEach(btn => btn.classList.remove('active'));
-      // On active celui qu'on vient de cliquer
-      button.classList.add("active");
-      typeSelectionne = boutonClique;
-
-      if (typeSelectionne === "moteur") {
-        lienRecherche.href = "offre-en.html?type=moteur";
-      } else if (typeSelectionne === "à voile") {
-        lienRecherche.href = "offre-en.html?type=voile";
-      } else {
-        lienRecherche.href = "offre-en.html";
-      }
-    }
-  }
 </script>
 
 </body>

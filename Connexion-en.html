@@ -16,21 +16,27 @@
 
 <div id="menu-overlay" class="menu-overlay">
   <div class="menu-content">
-    <a href="location.html">LOCATION</a>
-    <a href="ports.html">NOS PORTS</a>
-    <a href="MonCompte.html">MON COMPTE</a>
-    <a href="historique.html">HISTORIQUE</a>
-    <a href="faq.html">FAQ</a>
-    <a href="avis.html">AVIS</a>
+    <a href="location-en.html">RENT</a>
+    <a href="ports-en.html">OUR HARBOUR</a>
+    <a href="MonCompte-en.html">MY ACCOUNT</a>
+    <a href="historique-en.html">HISTORY</a>
+    <a href="faq-en.html">FAQ</a>
+    <a href="avis-en.html">OPINION</a>
     <span onclick="toggleMenu()" class="close-menu">✕</span>
   </div>
 </div>
 
 
 <div class="top-right">
-  <img src="/images/drapeau-francais.png" alt="Langue">
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="favoris.html">
+  <div class="language-selector">
+    <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+    <div id="lang-dropdown" class="lang-dropdown">
+      <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
+      <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
+    </div>
+  </div>
+  <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+  <a href="favoris-en.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
 </div>
@@ -41,30 +47,30 @@
       <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Connexion</h1>
+    <h1 class="page-title">Connection</h1>
   </div>
 
   <div class="formulaire-connexion">
     <div class="champ">
       <img src="/images/email.png" alt="email">
-      <input type="email" id="email" placeholder="Entrez votre adresse mail">
+      <input type="email" id="email" placeholder="File your e-mail">
     </div>
     <div class="champ">
       <img src="/images/mdp.png" alt="mot de passe">
-      <input type="password" id="password" placeholder="Entrez votre mot de passe">
+      <input type="password" id="password" placeholder="File your password">
     </div>
   </div>
-  <div class="connexion">Se connecter</div>
+  <div class="connexion">Connection</div>
   <div class="logo-block">
-    <a href="inscription.html" class="inscription" style="text-decoration: none;">Inscription</a>
-    <a href="mdp-oublier.html" class="mdp-oublier" style="text-decoration: none;">Mot de passe oublié</a>
+    <a href="inscription-en.html" class="inscription" style="text-decoration: none;">Inscription</a>
+    <a href="mdp-oublier-en.html" class="mdp-oublier" style="text-decoration: none;">Password frogotten</a>
   </div>
 </div>
 
 <div class="bouton-bas">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+  <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550">Legal Notice</a>
   <span class="bottom-text" style="color: #577550">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+  <a href="Contact-en.html" class="bottom-text" style="color: #577550">Contact</a>
 </div>
 
 <script>
@@ -86,9 +92,9 @@
 
   function changerLangue(langue) {
     if (langue === 'fr') {
-      window.location.href = "PageAccueil.html";
+      window.location.href = "Connexion.html";
     } else if (langue === 'en') {
-      window.location.href = "PageAccueil-en.html";
+      window.location.href = "Connexion-en.html";
     }
   }
 
