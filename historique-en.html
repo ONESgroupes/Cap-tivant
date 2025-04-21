@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="historique.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <script src="info-bateau-en.js"></script>
 </head>
 <body style="background-color: #c5d8d3;">
 
@@ -127,21 +128,26 @@
     if (historique.length === 0) {
         container.innerHTML = "<p style='text-align:center;'>No reservations recorded yet.</p>";
     } else {
-        historique.forEach(bateau => {
+        historique.forEach(item => {
+            const bateau = bateaux.find(b => b.id === item.id);
+
+            if (!bateau) return;
+
             container.innerHTML += `
-                <div class="historique-card">
-                    <h2>${bateau.titre}</h2>
-                    <p><strong>Harbour :</strong> ${bateau.port}</p>
-                    <p><strong>People :</strong> ${bateau.personnes}</p>
-                    <p><strong>Cabins :</strong> ${bateau.cabines}</p>
-                    <p><strong>Length :</strong> ${bateau.longueur}</p>
-                    <p><strong>Price :</strong> ${bateau.prix}</p>
-                    <img src="${bateau.image1}" alt="${bateau.titre}">
-                    <button onclick="laisserAvis('${bateau.titre}')">Leave a review</button>
-                </div>
-            `;
+            <div class="historique-card">
+                <h2>${bateau.titre}</h2>
+                <p><strong>Harbour:</strong> ${bateau.port}</p>
+                <p><strong>People:</strong> ${bateau.personnes}</p>
+                <p><strong>Cabins:</strong> ${bateau.cabines}</p>
+                <p><strong>Length:</strong> ${bateau.longueur}</p>
+                <p><strong>Price:</strong> ${bateau.prix}</p>
+                <img src="${bateau.image1}" alt="${bateau.titre}">
+                <button onclick="laisserAvis('${bateau.titre}')">Leave a review</button>
+            </div>
+        `;
         });
     }
+
 
     function laisserAvis(titreBateau) {
         const avisExistants = JSON.parse(localStorage.getItem("avis") || "[]");
