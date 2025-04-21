@@ -15,15 +15,6 @@ body, html {
     margin: 100px auto;
 }
 
-.bouton-bas{
-    margin-top: auto;
-    padding: 20px 0;
-    text-align: center;
-    background-color: #c5d8d3;
-    position: sticky;
-    bottom: 0;
-    z-index: 10;
-}
 
 .carrousel {
     display: flex;

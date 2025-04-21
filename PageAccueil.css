@@ -130,6 +130,16 @@
      z-index: 10;
  }
 
+ .bouton-bas{
+     margin-top: auto;
+     padding: 20px 0;
+     text-align: center;
+     background-color: #c5d8d3;
+     position: sticky;
+     bottom: 0;
+     z-index: 10;
+ }
+
  .bottom-text {
      color: #e0e0d5;
      font-family: 'DM Serif Display', sans-serif;
