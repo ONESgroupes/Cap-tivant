@@ -2,9 +2,9 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Connexion</title>
+  <title>Avis</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="mdp-oublier.css">
+  <link rel="stylesheet" href="Avis.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
@@ -15,16 +15,15 @@
 
 <div id="menu-overlay" class="menu-overlay">
   <div class="menu-content">
-    <a href="location.html">LOCATION</a>
-    <a href="ports.html">NOS PORTS</a>
-    <a href="MonCompte.html">MON COMPTE</a>
-    <a href="historique.html">HISTORIQUE</a>
-    <a href="faq.html">FAQ</a>
-    <a href="avis.html">AVIS</a>
+    <a href="location-en.html">RENT</a>
+    <a href="ports-en.html">OUR HARBOUR</a>
+    <a href="MonCompte-en.html">MY ACCOUNT</a>
+    <a href="historique-en.html">HISTORY</a>
+    <a href="faq-en.html">FAQ</a>
+    <a href="avis-en.html">OPINION</a>
     <span onclick="toggleMenu()" class="close-menu">✕</span>
   </div>
 </div>
-
 
 <div class="top-right">
   <div class="language-selector">
@@ -34,8 +33,9 @@
       <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
     </div>
   </div>
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="favoris.html">
+  <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+  <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
+  <a href="favoris-en.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
 </div>
@@ -46,29 +46,18 @@
       <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Réinitialiser votre mot de passe</h1>
-  </div>
-
-  <div class="formulaire-connexion">
-    <div class="champ">
-      <img src="/images/email.png" alt="email">
-      <input type="email" id="email" placeholder="E-mail lié au compte">
-    </div>
-  </div>
-  <div class="logo-block">
-    <div class="connexion">
-      <a href="#" style="color: white; text-decoration: none;">Recevoir le lien de connexion</a>
-    </div>
-    <div class="retour">
-      <a href="Connexion.html" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
-    </div>
+    <h1 class="page-title">Opinion</h1>
   </div>
 </div>
 
+<div class="background" id="avis-container">
+  <!-- Avis affichés ici -->
+</div>
+
 <div class="bouton-bas">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
-  <span class="bottom-text" style="color: #577550">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+  <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550;">Legal Notice</a>
+  <span class="bottom-text" style="color: #577550;">•</span>
+  <a href="Contact-en.html" class="bottom-text" style="color: #577550;">Contact</a>
 </div>
 
 <script>
@@ -120,5 +109,24 @@
   });
 </script>
 
+<script>
+  const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+  const container = document.getElementById("avis-container");
+
+  if (avis.length === 0) {
+    container.innerHTML = "<p style='text-align:center;'>No reviews yet.</p>";
+  } else {
+    avis.forEach(entry => {
+      container.innerHTML += `
+        <div class="avis-card">
+          <h3>${entry.titre}</h3>
+          <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
+          <p class="commentaire">"${entry.commentaire}"</p>
+          <p class="date">${entry.date}</p>
+        </div>
+      `;
+    });
+  }
+</script>
 </body>
 </html>

@@ -19,12 +19,12 @@
 <!-- Menu overlay -->
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
+        <a href="location-en.html">RENT</a>
+        <a href="ports-en.html">OUR HARBOUR</a>
+        <a href="MonCompte-en.html">MY ACCOUNT</a>
+        <a href="historique-en.html">HISTORY</a>
+        <a href="faq-en.html">FAQ</a>
+        <a href="avis-en.html">OPINION</a>
         <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
 </div>
@@ -36,7 +36,7 @@
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Historique</h1>
+        <h1 class="page-title">History</h1>
     </div>
 </div>
 
@@ -49,9 +49,9 @@
             <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
         </div>
     </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
-    <a href="favoris.html">
+    <a href="a-propos-en.html" style="color: #577550; text-decoration: none;">About</a>
+    <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
+    <a href="favoris-en.html">
         <img src="/images/panier.png" alt="panier">
     </a>
 </div>
@@ -63,10 +63,10 @@
 
 <!-- Pied de page -->
 <footer class="bouton-bas">
-    <button onclick="viderHistorique()" class="btn-vider-historique">Vider l'historique</button>
-    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
+    <button onclick="viderHistorique()" class="btn-vider-historique">Empty History</button>
+    <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550;">Legal Notice</a>
     <span class="bottom-text" style="color: #577550;">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+    <a href="Contact-en.html" class="bottom-text" style="color: #577550;">Contact</a>
 </footer>
 
 
@@ -126,7 +126,7 @@
     const container = document.getElementById("historique-container");
 
     if (historique.length === 0) {
-        container.innerHTML = "<p style='text-align:center;'>Aucune réservation enregistrée pour le moment.</p>";
+        container.innerHTML = "<p style='text-align:center;'>No reservations recorded yet.</p>";
     } else {
         historique.forEach(bateau => {
             container.innerHTML += `
@@ -138,7 +138,7 @@
                     <p><strong>Longueur :</strong> ${bateau.longueur}</p>
                     <p><strong>Prix :</strong> ${bateau.prix}</p>
                     <img src="${bateau.image1}" alt="${bateau.titre}">
-                    <button onclick="laisserAvis('${bateau.titre}')">Laisser un avis</button>
+                    <button onclick="laisserAvis('${bateau.titre}')">Leave a review</button>
                 </div>
             `;
         });

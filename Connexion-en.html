@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Connexion</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="mdp-oublier.css">
+  <link rel="stylesheet" href="Connexion.css">
+  <link rel="stylesheet" href="top-vert.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
@@ -27,13 +28,7 @@
 
 
 <div class="top-right">
-  <div class="language-selector">
-    <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-    <div id="lang-dropdown" class="lang-dropdown">
-      <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-      <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-    </div>
-  </div>
+  <img src="/images/drapeau-francais.png" alt="Langue">
   <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
   <a href="favoris.html">
     <img src="/images/panier.png" alt="Panier">
@@ -46,22 +41,23 @@
       <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Réinitialiser votre mot de passe</h1>
+    <h1 class="page-title">Connexion</h1>
   </div>
 
   <div class="formulaire-connexion">
     <div class="champ">
       <img src="/images/email.png" alt="email">
-      <input type="email" id="email" placeholder="E-mail lié au compte">
+      <input type="email" id="email" placeholder="Entrez votre adresse mail">
+    </div>
+    <div class="champ">
+      <img src="/images/mdp.png" alt="mot de passe">
+      <input type="password" id="password" placeholder="Entrez votre mot de passe">
     </div>
   </div>
+  <div class="connexion">Se connecter</div>
   <div class="logo-block">
-    <div class="connexion">
-      <a href="#" style="color: white; text-decoration: none;">Recevoir le lien de connexion</a>
-    </div>
-    <div class="retour">
-      <a href="Connexion.html" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
-    </div>
+    <a href="inscription.html" class="inscription" style="text-decoration: none;">Inscription</a>
+    <a href="mdp-oublier.html" class="mdp-oublier" style="text-decoration: none;">Mot de passe oublié</a>
   </div>
 </div>
 

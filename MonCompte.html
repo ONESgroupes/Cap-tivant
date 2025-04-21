@@ -27,7 +27,13 @@
 
 
 <div class="top-right">
-    <img src="/images/drapeau-francais.png" alt="Langue">
+    <div class="language-selector">
+        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown">
+            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
+            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
+        </div>
+    </div>
     <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
     <a href="favoris.html">
         <img src="/images/panier.png" alt="Panier">
@@ -80,6 +86,48 @@
         const menu = document.getElementById("menu-overlay");
         menu.classList.toggle("active");
     }
+</script>
+<script>
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
+    }
+
+    function toggleLangDropdown() {
+        const dropdown = document.getElementById("lang-dropdown");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    function changerLangue(langue) {
+        if (langue === 'fr') {
+            window.location.href = "PageAccueil.html";
+        } else if (langue === 'en') {
+            window.location.href = "PageAccueil-en.html";
+        }
+    }
+
+    window.onload = function () {
+        const currentLang = document.getElementById("current-lang");
+        const langDropdown = document.getElementById("lang-dropdown");
+
+        // Affiche uniquement le drapeau opposé dans le dropdown
+        if (window.location.href.includes("-en")) {
+            currentLang.src = "/images/drapeau-anglais.png";
+            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
+        } else {
+            currentLang.src = "/images/drapeau-francais.png";
+            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+        }
+    };
+
+    // Fermer le menu langue si on clique ailleurs
+    document.addEventListener("click", function(event) {
+        const dropdown = document.getElementById("lang-dropdown");
+        const icon = document.getElementById("current-lang");
+        if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
 </script>
 
 </body>

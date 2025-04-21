@@ -2,30 +2,27 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion</title>
-    <link rel="stylesheet" href="PageAccueil.css">
-    <link rel="stylesheet" href="inscription.css">
-    <link rel="stylesheet" href="trop-vert.css">
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <title>Cap'Tivant - Accueil</title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="PageAccueil.css">
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="/images/menu-vert.png" alt="Menu">
+    <img src="/images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
+        <a href="location-en.html">RENT</a>
+        <a href="ports-en.html">OUR HARBOUR</a>
+        <a href="MonCompte-en.html">MY ACCOUNT</a>
+        <a href="historique-en.html">HISTORY</a>
+        <a href="faq-en.html">FAQ</a>
+        <a href="avis-en.html">OPINION</a>
         <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
 </div>
-
 
 <div class="top-right">
     <div class="language-selector">
@@ -35,58 +32,39 @@
             <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
         </div>
     </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="favoris.html">
+    <a href="a-propos-en.html" class="top-infos">About</a>
+    <a href="Connexion-en.html" class="top-infos">My account</a>
+    <a href="favoris-en.html">
         <img src="/images/panier.png" alt="Panier">
     </a>
 </div>
 
 <div class="top-center">
-    <div class="logo-block">
-        <a href="PageAccueil.html">
-            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
-        </a>
-        <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Inscription</h1>
-    </div>
+    <img src="/images/logo.png" alt="Logo">
+</div>
 
-    <div class="formulaire-inscription">
-        <div class="champ">
-            <br>
-            <input type="text" placeholder="Nom">
-            <input type="text" placeholder="Prénom">
-            <img src="/images/email.png" alt="email">
-            <input type="email" placeholder="Entrez votre adresse mail">
-            <img src="/images/mdp.png" alt="mot de passe">
-            <input type="password" placeholder="Entrez votre mot de passe">
-            <input type="password" placeholder="Confirmez votre mot de passe">
-        </div>
-    </div>
-    <div class="conditions-general">
-        <label class="checkbox-container">
-            <input type="checkbox" id="mentions" required>
-            <span class="checkmark"></span>
-            <span class="conditions">Accepter les conditions d'utilisations</span>
-        </label>
-    </div>
-    <div class="inscription">S'inscrire</div>
-    <div class="logo-block">
-        <a href="Connexion.html" class="connexion">Se connecter</a>
+<div class="image-container">
+    <div class="texte-wrapper">
+        <div class="texte principal">Cap'Tivant</div>
+        <div class="texte secondaire">Boat renting</div>
     </div>
 </div>
 
-<div class="bouton-bas">
-    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
-    <span class="bottom-text" style="color: #577550">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+<div class="bottom-center">
+    <a href="MentionsLegales-en.html" class="bottom-text">Legal Notice</a>
+    <span class="bottom-text">•</span>
+    <a href="Contact-en.html" class="bottom-text">Contact</a>
 </div>
+
 
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
         menu.classList.toggle("active");
     }
+
 </script>
+
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");

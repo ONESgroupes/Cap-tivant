@@ -2,27 +2,50 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Connexion</title>
+  <title>A propos</title>
   <link rel="stylesheet" href="PageAccueil.css">
-  <link rel="stylesheet" href="mdp-oublier.css">
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="a-propos.css">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
 </head>
-<body>
+<body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
   <img src="/images/menu-vert.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
   <div class="menu-content">
-    <a href="location.html">LOCATION</a>
-    <a href="ports.html">NOS PORTS</a>
-    <a href="MonCompte.html">MON COMPTE</a>
-    <a href="historique.html">HISTORIQUE</a>
-    <a href="faq.html">FAQ</a>
-    <a href="avis.html">AVIS</a>
+    <a href="location-en.html">RENT</a>
+    <a href="ports-en.html">OUR HARBOUR</a>
+    <a href="MonCompte-en.html">MY ACCOUNT</a>
+    <a href="historique-en.html">HISTORY</a>
+    <a href="faq-en.html">FAQ</a>
+    <a href="avis-en.html">OPINION</a>
     <span onclick="toggleMenu()" class="close-menu">✕</span>
   </div>
+</div>
+
+
+<div class="top-center">
+  <div class="logo-block">
+    <a href="PageAccueil.html">
+      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+    </a>
+    <p class="logo-slogan">Cap'Tivant</p>
+    <h1 class="page-title">About</h1>
+  </div>
+</div>
+
+
+<div class="banniere">
+  <div class="texte banniere1">Cap'Tivant Crew</div>
+</div>
+
+<div class="description">
+  <p>Cap'Tivant is a boat booking platform designed to make sailing accessible to everyone. Whether you're looking for a day trip or a multi-day cruise, we offer a wide selection of boats to suit your needs.</p>
+  <p><br></p>
+  <p>Our mission is to guarantee you a smooth and pleasant experience, while facilitating the connection between owners and boating enthusiasts.</p>
 </div>
 
 
@@ -34,41 +57,16 @@
       <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
     </div>
   </div>
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="favoris.html">
+  <a href="Connexion-en.html" style="color: #577550; text-decoration: none;">My account</a>
+  <a href="favoris-en.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
 </div>
 
-<div class="top-center">
-  <div class="logo-block">
-    <a href="PageAccueil.html">
-      <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
-    </a>
-    <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Réinitialiser votre mot de passe</h1>
-  </div>
-
-  <div class="formulaire-connexion">
-    <div class="champ">
-      <img src="/images/email.png" alt="email">
-      <input type="email" id="email" placeholder="E-mail lié au compte">
-    </div>
-  </div>
-  <div class="logo-block">
-    <div class="connexion">
-      <a href="#" style="color: white; text-decoration: none;">Recevoir le lien de connexion</a>
-    </div>
-    <div class="retour">
-      <a href="Connexion.html" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
-    </div>
-  </div>
-</div>
-
 <div class="bouton-bas">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+  <a href="MentionsLegales-en.html" class="bottom-text" style="color: #577550">Legal Notice</a>
   <span class="bottom-text" style="color: #577550">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+  <a href="Contact-en.html" class="bottom-text" style="color: #577550">Contact</a>
 </div>
 
 <script>
@@ -119,6 +117,7 @@
     }
   });
 </script>
+
 
 </body>
 </html>
