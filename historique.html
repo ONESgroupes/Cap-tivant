@@ -2,84 +2,54 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Historique</title>
+    <title id="page-title">Historique</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="historique.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <script src="info-bateau.js" defer></script>
 </head>
 <body style="background-color: #c5d8d3;">
-
-<!-- Menu hamburger -->
 <div class="top-left" onclick="toggleMenu()">
     <img src="/images/menu-vert.png" alt="Menu">
 </div>
-
-<!-- Menu overlay -->
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
-
-<!-- Logo et titre -->
+<div class="top-right">
+    <div class="language-selector">
+        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown"></div>
+    </div>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
+    <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a href="favoris.html">
+        <img src="/images/panier.png" alt="Panier">
+    </a>
+</div>
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.html">
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Historique</h1>
+        <h1 class="page-title" id="titre-page">Historique</h1>
     </div>
 </div>
-
-<!-- Lien langue / compte -->
-<div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown">
-            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-        </div>
-    </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
-    <a href="favoris.html">
-        <img src="/images/panier.png" alt="panier">
-    </a>
+<div id="historique-container" class="historique-container"></div>
+<div class="bouton-bas">
+    <button id="btn-clear" onclick="viderHistorique()" class="btn-vider-historique">Vider l'historique</button>
+    <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550">&bull;</span>
+    <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
-
-<!-- Contenu central -->
-<div id="historique-container" class="historique-container">
-    <!-- Contenu généré par JavaScript -->
-</div>
-
-<!-- Pied de page -->
-<footer class="bouton-bas">
-    <button onclick="viderHistorique()" class="btn-vider-historique">Vider l'historique</button>
-    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
-    <span class="bottom-text" style="color: #577550;">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
-</footer>
-
-
-<!-- Script menu -->
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+    function getLangue() {
+        return localStorage.getItem("langue") || "fr";
     }
-</script>
-<script>
+
     function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+        document.getElementById("menu-overlay").classList.toggle("active");
     }
 
     function toggleLangDropdown() {
@@ -88,28 +58,10 @@
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "historique.html";
-        } else if (langue === 'en') {
-            window.location.href = "historique-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
-    window.onload = function () {
-        const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
-    };
-
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -117,102 +69,73 @@
             dropdown.style.display = "none";
         }
     });
-</script>
 
-<!-- Script pour afficher l'historique -->
-<script>
-    const historique = JSON.parse(localStorage.getItem("historique") || "[]");
-    const container = document.getElementById("historique-container");
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = getLangue();
+        const texte = langue === "en" ? HistoriqueEN : HistoriqueFR;
+        const commun = langue === "en" ? CommunEN : CommunFR;
+        const bateauxSource = langue === "en" ? bateauxEN : bateaux;
 
-    if (historique.length === 0) {
-        container.innerHTML = "<p style='text-align:center;'>Aucune réservation enregistrée pour le moment.</p>";
-    } else {
-        historique.forEach(bateau => {
-            container.innerHTML += `
-                <div class="historique-card">
-                    <h2>${bateau.titre}</h2>
-                    <p><strong>Port :</strong> ${bateau.port}</p>
-                    <p><strong>Personnes :</strong> ${bateau.personnes}</p>
-                    <p><strong>Cabines :</strong> ${bateau.cabines}</p>
-                    <p><strong>Longueur :</strong> ${bateau.longueur}</p>
-                    <p><strong>Prix :</strong> ${bateau.prix}</p>
-                    <img src="${bateau.image1}" alt="${bateau.titre}">
-                    <button onclick="laisserAvis('${bateau.titre}')">Laisser un avis</button>
-                </div>
-            `;
-        });
-    }
+        document.title = texte.titre;
+        document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("btn-clear").textContent = texte.vider;
+        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
 
-    function laisserAvis(titreBateau) {
-        const avisExistants = JSON.parse(localStorage.getItem("avis") || "[]");
+        const langDropdown = document.getElementById("lang-dropdown");
+        langDropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
-        // Vérifie si un avis existe déjà pour ce bateau
-        const dejaCommente = avisExistants.some(a => a.titre === titreBateau);
-        if (dejaCommente) {
-            alert("Vous avez déjà laissé un avis pour ce bateau.");
-            return;
-        }
+        const menuContent = document.getElementById("menu-links");
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
 
-        const popup = document.createElement("div");
-        popup.className = "avis-popup-overlay";
-        popup.innerHTML = `
-        <div class="avis-popup-bulle">
-            <h2>Merci pour votre réservation !</h2>
-            <p>Laissez-nous un avis sur votre expérience :</p>
-            <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
-            <label>Note :</label>
-            <select id="etoiles">
-                <option value="1">⭐</option>
-                <option value="2">⭐⭐</option>
-                <option value="3">⭐⭐⭐</option>
-                <option value="4">⭐⭐⭐⭐</option>
-                <option value="5">⭐⭐⭐⭐⭐</option>
-            </select><br><br>
-            <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
-            <button onclick="fermerAvisPopup()">Fermer</button>
-        </div>
-    `;
-        document.body.appendChild(popup);
-    }
+        document.getElementById("lien-apropos").textContent = commun.info;
+        document.getElementById("lien-compte").textContent = commun.compte;
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-contact").textContent = commun.contact;
 
-
-    function validerAvis(titreBateau) {
-        const commentaire = document.getElementById("commentaire").value.trim();
-        const etoiles = parseInt(document.getElementById("etoiles").value);
-
-        if (!commentaire || isNaN(etoiles)) {
-            alert("Merci de remplir tous les champs.");
-            return;
-        }
-
-        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
-        avis.push({
-            titre: titreBateau,
-            commentaire: commentaire,
-            etoiles: etoiles,
-            date: new Date().toLocaleDateString()
+        document.querySelectorAll(".lien-langue").forEach(lien => {
+            const page = lien.getAttribute("data-page");
+            lien.setAttribute("href", `${page}.html`);
         });
 
-        localStorage.setItem("avis", JSON.stringify(avis));
-        alert("Merci ! Votre avis a été enregistré.");
-        fermerAvisPopup();
-    }
+        const historique = JSON.parse(localStorage.getItem("historique") || "[]");
+        const container = document.getElementById("historique-container");
 
-    function fermerAvisPopup() {
-        const popup = document.querySelector(".avis-popup-overlay");
-        if (popup) popup.remove();
-    }
-</script>
+        if (historique.length === 0) {
+            container.innerHTML = `<p style='text-align:center;'>${texte.vide}</p>`;
+        } else {
+            historique.forEach(bateau => {
+                const original = bateaux.find(b => b.titre === bateau.titre);
+                const traduit = bateauxSource.find(b => b.id === original?.id);
 
-<script>
+                if (traduit) {
+                    container.innerHTML += `
+            <div class="historique-card">
+              <h2>${traduit.titre}</h2>
+              <p><strong>${texte.port} :</strong> ${traduit.port}</p>
+              <p><strong>${texte.personnes} :</strong> ${traduit.personnes}</p>
+              <p><strong>${texte.cabines} :</strong> ${traduit.cabines}</p>
+              <p><strong>${texte.longueur} :</strong> ${traduit.longueur}</p>
+              <p><strong>${texte.prix} :</strong> ${traduit.prix}</p>
+              <img src="${traduit.image1}" alt="${traduit.titre}">
+              <button onclick="laisserAvis('${traduit.titre}')">${texte.avis}</button>
+            </div>
+          `;
+                }
+            });
+        }
+    });
+
     function viderHistorique() {
         if (confirm("Es-tu sûr de vouloir supprimer tout l'historique ?")) {
             localStorage.removeItem("historique");
-            location.reload(); // recharge la page pour mettre à jour l'affichage
+            location.reload();
         }
     }
 </script>
-
-
 </body>
 </html>

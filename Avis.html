@@ -2,27 +2,29 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Avis</title>
+  <title id="page-title">Avis</title>
   <link rel="stylesheet" href="PageAccueil.css">
   <link rel="stylesheet" href="Avis.css">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+  <script src="info-bateau.js" defer></script>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
   <img src="/images/menu-vert.png" alt="Menu">
 </div>
 
+<div id="menu-overlay" class="menu-overlay">
+  <div class="menu-content" id="menu-links"></div>
+</div>
+
 <div class="top-right">
   <div class="language-selector">
     <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-    <div id="lang-dropdown" class="lang-dropdown">
-      <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-      <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-    </div>
+    <div id="lang-dropdown" class="lang-dropdown"></div>
   </div>
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon compte</a>
+  <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
+  <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon compte</a>
   <a href="favoris.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
@@ -43,21 +45,14 @@
 </div>
 
 <div class="bouton-bas">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550;">Mentions légales</a>
+  <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550;">Mentions légales</a>
   <span class="bottom-text" style="color: #577550;">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+  <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550;">Contact</a>
 </div>
 
 <script>
-  function toggleMenu() {
-    const menu = document.getElementById("menu-overlay");
-    menu.classList.toggle("active");
-  }
-</script>
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("menu-overlay");
-    menu.classList.toggle("active");
+  function getLangue() {
+    return localStorage.getItem("langue") || "fr";
   }
 
   function toggleLangDropdown() {
@@ -66,28 +61,15 @@
   }
 
   function changerLangue(langue) {
-    if (langue === 'fr') {
-      window.location.href = "Avis.html";
-    } else if (langue === 'en') {
-      window.location.href = "Avis-en.html";
-    }
+    localStorage.setItem("langue", langue);
+    location.reload();
   }
 
-  window.onload = function () {
-    const currentLang = document.getElementById("current-lang");
-    const langDropdown = document.getElementById("lang-dropdown");
+  function toggleMenu() {
+    const menu = document.getElementById("menu-overlay");
+    menu.classList.toggle("active");
+  }
 
-    // Affiche uniquement le drapeau opposé dans le dropdown
-    if (window.location.href.includes("-en")) {
-      currentLang.src = "/images/drapeau-anglais.png";
-      langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-    } else {
-      currentLang.src = "/images/drapeau-francais.png";
-      langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-    }
-  };
-
-  // Fermer le menu langue si on clique ailleurs
   document.addEventListener("click", function(event) {
     const dropdown = document.getElementById("lang-dropdown");
     const icon = document.getElementById("current-lang");
@@ -95,27 +77,55 @@
       dropdown.style.display = "none";
     }
   });
-</script>
 
-<script>
-  const avis = JSON.parse(localStorage.getItem("avis") || "[]");
-  const container = document.getElementById("avis-container");
+  document.addEventListener("DOMContentLoaded", function () {
+    const langue = getLangue();
+    const texte = langue === "en" ? AvisEN : AvisFR;
+    const commun = langue === "en" ? CommunEN : CommunFR;
 
-  if (avis.length === 0) {
-    container.innerHTML = "<p style='text-align:center;'>Aucun avis pour le moment.</p>";
-  } else {
-    avis.forEach(entry => {
-      container.innerHTML += `
+    document.title = texte.titre;
+    document.querySelector(".page-title").textContent = texte.titre;
+
+    const currentLang = document.getElementById("current-lang");
+    currentLang.src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
+
+    const langDropdown = document.getElementById("lang-dropdown");
+    langDropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+
+    document.getElementById("lien-apropos").textContent = commun.info;
+    document.getElementById("lien-compte").textContent = commun.compte;
+    document.getElementById("lien-mentions").textContent = commun.mentions;
+    document.getElementById("lien-contact").textContent = commun.contact;
+
+    const menuContent = document.getElementById("menu-links");
+    const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+    menuContent.innerHTML = commun.menu.map((item, index) => {
+      return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+    }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+
+    document.querySelectorAll(".lien-langue").forEach(lien => {
+      const page = lien.getAttribute("data-page");
+      lien.setAttribute("href", `${page}.html`);
+    });
+
+    const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+    const container = document.getElementById("avis-container");
+
+    if (avis.length === 0) {
+      container.innerHTML = `<p style='text-align:center;'>${texte.aucunAvis}</p>`;
+    } else {
+      container.innerHTML = avis.map(entry => `
         <div class="avis-card">
           <h3>${entry.titre}</h3>
           <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
           <p class="commentaire">"${entry.commentaire}"</p>
           <p class="date">${entry.date}</p>
         </div>
-      `;
-    });
-  }
+      `).join('');
+    }
+  });
 </script>
-
 </body>
 </html>

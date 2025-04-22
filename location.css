@@ -9,7 +9,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center; /* Centrage vertical */
+    min-height: 60vh; /* hauteur minimum pour placement */
 }
+
 
 .champ {
     display: flex;
@@ -36,7 +39,7 @@ body {
 .champ-double {
     display: flex;
     justify-content: center;
-    gap: 40px; /* espace entre les boutons */
+    gap: 20px;
 }
 
 .champ-double input {
@@ -70,6 +73,7 @@ body {
     background-color: rgba(197, 216, 211, 0.8);
     border-radius: 20px;
     border: none;
+    padding: 20px 20px;
 }
 
 .connexion {
@@ -107,16 +111,18 @@ body {
 }
 
 .bouton-type {
+    width: 230px; /* même largeur que les champs input */
     background-color: #e6ece9;
     border: none;
     border-radius: 20px;
-    padding: 12px 24px;
-    font-size: 1em;
+    padding: 12px;
+    font-size: 0.95em;
     cursor: pointer;
-    margin: 0 10px;
     transition: background-color 0.3s, color 0.3s;
     font-family: 'DM Serif Display', serif;
+    text-align: center;
 }
+
 
 .bouton-type.active {
     background-color: rgba(242, 144, 102, 0.9);

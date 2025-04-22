@@ -2,12 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Connexion</title>
+    <title id="page-title">Inscription</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="inscription.css">
-    <link rel="stylesheet" href="trop-vert.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <script src="info-bateau.js"></script>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -15,27 +15,16 @@
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
-
 
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown">
-            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-        </div>
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="a-propos-link" href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="mon-compte-link" href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
     <a href="favoris.html">
         <img src="/images/panier.png" alt="Panier">
     </a>
@@ -47,46 +36,40 @@
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Inscription</h1>
+        <h1 class="page-title" id="titre-page"></h1>
     </div>
 
     <div class="formulaire-inscription">
         <div class="champ">
             <br>
-            <input type="text" placeholder="Nom">
-            <input type="text" placeholder="Prénom">
+            <input type="text" id="nom" placeholder="Nom">
+            <input type="text" id="prenom" placeholder="Prénom">
             <img src="/images/email.png" alt="email">
-            <input type="email" placeholder="Entrez votre adresse mail">
+            <input type="email" id="email" placeholder="Entrez votre adresse mail">
             <img src="/images/mdp.png" alt="mot de passe">
-            <input type="password" placeholder="Entrez votre mot de passe">
-            <input type="password" placeholder="Confirmez votre mot de passe">
+            <input type="password" id="mdp" placeholder="Entrez votre mot de passe">
+            <input type="password" id="mdp-confirm" placeholder="Confirmez votre mot de passe">
         </div>
     </div>
     <div class="conditions-general">
         <label class="checkbox-container">
             <input type="checkbox" id="mentions" required>
             <span class="checkmark"></span>
-            <span class="conditions">Accepter les conditions d'utilisations</span>
+            <span class="conditions" id="conditions-text">Accepter les conditions d'utilisations</span>
         </label>
     </div>
-    <div class="inscription">S'inscrire</div>
+    <div class="inscription" id="btn-inscription">S'inscrire</div>
     <div class="logo-block">
-        <a href="Connexion.html" class="connexion">Se connecter</a>
+        <a href="Connexion.html" class="connexion" id="lien-connexion">Se connecter</a>
     </div>
 </div>
 
 <div class="bouton-bas">
-    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+    <a id="lien-mentions" href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
     <span class="bottom-text" style="color: #577550">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+    <a id="lien-contact" href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
 </div>
 
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
-    }
-</script>
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
@@ -99,28 +82,10 @@
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "Inscription.html";
-        } else if (langue === 'en') {
-            window.location.href = "inscription-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
-    window.onload = function () {
-        const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
-    };
-
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -128,7 +93,43 @@
             dropdown.style.display = "none";
         }
     });
-</script>
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = localStorage.getItem("langue") || "fr";
+        const texte = langue === "en" ? InscriptionEN : InscriptionFR;
+        const commun = langue === "en" ? CommunEN : CommunFR;
+
+        document.getElementById("page-title").textContent = texte.titre;
+        document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("nom").placeholder = texte.nom;
+        document.getElementById("prenom").placeholder = texte.prenom;
+        document.getElementById("email").placeholder = texte.email;
+        document.getElementById("mdp").placeholder = texte.mdp;
+        document.getElementById("mdp-confirm").placeholder = texte.confirmerMdp;
+        document.getElementById("conditions-text").textContent = texte.conditions;
+        document.getElementById("btn-inscription").textContent = texte.bouton;
+        document.getElementById("lien-connexion").textContent = texte.lienConnexion;
+
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-mentions").href = "MentionsLegales.html";
+        document.getElementById("lien-contact").textContent = commun.contact;
+        document.getElementById("lien-contact").href = "Contact.html";
+
+        document.getElementById("a-propos-link").textContent = commun.info;
+        document.getElementById("mon-compte-link").textContent = commun.compte;
+
+        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
+        const langDropdown = document.getElementById("lang-dropdown");
+        langDropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        const menuContent = document.getElementById("menu-links");
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a href="${liens[index]}.html">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+    });
+</script>
 </body>
 </html>

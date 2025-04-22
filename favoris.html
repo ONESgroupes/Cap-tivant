@@ -2,13 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mes Favoris</title>
+    <title id="page-title">Mon panier</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="favoris.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-    <style>
-    </style>
+    <script src="info-bateau.js" defer></script>
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
@@ -16,15 +15,16 @@
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    <div class="menu-content" id="menu-links"></div>
+</div>
+
+<div class="top-right">
+    <div class="language-selector">
+        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon Compte</a>
 </div>
 
 <div class="top-center">
@@ -33,43 +33,25 @@
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Mon panier</h1>
+        <h1 class="page-title" id="titre-page">Mon panier</h1>
     </div>
 </div>
 
-<div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown">
-            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-        </div>
-    </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
-</div>
-
-<!-- CONTENEUR DES FAVORIS -->
-<div class="favoris-container" id="favoris-container">
-    <!-- Cartes JS ici -->
-</div>
+<div class="favoris-container" id="favoris-container"></div>
 
 <div class="bouton-bas">
-    <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
-    <span class="bottom-text" style="color: #577550">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550;">Contact</a>
+    <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
+    <span class="bottom-text" style="color: #577550">&bull;</span>
+    <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
 
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+    function getLangue() {
+        return localStorage.getItem("langue") || "fr";
     }
-</script>
-<script>
+
     function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+        document.getElementById("menu-overlay").classList.toggle("active");
     }
 
     function toggleLangDropdown() {
@@ -78,28 +60,10 @@
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "favoris.html";
-        } else if (langue === 'en') {
-            window.location.href = "favoris-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
-    window.onload = function () {
-        const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
-    };
-
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -107,73 +71,63 @@
             dropdown.style.display = "none";
         }
     });
-</script>
 
-<!-- Ajouter ce script dans ta page payement.html -->
-<script>
-    document.getElementById("btn-payer").addEventListener("click", function () {
-        const avis = prompt("Merci pour votre réservation ! Laissez un commentaire sur votre expérience :");
-        let note;
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = getLangue();
+        const commun = langue === "en" ? CommunEN : CommunFR;
+        const texte = langue === "en" ? FavorisEN : FavorisFR;
+        const bateauxSource = langue === "en" ? bateauxEN : bateaux;
 
-        // Boucle tant que l'utilisateur ne donne pas un nombre valide entre 1 et 5
-        do {
-            note = prompt("Notez votre expérience entre 1 et 5 étoiles :");
-        } while (!note || isNaN(note) || note < 1 || note > 5);
+        document.title = texte.titre;
+        document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
 
-        // Récupération du bateau
-        const params = new URLSearchParams(window.location.search);
-        const id = parseInt(params.get("id"));
-        const bateau = bateaux.find(b => b.id === id);
+        const langDropdown = document.getElementById("lang-dropdown");
+        langDropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
-        if (bateau) {
-            bateau.avisClient = {
-                commentaire: avis,
-                note: parseInt(note)
-            };
+        const menuContent = document.getElementById("menu-links");
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
 
-            let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+        // Traduction top & bottom
+        document.getElementById("lien-apropos").textContent = commun.info;
+        document.getElementById("lien-compte").textContent = commun.compte;
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-contact").textContent = commun.contact;
 
-            // Ajoute ou met à jour le bateau dans les favoris
-            const index = favoris.findIndex(f => f.id === bateau.id);
-            if (index !== -1) {
-                favoris[index] = bateau;
-            } else {
-                favoris.push(bateau);
-            }
-
-            localStorage.setItem("favoris", JSON.stringify(favoris));
-        }
-
-        alert("Merci ! Votre avis a été enregistré. Vous allez maintenant être redirigé vers la page d'accueil.");
-        window.location.href = "PageAccueil.html";
-    });
-</script>
-
-<!-- Puis, modifie le JS de ta page favoris.html pour afficher l'avis -->
-<script>
-    let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
-    const container = document.getElementById("favoris-container");
-
-    if (favoris.length === 0) {
-        container.innerHTML = "<p style='text-align:center; width: 100%; font-family: DM Serif Display;'>Aucun favori pour le moment.</p>";
-    } else {
-        favoris.forEach(bateau => {
-            container.innerHTML += `
-                <div class="favori-card">
-                    <img src="${bateau.image1}" alt="${bateau.titre}">
-                    <h3>${bateau.titre}</h3>
-                    <p>${bateau.personnes} • ${bateau.cabines}</p>
-                    ${bateau.avisClient ? `<p><strong>Note :</strong> ${'⭐'.repeat(bateau.avisClient.note)}</p>
-                    <p><em>"${bateau.avisClient.commentaire}"</em></p>` : ''}
-                    <a href="info-bateau.html?id=${bateau.id}">Voir le bateau</a>
-                    <button onclick="retirerFavori(${bateau.id})">Retirer</button>
-                </div>
-            `;
+        document.querySelectorAll(".lien-langue").forEach(lien => {
+            const page = lien.getAttribute("data-page");
+            lien.setAttribute("href", `${page}.html`);
         });
-    }
-</script>
 
-<script>
+        const container = document.getElementById("favoris-container");
+        let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
+
+        if (favoris.length === 0) {
+            container.innerHTML = `<p style='text-align:center; width: 100%; font-family: DM Serif Display;'>${texte.aucun}</p>`;
+        } else {
+            container.innerHTML = "";
+            favoris.forEach(fav => {
+                const bateau = bateauxSource.find(b => b.id === fav.id);
+                if (!bateau) return;
+                container.innerHTML += `
+          <div class="favori-card">
+            <img src="${bateau.image1}" alt="${bateau.titre}">
+            <h3>${bateau.titre}</h3>
+            <p>${bateau.personnes} &bull; ${bateau.cabines}</p>
+            ${fav.avisClient ? `<p><strong>${texte.note} :</strong> ${'⭐'.repeat(fav.avisClient.note)}</p><p><em>"${fav.avisClient.commentaire}"</em></p>` : ''}
+            <a href="info-bateau.html?id=${bateau.id}">${texte.voir}</a>
+            <button onclick="retirerFavori(${bateau.id})">${texte.retirer}</button>
+          </div>
+        `;
+            });
+        }
+    });
+
     function retirerFavori(id) {
         let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
         favoris = favoris.filter(bateau => bateau.id !== id);
@@ -181,6 +135,5 @@
         location.reload();
     }
 </script>
-
 </body>
 </html>

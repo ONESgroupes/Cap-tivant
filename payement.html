@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8" />
-    <title>Paiement</title>
+    <title id="page-title"></title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="payement.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
@@ -10,8 +10,6 @@
     <script src="info-bateau.js"></script>
 </head>
 <body>
-
-<!-- Menu hamburger -->
 <div class="top-left" onclick="toggleMenu()">
     <img src="/images/menu.png" alt="Menu">
 </div>
@@ -33,8 +31,6 @@
         <h1 class="page-title" id="titre-bateau" style="color: #E0E0D5">Paiement</h1>
     </div>
 </div>
-
-<!-- Menu overlay -->
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content">
         <a href="location.html">LOCATION</a>
@@ -62,8 +58,6 @@
         <img src="/images/panier.png" alt="panier">
     </a>
 </div>
-
-<!-- Bloc central -->
 <div class="background">
     <div class="conteneur-info">
         <div class="carte-bateau" id="carte-bateau">
@@ -97,8 +91,6 @@
         </div>
     </div>
 </div>
-
-<!-- Paiement -->
 <div class="total-et-paiement" id="zone-paiement">
     <br>
     <p><strong>Total à payer :</strong> <span id="total-prix">0€</span></p>
@@ -140,8 +132,35 @@
     const lienRetour = document.getElementById("lien-retour-offre");
     lienRetour.href = categorie ? `offre.html?categorie=${categorie}` : "offre.html";
 
-    if (typeof bateaux !== "undefined") {
-        const bateau = bateaux.find(b => b.id === id);
+    const langue = localStorage.getItem("langue") || "fr";
+    const dataBateaux = langue === "en" ? bateauxEN : bateaux;
+    const texte = langue === "en" ? PaiementEN : PaiementFR;
+    const texteCommun = langue === "en" ? CommunEN : CommunFR;
+
+    // Mise à jour des textes communs
+    document.querySelector('a[href="a-propos.html"]').textContent = texteCommun.info;
+    document.querySelector('a[href="Connexion.html"]').textContent = texteCommun.compte;
+    document.querySelector('a[href="MentionsLegales.html"]').textContent = texteCommun.mentions;
+    document.querySelector('a[href="Contact.html"]').textContent = texteCommun.contact;
+
+    // Mise à jour du menu gauche si tu l'as
+    const menuItems = document.querySelectorAll('#menu-overlay .menu-content a');
+    menuItems.forEach((link, index) => {
+        if (texteCommun.menu[index]) {
+            link.textContent = texteCommun.menu[index];
+        }
+    });
+
+    localStorage.setItem("langue", langue);
+
+    document.title = texte.titre;
+    document.getElementById("titre-bateau").textContent = texte.titre;
+    document.querySelector(".retour-offre a").textContent = texte.offre + " >";
+    document.querySelector(".retour-offre label").textContent = texte.reservation;
+
+
+    if (typeof dataBateaux !== "undefined") {
+        const bateau = dataBateaux.find(b => b.id === id);
         if (bateau) {
             const { moyenne, total } = calculerMoyenneAvis(bateau.titre);
             document.getElementById("titre-bateau-label").textContent = bateau.titre;
@@ -153,6 +172,7 @@
             document.getElementById("prix").textContent = bateau.prix;
             document.getElementById("avis").textContent = genererAvisTexte(moyenne, total);
             document.getElementById("lien-info-bateau").href = `info-bateau.html?id=${bateau.id}`;
+
 
             const chiffres = bateau.prix.match(/\d+/g);
             const prixBase = chiffres ? parseInt(chiffres.join("")) : 0;
@@ -178,7 +198,7 @@
             const defaultOption = document.createElement("option");
             defaultOption.disabled = true;
             defaultOption.selected = true;
-            defaultOption.textContent = "Choisissez un nombre";
+            defaultOption.textContent = texte.choisirNombre;
             select.appendChild(defaultOption);
             for (let i = 1; i <= nbPersonnesMax; i++) {
                 const option = document.createElement("option");
@@ -187,61 +207,67 @@
                 select.appendChild(option);
             }
 
-            // Appel direct de la fonction "payer" au clic
+            document.querySelector('label[for="select-personnes"]').innerHTML = `<strong>${texte.selectLabel}</strong>`;
+            document.querySelector('label[for="enfant-checkbox"]').textContent = texte.enfantLabel;
+            document.querySelector('.options-bateau h3').textContent = texte.optionsTitre;
+
+            const optionLabels = document.querySelectorAll('.option-checkbox');
+            optionLabels[0].nextSibling.textContent = " " + texte.skipper;
+            optionLabels[1].nextSibling.textContent = " " + texte.nettoyage;
+            optionLabels[2].nextSibling.textContent = " " + texte.literie;
+
+            document.querySelector('.total-et-paiement p strong').textContent = texte.total;
+            document.getElementById("btn-payer").textContent = texte.payer;
+
             document.getElementById("btn-payer").addEventListener("click", () => {
-                payer(id); // "id" est bien récupéré plus haut depuis l'URL
+                payer(id);
             });
         }
     }
 
     function payer(id) {
-        const bateau = bateaux.find(b => b.id === id);
+        const data = langue === "en" ? bateauxEN : bateaux;
+        const bateau = data.find(b => b.id === id);
         if (!bateau) return;
         let historique = JSON.parse(localStorage.getItem("historique") || "[]");
         if (!historique.some(h => Number(h.id) === Number(bateau.id))) {
             historique.push(bateau);
             localStorage.setItem("historique", JSON.stringify(historique));
-            alert("Merci d'avoir réservé chez nous ! À bientôt");
+            alert(texte.merci);
             window.location.href = "historique.html";
         } else {
-            alert("Vous avez déjà réservé ce bateau.");
+            alert(texte.dejaReserve);
         }
     }
 </script>
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
-    }
-
     function toggleLangDropdown() {
         const dropdown = document.getElementById("lang-dropdown");
-        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        dropdown.innerHTML = "";
+
+        const currentLang = localStorage.getItem("langue") || "fr";
+        const newLang = currentLang === "fr" ? "en" : "fr";
+        const newFlag = document.createElement("img");
+        newFlag.src = newLang === "fr" ? "/images/drapeau-francais.png" : "/images/drapeau-anglais.png";
+        newFlag.alt = newLang === "fr" ? "Français" : "Anglais";
+        newFlag.classList.add("drapeau-option");
+        newFlag.onclick = () => changerLangue(newLang);
+
+        dropdown.appendChild(newFlag);
+        dropdown.style.display = "block";
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "payement.html";
-        } else if (langue === 'en') {
-            window.location.href = "payement-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
     window.onload = function () {
         const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
+        const langue = localStorage.getItem("langue") || "fr";
+        currentLang.src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
     };
 
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -250,6 +276,5 @@
         }
     });
 </script>
-
 </body>
 </html>

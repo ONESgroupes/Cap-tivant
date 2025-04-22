@@ -1,16 +1,15 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns="http://www.w3.org/1999/html">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Location</title>
+  <title id="page-title"></title>
   <link rel="stylesheet" href="ports.css">
   <link rel="stylesheet" href="PageAccueil.css">
   <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
@@ -19,12 +18,12 @@
 
 <div id="menu-overlay" class="menu-overlay">
   <div class="menu-content">
-    <a href="location.html">LOCATION</a>
-    <a href="ports.html">NOS PORTS</a>
-    <a href="MonCompte.html">MON COMPTE</a>
-    <a href="historique.html">HISTORIQUE</a>
-    <a href="faq.html">FAQ</a>
-    <a href="avis.html">AVIS</a>
+    <a href="location.html" id="menu-location"></a>
+    <a href="ports.html" id="menu-ports"></a>
+    <a href="MonCompte.html" id="menu-compte"></a>
+    <a href="historique.html" id="menu-historique"></a>
+    <a href="faq.html" id="menu-faq"></a>
+    <a href="avis.html" id="menu-avis"></a>
     <span onclick="toggleMenu()" class="close-menu">✕</span>
   </div>
 </div>
@@ -35,27 +34,21 @@
       <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
     </a>
     <p class="logo-slogan">Cap'Tivant</p>
-    <h1 class="page-title">Nos Ports</h1>
+    <h1 class="page-title" id="titre-page">Nos Ports</h1>
   </div>
-
 </div>
-
 
 <div class="top-right">
   <div class="language-selector">
     <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-    <div id="lang-dropdown" class="lang-dropdown">
-      <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-      <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-    </div>
+    <div id="lang-dropdown" class="lang-dropdown"></div>
   </div>
-  <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-  <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+  <a href="a-propos.html" id="lien-apropos" style="color: #577550; text-decoration: none;"></a>
+  <a href="Connexion.html" id="lien-compte" style="color: #577550; text-decoration: none;"></a>
   <a href="favoris.html">
     <img src="/images/panier.png" alt="Panier">
   </a>
 </div>
-
 
 <main>
   <div class="carte-container">
@@ -64,17 +57,11 @@
 </main>
 
 <div class="bouton-bas">
-  <a href="MentionsLegales.html" class="bottom-text" style="color: #577550">Mentions légales</a>
+  <a href="MentionsLegales.html" id="lien-mentions" class="bottom-text" style="color: #577550"></a>
   <span class="bottom-text" style="color: #577550">•</span>
-  <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+  <a href="Contact.html" id="lien-contact" class="bottom-text" style="color: #577550"></a>
 </div>
 
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("menu-overlay");
-    menu.classList.toggle("active");
-  }
-</script>
 <script>
   function toggleMenu() {
     const menu = document.getElementById("menu-overlay");
@@ -87,28 +74,39 @@
   }
 
   function changerLangue(langue) {
-    if (langue === 'fr') {
-      window.location.href = "ports.html";
-    } else if (langue === 'en') {
-      window.location.href = "ports-en.html";
-    }
+    localStorage.setItem("langue", langue);
+    location.reload();
   }
 
   window.onload = function () {
-    const currentLang = document.getElementById("current-lang");
-    const langDropdown = document.getElementById("lang-dropdown");
+    const langue = localStorage.getItem("langue") || "fr";
 
-    // Affiche uniquement le drapeau opposé dans le dropdown
-    if (window.location.href.includes("-en")) {
-      currentLang.src = "/images/drapeau-anglais.png";
-      langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-    } else {
-      currentLang.src = "/images/drapeau-francais.png";
-      langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-    }
+    document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
+    const texte = langue === "en" ? PortsEN : PortsFR;
+    const texteCommun = langue === "en" ? CommunEN : CommunFR;
+
+    // Mise à jour des textes communs
+
+    document.querySelector('a[href="a-propos.html"]').textContent = texteCommun.info;
+    document.querySelector('a[href="Connexion.html"]').textContent = texteCommun.compte;
+    document.querySelector('a[href="MentionsLegales.html"]').textContent = texteCommun.mentions;
+    document.querySelector('a[href="Contact.html"]').textContent = texteCommun.contact;
+    document.getElementById("titre-page").textContent = texte.titre;
+
+    // Mise à jour du menu gauche si tu l'as
+    const menuItems = document.querySelectorAll('#menu-overlay .menu-content a');
+    menuItems.forEach((link, index) => {
+      if (texteCommun.menu[index]) {
+        link.textContent = texteCommun.menu[index];
+      }
+    });
+
+    const dropdown = document.getElementById("lang-dropdown");
+    dropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
   };
 
-  // Fermer le menu langue si on clique ailleurs
   document.addEventListener("click", function(event) {
     const dropdown = document.getElementById("lang-dropdown");
     const icon = document.getElementById("current-lang");

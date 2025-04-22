@@ -2,11 +2,12 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mentions légales</title>
+    <title id="page-title">Mentions légales</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="MentionsLegales.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
+    <script src="info-bateau.js"></script>
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
@@ -14,27 +15,16 @@
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
 
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown">
-            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-        </div>
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a href="a-propos.html" style="color: #577550; text-decoration: none;">À propos</a>
-    <a href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a id="a-propos-link" href="a-propos.html" style="color: #577550; text-decoration: none;">A propos</a>
+    <a id="mon-compte-link" href="Connexion.html" style="color: #577550; text-decoration: none;">Mon Compte</a>
     <a href="favoris.html">
         <img src="/images/panier.png" alt="Panier">
     </a>
@@ -46,40 +36,19 @@
             <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Mentions légales</h1>
+        <h1 class="page-title" id="titre-page"></h1>
     </div>
 
-    <div class="texte-legale" style="max-width: 800px; margin-top: 100px; padding: 20px; font-family: 'DM Serif Display', serif; font-size: 0.95em; line-height: 1.6em; color: #335533; text-align: justify;">
-        <p>Compagnie Cap’Tivant, Société Anonyme au capital de 2 500 000€ immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro B 542 056 385.</p>
-        <p>Numéro de TVA intracommunautaire : FR66572826359</p>
-        <p>SIRET : 57006875500219</p>
-        <p>Adresse du Siège Social : Port de la conférence, 75008 Paris</p>
-        <p>Contact : Téléphone : +33 1 43 25 86 10</p>
-        <p>Hébergeur : OVH</p>
-        <p><strong>Crédits photos :</strong></p>
-        <ul>
-            <li>Page Accueil - Belle vue © LR Photographies/Fotolia</li>
-            <li>Page Nos offres – Bateaux à louer © Erika / Fotolia</li>
-            <li>Page Nos ports – France © Cartographie / Fotolia</li>
-        </ul>
-        <p><strong>Données personnelles</strong></p>
-        <p>La Compagnie Cap’Tivant a mis en place une politique de confidentialité pour protéger vos données personnelles.</p>
-        <p>DPO : Patricia Conde Cespedes</p>
+    <div id="texte-legale" class="texte-legale" style="max-width: 800px; margin-top: 100px; padding: 20px; font-family: 'DM Serif Display', serif; font-size: 0.95em; line-height: 1.6em; color: #335533; text-align: justify;">
     </div>
 </div>
 
 <div class="bouton-bas">
-    <span class="bottom-text" style="color: #577550">•</span>
-    <a href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
-    <span class="bottom-text" style="color: #577550">•</span>
+    <span class="bottom-text" style="color: #577550">&bull;</span>
+    <a id="lien-contact" href="Contact.html" class="bottom-text" style="color: #577550">Contact</a>
+    <span class="bottom-text" style="color: #577550">&bull;</span>
 </div>
 
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
-    }
-</script>
 <script>
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
@@ -92,28 +61,10 @@
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "MentionsLegales.html";
-        } else if (langue === 'en') {
-            window.location.href = "MentionsLegales-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
-    window.onload = function () {
-        const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
-    };
-
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -121,7 +72,33 @@
             dropdown.style.display = "none";
         }
     });
-</script>
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = localStorage.getItem("langue") || "fr";
+        const texte = langue === "en" ? MentionsEN : MentionsFR;
+        const commun = langue === "en" ? CommunEN : CommunFR;
+
+        document.getElementById("page-title").textContent = texte.titre;
+        document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("texte-legale").innerHTML = texte.texte;
+
+        document.getElementById("lien-contact").textContent = commun.contact;
+        document.getElementById("lien-contact").href = "Contact.html";
+        document.getElementById("a-propos-link").textContent = commun.info;
+        document.getElementById("mon-compte-link").textContent = commun.compte;
+
+        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
+        const langDropdown = document.getElementById("lang-dropdown");
+        langDropdown.innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        const menuContent = document.getElementById("menu-links");
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a href="${liens[index]}.html">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+    });
+</script>
 </body>
 </html>

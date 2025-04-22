@@ -2,10 +2,11 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Cap'Tivant - Accueil</title>
+    <title id="page-title"></title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="PageAccueil.css">
+    <script src="info-bateau.js"></script>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -13,27 +14,16 @@
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.html">LOCATION</a>
-        <a href="ports.html">NOS PORTS</a>
-        <a href="MonCompte.html">MON COMPTE</a>
-        <a href="historique.html">HISTORIQUE</a>
-        <a href="faq.html">FAQ</a>
-        <a href="avis.html">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
 
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown">
-            <img id="fr-option" src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">
-            <img id="en-option" src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">
-        </div>
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a href="a-propos.html" class="top-infos">À propos</a>
-    <a href="Connexion.html" class="top-infos">Mon compte</a>
+    <a id="a-propos-link" href="a-propos.html" class="top-infos"></a>
+    <a id="compte-link" href="Connexion.html" class="top-infos"></a>
     <a href="favoris.html">
         <img src="/images/panier.png" alt="Panier">
     </a>
@@ -45,25 +35,16 @@
 
 <div class="image-container">
     <div class="texte-wrapper">
-        <div class="texte principal">Cap'Tivant</div>
-        <div class="texte secondaire">Location de bateau</div>
+        <div class="texte principal" id="texte-principal"></div>
+        <div class="texte secondaire" id="texte-secondaire"></div>
     </div>
 </div>
 
 <div class="bottom-center">
-    <a href="MentionsLegales.html" class="bottom-text">Mentions légales</a>
+    <a id="lien-mentions" href="MentionsLegales.html" class="bottom-text"></a>
     <span class="bottom-text">•</span>
-    <a href="Contact.html" class="bottom-text">Contact</a>
+    <a id="lien-contact" href="Contact.html" class="bottom-text"></a>
 </div>
-
-
-<script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
-    }
-
-</script>
 
 <script>
     function toggleMenu() {
@@ -77,28 +58,10 @@
     }
 
     function changerLangue(langue) {
-        if (langue === 'fr') {
-            window.location.href = "PageAccueil.html";
-        } else if (langue === 'en') {
-            window.location.href = "PageAccueil-en.html";
-        }
+        localStorage.setItem("langue", langue);
+        location.reload();
     }
 
-    window.onload = function () {
-        const currentLang = document.getElementById("current-lang");
-        const langDropdown = document.getElementById("lang-dropdown");
-
-        // Affiche uniquement le drapeau opposé dans le dropdown
-        if (window.location.href.includes("-en")) {
-            currentLang.src = "/images/drapeau-anglais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`;
-        } else {
-            currentLang.src = "/images/drapeau-francais.png";
-            langDropdown.innerHTML = `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-        }
-    };
-
-    // Fermer le menu langue si on clique ailleurs
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -106,7 +69,32 @@
             dropdown.style.display = "none";
         }
     });
-</script>
 
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = localStorage.getItem("langue") || "fr";
+        const commun = langue === "en" ? CommunEN : CommunFR;
+        const texte = langue === "en" ? AccueilEN : AccueilFR;
+
+        document.getElementById("page-title").textContent = texte.titre;
+        document.getElementById("texte-principal").textContent = texte.textePrincipal;
+        document.getElementById("texte-secondaire").textContent = texte.texteSecondaire;
+
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-contact").textContent = commun.contact;
+        document.getElementById("a-propos-link").textContent = commun.info;
+        document.getElementById("compte-link").textContent = commun.compte;
+
+        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
+        document.getElementById("lang-dropdown").innerHTML = langue === "en"
+            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        const menuContent = document.getElementById("menu-links");
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a href="${liens[index]}.html">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+    });
+</script>
 </body>
 </html>
