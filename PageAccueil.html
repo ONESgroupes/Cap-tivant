@@ -6,6 +6,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="info-bateau.js"></script>
 </head>
 <body>
@@ -35,7 +37,6 @@
     <img src="/images/logo.png" alt="Logo">
 </div>
 
-<!-- SECTION 1 : fond de mer avec texte -->
 <section class="section-accueil">
     <div class="texte-wrapper">
         <div class="texte principal" id="texte-principal">Cap'Tivant</div>
@@ -43,22 +44,25 @@
     </div>
 </section>
 
-<!-- SECTION 2 : image qui s'affiche en scrollant -->
 <section class="section-bateau">
     <div class="bloc-bateau-carre">
         <div class="carousel">
-            <section class="section-bateau">
-                <div class="carre-carousel-slide">
-                    <div class="carre-track-slide" id="carouselTrack">
-                        <a href="info-bateau.html?id=3"><img src="images/bateau-voile1.png" alt="Bateau 3"></a>
-                        <a href="info-bateau.html?id=1"><img src="images/bateau1.png" alt="Bateau 1"></a>
-                        <a href="info-bateau.html?id=2"><img src="images/catamaran1.png" alt="Bateau 2"></a>
-                        <a href="info-bateau.html?id=4"><img src="images/moteur1.png" alt="Bateau 4"></a>
+            <div class="section-bateau">
+                <div class="contenu-bateau">
+                    <a href="ports.html" class="carte" id="carte-link">
+                        <div id="carte"></div>
+                    </a>
+                    <div class="carre-carousel-slide">
+                        <div class="carre-track-slide" id="carouselTrack">
+                            <a href="info-bateau.html?id=3"><img src="images/bateau-voile1.png" alt="Bateau 3"></a>
+                            <a href="info-bateau.html?id=1"><img src="images/bateau1.png" alt="Bateau 1"></a>
+                            <a href="info-bateau.html?id=2"><img src="images/catamaran1.png" alt="Bateau 2"></a>
+                            <a href="info-bateau.html?id=4"><img src="images/moteur1.png" alt="Bateau 4"></a>
+                        </div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
-
     </div>
 </section>
 
@@ -115,22 +119,26 @@
         const menuContent = document.getElementById("menu-links");
         menuContent.innerHTML = commun.menu.map((item, index) => {
             return `<a href="${liens[index]}.html">${item}</a>`;
-        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">\u2715</span>';
     });
 </script>
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const track = document.querySelector(".carre-track-slide");
         const images = document.querySelectorAll(".carre-track-slide img");
-        const imageWidth = 300;
+        const imageWidth = 400;
         let index = 0;
 
         setInterval(() => {
             index = (index + 1) % images.length;
             track.style.transform = `translateX(-${index * imageWidth}px)`;
-        }, 2000); // change toutes les 3 secondes
+        }, 2000);
+
+        const map = L.map('carte').setView([47.2186, -1.5536], 5);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
     });
 </script>
-
 </body>
 </html>
