@@ -9,6 +9,8 @@
     <script src="info-bateau.js"></script>
 </head>
 <body>
+<div class="background-fixe"></div>
+
 <div class="top-left" onclick="toggleMenu()">
     <img src="/images/menu.png" alt="Menu">
 </div>
@@ -33,12 +35,32 @@
     <img src="/images/logo.png" alt="Logo">
 </div>
 
-<div class="image-container">
+<!-- SECTION 1 : fond de mer avec texte -->
+<section class="section-accueil">
     <div class="texte-wrapper">
-        <div class="texte principal" id="texte-principal"></div>
-        <div class="texte secondaire" id="texte-secondaire"></div>
+        <div class="texte principal" id="texte-principal">Cap'Tivant</div>
+        <div class="texte secondaire" id="texte-secondaire">Location de bateau</div>
     </div>
-</div>
+</section>
+
+<!-- SECTION 2 : image qui s'affiche en scrollant -->
+<section class="section-bateau">
+    <div class="bloc-bateau-carre">
+        <div class="carousel">
+            <section class="section-bateau">
+                <div class="carre-carousel-slide">
+                    <div class="carre-track-slide" id="carouselTrack">
+                        <a href="info-bateau.html?id=3"><img src="images/bateau-voile1.png" alt="Bateau 3"></a>
+                        <a href="info-bateau.html?id=1"><img src="images/bateau1.png" alt="Bateau 1"></a>
+                        <a href="info-bateau.html?id=2"><img src="images/catamaran1.png" alt="Bateau 2"></a>
+                        <a href="info-bateau.html?id=4"><img src="images/moteur1.png" alt="Bateau 4"></a>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</section>
 
 <div class="bottom-center">
     <a id="lien-mentions" href="MentionsLegales.html" class="bottom-text"></a>
@@ -96,5 +118,19 @@
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
     });
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const track = document.querySelector(".carre-track-slide");
+        const images = document.querySelectorAll(".carre-track-slide img");
+        const imageWidth = 300;
+        let index = 0;
+
+        setInterval(() => {
+            index = (index + 1) % images.length;
+            track.style.transform = `translateX(-${index * imageWidth}px)`;
+        }, 2000); // change toutes les 3 secondes
+    });
+</script>
+
 </body>
 </html>
