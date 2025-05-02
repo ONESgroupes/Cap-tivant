@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title id="page-title">Mon panier</title>
+    <title>Mes Favoris</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="favoris.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -11,59 +11,69 @@
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
-    <img src="/images/menu-vert.png" alt="Menu">
+    <img src="images/menu-vert.png" alt="Menu">
 </div>
-
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
-
 <div class="top-right">
     <div class="language-selector">
-        <img id="current-lang" src="/images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a id="lien-apropos" href="a-propos.php" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
 </div>
 
 <div class="top-center">
     <div class="logo-block">
-        <a href="PageAccueil.html">
-            <img src="/images/logo-transparent.png" alt="Logo" style="width: 30px;">
+        <a href="PageAccueil.php">
+            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title" id="titre-page">Mon panier</h1>
+        <h1 class="page-title">Mes Favoris</h1>
     </div>
 </div>
 
-<div class="favoris-container" id="favoris-container"></div>
+<div class="favoris-container">
+    <?php if (!$estConnecte): ?>
+    <p style="text-align:center; font-family: 'DM Serif Display';">Veuillez vous connecter pour voir vos favoris.</p>
+    <?php elseif (count($favoris) === 0): ?>
+    <p style="text-align:center; font-family: 'DM Serif Display';">Aucun favori enregistré.</p>
+    <?php else: ?>
+    <?php foreach ($favoris as $bateau): ?>
+    <div class="favori-card">
+        <img src="<?= htmlspecialchars($bateau['image1']) ?>" alt="<?= htmlspecialchars($bateau['titre']) ?>">
+        <h3><?= htmlspecialchars($bateau['titre']) ?></h3>
+        <p><?= htmlspecialchars($bateau['personnes']) ?> &bull; <?= htmlspecialchars($bateau['cabines']) ?></p>
+        <a href="info-bateau.php?id=<?= $bateau['id'] ?>" class="btn-voir">Voir l'offre</a>
+        <form method="post" action="favoris.php" onsubmit="return confirm('Retirer ce bateau des favoris ?');">
+            <input type="hidden" name="retirer_id" value="<?= $bateau['id'] ?>">
+            <button type="submit" class="btn-retirer">Retirer</button>
+        </form>
+    </div>
+    <?php endforeach; ?>
+    <?php endif; ?>
+</div>
 
 <div class="bouton-bas">
-    <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
+    <a href="MentionsLegales.php" class="bottom-text" style="color: #577550">Mentions légales</a>
     <span class="bottom-text" style="color: #577550">&bull;</span>
-    <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
+    <a href="Contact.php" class="bottom-text" style="color: #577550">Contact</a>
 </div>
 
 <script>
-    function getLangue() {
-        return localStorage.getItem("langue") || "fr";
-    }
-
     function toggleMenu() {
         document.getElementById("menu-overlay").classList.toggle("active");
     }
-
     function toggleLangDropdown() {
         const dropdown = document.getElementById("lang-dropdown");
         dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
     }
-
     function changerLangue(langue) {
         localStorage.setItem("langue", langue);
         location.reload();
     }
-
     document.addEventListener("click", function(event) {
         const dropdown = document.getElementById("lang-dropdown");
         const icon = document.getElementById("current-lang");
@@ -71,69 +81,6 @@
             dropdown.style.display = "none";
         }
     });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        const langue = getLangue();
-        const commun = langue === "en" ? CommunEN : CommunFR;
-        const texte = langue === "en" ? FavorisEN : FavorisFR;
-        const bateauxSource = langue === "en" ? bateauxEN : bateaux;
-
-        document.title = texte.titre;
-        document.getElementById("titre-page").textContent = texte.titre;
-        document.getElementById("current-lang").src = langue === "en" ? "/images/drapeau-anglais.png" : "/images/drapeau-francais.png";
-
-        const langDropdown = document.getElementById("lang-dropdown");
-        langDropdown.innerHTML = langue === "en"
-            ? `<img src="/images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
-            : `<img src="/images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-
-        const menuContent = document.getElementById("menu-links");
-        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
-        menuContent.innerHTML = commun.menu.map((item, index) => {
-            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
-        }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
-
-        // Traduction top & bottom
-        document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-compte").textContent = commun.compte;
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
-
-        document.querySelectorAll(".lien-langue").forEach(lien => {
-            const page = lien.getAttribute("data-page");
-            lien.setAttribute("href", `${page}.html`);
-        });
-
-        const container = document.getElementById("favoris-container");
-        let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
-
-        if (favoris.length === 0) {
-            container.innerHTML = `<p style='text-align:center; width: 100%; font-family: DM Serif Display;'>${texte.aucun}</p>`;
-        } else {
-            container.innerHTML = "";
-            favoris.forEach(fav => {
-                const bateau = bateauxSource.find(b => b.id === fav.id);
-                if (!bateau) return;
-                container.innerHTML += `
-          <div class="favori-card">
-            <img src="${bateau.image1}" alt="${bateau.titre}">
-            <h3>${bateau.titre}</h3>
-            <p>${bateau.personnes} &bull; ${bateau.cabines}</p>
-            ${fav.avisClient ? `<p><strong>${texte.note} :</strong> ${'⭐'.repeat(fav.avisClient.note)}</p><p><em>"${fav.avisClient.commentaire}"</em></p>` : ''}
-            <a href="info-bateau.html?id=${bateau.id}">${texte.voir}</a>
-            <button onclick="retirerFavori(${bateau.id})">${texte.retirer}</button>
-          </div>
-        `;
-            });
-        }
-    });
-
-    function retirerFavori(id) {
-        let favoris = JSON.parse(localStorage.getItem("favoris") || "[]");
-        favoris = favoris.filter(bateau => bateau.id !== id);
-        localStorage.setItem("favoris", JSON.stringify(favoris));
-        location.reload();
-    }
 </script>
 </body>
 </html>
