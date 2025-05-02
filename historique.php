@@ -1,47 +1,29 @@
 <?php
-session_start();
-require_once 'config.php';  // Inclure le fichier de configuration pour la connexion à la base
 
-$estConnecte = isset($_SESSION['user_id']);
-$historique = [];
+session_start(); // démarre la session si ce n’est pas déjà fait
 
-if ($estConnecte) {
-    $user_id = $_SESSION['user_id'];
+if (!isset($_SESSION['user_id'])) {
+    // Redirection si l’utilisateur n’est pas connecté
+    header('Location: Connexion.php');
+    exit;
+}
 
-    // Récupérer l'historique des réservations de l'utilisateur
-    $stmt = $pdo->prepare("SELECT h.date_reservation, b.title, b.image1, b.image2, b.capacity, b.cabins, b.length, b.price_per_week, b.port_name 
-                           FROM historique h 
-                           JOIN boats b ON h.bateau_id = b.id 
-                           WHERE h.user_id = ?");
-    $stmt->execute([$user_id]);
-    $historique = $stmt->fetchAll();
+require_once 'config.php';
 
-    if (count($historique) > 0) {
-        // Afficher l'historique
-        foreach ($historique as $reservation) {
-            echo "<div class='historique-card'>";
-            echo "<h2>" . htmlspecialchars($reservation['title']) . "</h2>";
-            echo "<p><strong>Port :</strong> " . htmlspecialchars($reservation['port_name']) . "</p>";
-            echo "<p><strong>Nombre de personnes :</strong> " . htmlspecialchars($reservation['capacity']) . "</p>";
-            echo "<p><strong>Cabines :</strong> " . htmlspecialchars($reservation['cabins']) . "</p>";
-            echo "<p><strong>Longueur :</strong> " . htmlspecialchars($reservation['length']) . "</p>";
-            echo "<p><strong>Prix par semaine :</strong> " . htmlspecialchars($reservation['price_per_week']) . "</p>";
-            echo "<img src='" . htmlspecialchars($reservation['image1']) . "' alt='" . htmlspecialchars($reservation['title']) . "'>";
-            echo "<button>Voir les détails</button>";  // Vous pouvez ajouter un lien pour voir plus de détails sur le bateau
-            echo "</div>";
-        }
-    } else {
-        echo "<p>Aucune réservation trouvée.</p>";
-    }
-} else {
-    echo "<p>Vous devez être connecté pour voir votre historique.</p>";
+// Requête pour récupérer l'historique
+try {
+    $requete = $pdo->prepare("SELECT * FROM historique");
+    $requete->execute();
+    $historiqueBdd = $requete->fetchAll();
+} catch (Exception $e) {
+    $historiqueBdd = []; // En cas d'erreur, on garde un tableau vide
 }
 ?>
 
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
     <title id="page-title">Historique</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="historique.css">
@@ -61,8 +43,8 @@ if ($estConnecte) {
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
+    <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -83,15 +65,13 @@ if ($estConnecte) {
     <span class="bottom-text" style="color: #577550">&bull;</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
-
 <script>
-    function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
-    }
-
     function getLangue() {
         return localStorage.getItem("langue") || "fr";
+    }
+
+    function toggleMenu() {
+        document.getElementById("menu-overlay").classList.toggle("active");
     }
 
     function toggleLangDropdown() {
@@ -104,11 +84,19 @@ if ($estConnecte) {
         location.reload();
     }
 
+    document.addEventListener("click", function(event) {
+        const dropdown = document.getElementById("lang-dropdown");
+        const icon = document.getElementById("current-lang");
+        if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
         const langue = getLangue();
         const texte = langue === "en" ? HistoriqueEN : HistoriqueFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-        const bateauxSource = langue === "en" ? boatsEN : boats;
+        const bateauxSource = langue === "en" ? bateauxEN : bateaux;
 
         document.title = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
@@ -117,13 +105,13 @@ if ($estConnecte) {
 
         const langDropdown = document.getElementById("lang-dropdown");
         langDropdown.innerHTML = langue === "en"
-            ? `<img src="images/drapeau-francais.png" alt="French" class="drapeau-option" onclick="changerLangue('fr')">`
-            : `<img src="images/drapeau-anglais.png" alt="English" class="drapeau-option" onclick="changerLangue('en')">`;
+            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
         const menuContent = document.getElementById("menu-links");
         const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
         menuContent.innerHTML = commun.menu.map((item, index) => {
-            return `<a href="${liens[index]}.php" class="lien-langue">${item}</a>`; // Remplacer data-page par href
+            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
 
         document.getElementById("lien-apropos").textContent = commun.info;
@@ -143,41 +131,92 @@ if ($estConnecte) {
             container.innerHTML = `<p style='text-align:center;'>${texte.vide}</p>`;
         } else {
             historique.forEach(bateau => {
-                const original = boats.find(b => b.titre === bateau.titre);
+                const original = bateaux.find(b => b.titre === bateau.titre);
                 const traduit = bateauxSource.find(b => b.id === original?.id);
 
                 if (traduit) {
                     container.innerHTML += `
-                        <div class="historique-card">
-                            <h2>${traduit.titre}</h2>
-                            <p><strong>${texte.port}:</strong> ${traduit.port}</p>
-                            <p><strong>${texte.personnes}:</strong> ${traduit.personnes}</p>
-                            <p><strong>${texte.cabines}:</strong> ${traduit.cabines}</p>
-                            <p><strong>${texte.longueur}:</strong> ${traduit.longueur}</p>
-                            <p><strong>${texte.prix}:</strong> ${traduit.prix}</p>
-                            <img src="${traduit.image1}" alt="${traduit.titre}">
-                            <button onclick="laisserAvis('${traduit.titre}')">${texte.avis}</button>
-                        </div>
-                    `;
+            <div class="historique-card">
+              <h2>${traduit.titre}</h2>
+              <p><strong>${texte.port} :</strong> ${traduit.port}</p>
+              <p><strong>${texte.personnes} :</strong> ${traduit.personnes}</p>
+              <p><strong>${texte.cabines} :</strong> ${traduit.cabines}</p>
+              <p><strong>${texte.longueur} :</strong> ${traduit.longueur}</p>
+              <p><strong>${texte.prix} :</strong> ${traduit.prix}</p>
+              <img src="${traduit.image1}" alt="${traduit.titre}">
+              <button onclick="laisserAvis('${traduit.titre}')">${texte.avis}</button>
+            </div>
+          `;
                 }
             });
         }
     });
 
+    function laisserAvis(titreBateau) {
+        const avisExistants = JSON.parse(localStorage.getItem("avis") || "[]");
+
+        // Vérifie si un avis existe déjà pour ce bateau
+        const dejaCommente = avisExistants.some(a => a.titre === titreBateau);
+        if (dejaCommente) {
+            alert("Vous avez déjà laissé un avis pour ce bateau.");
+            return;
+        }
+
+        const popup = document.createElement("div");
+        popup.className = "avis-popup-overlay";
+        popup.innerHTML = `
+        <div class="avis-popup-bulle">
+            <h2>Merci pour votre réservation !</h2>
+            <p>Laissez-nous un avis sur votre expérience :</p>
+            <textarea id="commentaire" placeholder="Votre commentaire..."></textarea><br><br>
+            <label>Note :</label>
+            <select id="etoiles">
+                <option value="1">⭐</option>
+                <option value="2">⭐⭐</option>
+                <option value="3">⭐⭐⭐</option>
+                <option value="4">⭐⭐⭐⭐</option>
+                <option value="5">⭐⭐⭐⭐⭐</option>
+            </select><br><br>
+            <button onclick="validerAvis('${titreBateau}')">Valider l'avis</button>
+            <button onclick="fermerAvisPopup()">Fermer</button>
+        </div>
+    `;
+        document.body.appendChild(popup);
+    }
+
+    function validerAvis(titreBateau) {
+        const commentaire = document.getElementById("commentaire").value.trim();
+        const etoiles = parseInt(document.getElementById("etoiles").value);
+
+        if (!commentaire || isNaN(etoiles)) {
+            alert("Merci de remplir tous les champs.");
+            return;
+        }
+
+        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+        avis.push({
+            titre: titreBateau,
+            commentaire: commentaire,
+            etoiles: etoiles,
+            date: new Date().toLocaleDateString()
+        });
+
+        localStorage.setItem("avis", JSON.stringify(avis));
+        alert("Merci ! Votre avis a été enregistré.");
+        fermerAvisPopup();
+    }
+
+    function fermerAvisPopup() {
+        const popup = document.querySelector(".avis-popup-overlay");
+        if (popup) popup.remove();
+    }
+
     function viderHistorique() {
-        if (confirm("Êtes-vous sûr de vouloir vider votre historique ?")) {
+        if (confirm("Es-tu sûr de vouloir supprimer tout l'historique ?")) {
             localStorage.removeItem("historique");
             location.reload();
         }
     }
-
-    document.addEventListener("click", function(event) {
-        const dropdown = document.getElementById("lang-dropdown");
-        const icon = document.getElementById("current-lang");
-        if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
-            dropdown.style.display = "none";
-        }
-    });
 </script>
 </body>
 </html>
