@@ -29,7 +29,7 @@ $estConnecte = isset($_SESSION['user_id']);
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">A propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -90,7 +90,6 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("lien-contact").textContent = commun.contact;
         document.getElementById("lien-contact").href = "Contact.php";
         document.getElementById("a-propos-link").textContent = commun.info;
-        document.getElementById("mon-compte-link").textContent = commun.compte;
 
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         const langDropdown = document.getElementById("lang-dropdown");
