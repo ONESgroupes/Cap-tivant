@@ -101,24 +101,23 @@ $estConnecte = isset($_SESSION['user_id']);
             </div>
         </div>
     </div>
-    <!-- Zone pour afficher les messages d'erreur venant du serveur -->
-    <div id="error-message" style="color: red; text-align: center; margin-top: 10px;">
-        <?php
-        // Afficher les messages d'erreur si présents dans l'URL
-        if (isset($_GET['error'])) {
-            $error = $_GET['error'];
-            if ($error === 'already_reserved') {
-                echo "Erreur : Vous avez déjà réservé ce bateau.";
-            } elseif ($error === 'db_error') {
-                echo "Erreur : Problème lors de l'enregistrement de la réservation.";
-            } elseif ($error === 'not_logged_in') {
-                // Vous pouvez rediriger vers la connexion ou afficher un message ici
-                echo "Erreur : Vous devez être connecté pour réserver. <a href='Connexion.php'>Se connecter</a>";
-            } else {
-                echo "Une erreur inconnue est survenue.";
+    <div id="error-message" style="color: rgb(234,61,61); text-align: center; margin-top: -10px;">
+        <strong>
+            <?php
+            if (isset($_GET['error'])) {
+                $error = $_GET['error'];
+                if ($error === 'already_reserved') {
+                    echo "Vous avez déjà réservé ce bateau.";
+                } elseif ($error === 'db_error') {
+                    echo "Problème lors de l'enregistrement de la réservation.";
+                } elseif ($error === 'not_logged_in') {
+                    echo "Vous devez être connecté pour réserver. <a href='Connexion.php'>Se connecter</a>";
+                } else {
+                    echo "Une erreur inconnue est survenue.";
+                }
             }
-        }
-        ?>
+            ?>
+        </strong>
     </div>
 </div>
 
