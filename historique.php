@@ -29,23 +29,16 @@ if ($estConnecte) {
     <img src="images/menu-vert.png" alt="Menu">
 </div>
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.php">LOCATION</a>
-        <a href="ports.php">NOS PORTS</a>
-        <a href="MonCompte.php">MON COMPTE</a>
-        <a href="historique.php">HISTORIQUE</a>
-        <a href="faq.php">FAQ</a>
-        <a href="Avis.php">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div> <!-- Ajout de id="menu-links" -->
 </div>
+
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -116,25 +109,37 @@ if ($estConnecte) {
         const commun = langue === "en" ? CommunEN : CommunFR;
         const bateauxSource = langue === "en" ? bateauxEN : bateaux;
 
+        // Mise à jour de l'affichage
         document.title = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
-        document.getElementById("btn-clear").textContent = texte.vider;
+        const btnClear = document.getElementById("btn-clear");
+        if (btnClear) btnClear.textContent = texte.vider;
+
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
 
+        // Nouveau code pour drapeau
         const langDropdown = document.getElementById("lang-dropdown");
-        langDropdown.innerHTML = langue === "en"
-            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
-            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+        langDropdown.innerHTML = "";
+        const drapeau = document.createElement("img");
+        drapeau.src = langue === "en" ? "images/drapeau-francais.png" : "images/drapeau-anglais.png";
+        drapeau.alt = langue === "en" ? "Français" : "Anglais";
+        drapeau.className = "drapeau-option";
+        drapeau.style.cursor = "pointer";
+        drapeau.addEventListener("click", function () {
+            changerLangue(langue === "en" ? "fr" : "en");
+        });
+        langDropdown.appendChild(drapeau);
 
+        // Mise à jour du menu
         const menuContent = document.getElementById("menu-links");
         const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
-        console.log("Menu traduit :", commun.menu);
         menuContent.innerHTML = commun.menu.map((item, index) => {
             return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
 
         document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-compte").textContent = commun.compte;
+        const lienCompte = document.getElementById("lien-compte") || document.getElementById("compte-link");
+        if (lienCompte) lienCompte.textContent = commun.compte;
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;
 
@@ -142,33 +147,6 @@ if ($estConnecte) {
             const page = lien.getAttribute("data-page");
             lien.setAttribute("href", `${page}.php`);
         });
-
-        const historique = JSON.parse(localStorage.getItem("historique") || "[]");
-        const container = document.getElementById("historique-container");
-
-        if (historique.length === 0) {
-            container.innerHTML = `<p style='text-align:center;'>${texte.vide}</p>`;
-        } else {
-            historique.forEach(bateau => {
-                const original = bateaux.find(b => b.titre === bateau.titre);
-                const traduit = bateauxSource.find(b => b.id === original?.id);
-
-                if (traduit) {
-                    container.innerHTML += `
-            <div class="historique-card">
-              <h2>${traduit.titre}</h2>
-              <p><strong>${texte.port} :</strong> ${traduit.port}</p>
-              <p><strong>${texte.personnes} :</strong> ${traduit.personnes}</p>
-              <p><strong>${texte.cabines} :</strong> ${traduit.cabines}</p>
-              <p><strong>${texte.longueur} :</strong> ${traduit.longueur}</p>
-              <p><strong>${texte.prix} :</strong> ${traduit.prix}</p>
-              <img src="${traduit.image1}" alt="${traduit.titre}">
-              <button onclick="laisserAvis('${traduit.titre}')">${texte.avis}</button>
-            </div>
-          `;
-                }
-            });
-        }
     });
 
     function laisserAvis(titreBateau) {

@@ -8,10 +8,7 @@ if (!isset($_SESSION['user_id'])) {
     exit;
 }
 
-session_start();
 $estConnecte = isset($_SESSION['user_id']);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -81,8 +78,7 @@ $estConnecte = isset($_SESSION['user_id']);
     }
 
     function toggleMenu() {
-        const menu = document.getElementById("menu-overlay");
-        menu.classList.toggle("active");
+        document.getElementById("menu-overlay").classList.toggle("active");
     }
 
     document.addEventListener("click", function(event) {
@@ -98,22 +94,27 @@ $estConnecte = isset($_SESSION['user_id']);
         const texte = langue === "en" ? AvisEN : AvisFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
 
+        // Titre et texte de la page
         document.title = texte.titre;
         document.querySelector(".page-title").textContent = texte.titre;
 
+        // Drapeau
         const currentLang = document.getElementById("current-lang");
         currentLang.src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
 
         const langDropdown = document.getElementById("lang-dropdown");
-        langDropdown.innerHTML = langue === "en"
-            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
-            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+        langDropdown.innerHTML = "";
+        const drapeau = document.createElement("img");
+        drapeau.src = langue === "en" ? "images/drapeau-francais.png" : "images/drapeau-anglais.png";
+        drapeau.alt = langue === "en" ? "Français" : "Anglais";
+        drapeau.className = "drapeau-option";
+        drapeau.style.cursor = "pointer";
+        drapeau.addEventListener("click", function () {
+            changerLangue(langue === "en" ? "fr" : "en");
+        });
+        langDropdown.appendChild(drapeau);
 
-        document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-compte").textContent = commun.compte;
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
-
+        // Menu dynamique
         const menuContent = document.getElementById("menu-links");
         const compteLien = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
         const liens = ["location", "ports", compteLien, "historique", "faq", "avis"];
@@ -126,6 +127,13 @@ $estConnecte = isset($_SESSION['user_id']);
             lien.setAttribute("href", `${page}.php`);
         });
 
+        // Liens fixes
+        document.getElementById("lien-apropos").textContent = commun.info;
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-contact").textContent = commun.contact;
+        document.getElementById("compte-link").textContent = commun.compte;
+
+        // Avis (depuis localStorage)
         const avis = JSON.parse(localStorage.getItem("avis") || "[]");
         const container = document.getElementById("avis-container");
 
@@ -133,13 +141,13 @@ $estConnecte = isset($_SESSION['user_id']);
             container.innerHTML = `<p style='text-align:center;'>${texte.aucunAvis}</p>`;
         } else {
             container.innerHTML = avis.map(entry => `
-        <div class="avis-card">
-          <h3>${entry.titre}</h3>
-          <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
-          <p class="commentaire">"${entry.commentaire}"</p>
-          <p class="date">${entry.date}</p>
-        </div>
-      `).join('');
+                <div class="avis-card">
+                    <h3>${entry.titre}</h3>
+                    <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
+                    <p class="commentaire">"${entry.commentaire}"</p>
+                    <p class="date">${entry.date}</p>
+                </div>
+            `).join('');
         }
     });
 </script>

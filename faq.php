@@ -2,7 +2,6 @@
 session_start();
 require_once 'config.php';
 
-
 $faq_data = [
     [
         'question_fr' => "Comment réserver un bateau ?",
@@ -24,10 +23,7 @@ $faq_data = [
     ]
 ];
 
-session_start();
 $estConnecte = isset($_SESSION['user_id']);
-
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -72,18 +68,27 @@ $estConnecte = isset($_SESSION['user_id']);
             const texte = langue === "en" ? FAQEN : FAQFR;
             const commun = langue === "en" ? CommunEN : CommunFR;
 
+            // Mise à jour du titre
             document.title = texte.titre;
             document.querySelector(".page-title").textContent = texte.titre;
 
-            document.getElementById("current-lang").src = langue === "en"
-                ? "images/drapeau-anglais.png"
-                : "images/drapeau-francais.png";
+            // Mise à jour du drapeau langue
+            const currentLang = document.getElementById("current-lang");
+            currentLang.src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
 
             const langDropdown = document.getElementById("lang-dropdown");
-            langDropdown.innerHTML = langue === "en"
-                ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
-                : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+            langDropdown.innerHTML = "";
+            const drapeau = document.createElement("img");
+            drapeau.src = langue === "en" ? "images/drapeau-francais.png" : "images/drapeau-anglais.png";
+            drapeau.alt = langue === "en" ? "Français" : "Anglais";
+            drapeau.className = "drapeau-option";
+            drapeau.style.cursor = "pointer";
+            drapeau.addEventListener("click", function () {
+                changerLangue(langue === "en" ? "fr" : "en");
+            });
+            langDropdown.appendChild(drapeau);
 
+            // Menu
             const menuContent = document.getElementById("menu-links");
             const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
             menuContent.innerHTML = commun.menu.map((item, index) => {
@@ -95,54 +100,46 @@ $estConnecte = isset($_SESSION['user_id']);
                 lien.setAttribute("href", `${page}.php`);
             });
 
+            // Lien Mon Compte
+            const lienCompte = document.getElementById("compte-link");
+            if (lienCompte && commun.compte) {
+                lienCompte.textContent = commun.compte;
+            }
+
+            // Lien À propos
+            const lienApropos = document.getElementById("lien-apropos");
+            if (lienApropos) {
+                lienApropos.textContent = commun.info;
+                lienApropos.setAttribute("href", "a-propos.php");
+            }
+
+            // Mentions légales et contact
+            document.getElementById("lien-mentions").textContent = commun.mentions;
+            document.getElementById("lien-contact").textContent = commun.contact;
+
+            // Données FAQ
             const faqData = <?= json_encode($faq_data) ?>;
             const container = document.querySelector(".faq-container");
             container.innerHTML = faqData.map(item => {
                 const q = langue === "en" ? item.question_en : item.question_fr;
                 const a = langue === "en" ? item.reponse_en : item.reponse_fr;
                 return `
-          <div class="faq-item">
-            <button class="faq-question">${q}</button>
-            <div class="faq-answer"><p>${a}</p></div>
-          </div>`;
+                    <div class="faq-item">
+                        <button class="faq-question">${q}</button>
+                        <div class="faq-answer"><p>${a}</p></div>
+                    </div>`;
             }).join("");
 
-            // gestion du toggle des questions
-            const questions = document.querySelectorAll('.faq-question');
-            questions.forEach(q => {
+            // Toggle affichage réponses
+            document.querySelectorAll('.faq-question').forEach(q => {
                 q.addEventListener('click', () => {
                     const answer = q.nextElementSibling;
-
                     document.querySelectorAll('.faq-answer').forEach(a => {
-                        if (a !== answer) {
-                            a.style.maxHeight = null;
-                        }
+                        if (a !== answer) a.style.maxHeight = null;
                     });
-
-                    if (answer.style.maxHeight) {
-                        answer.style.maxHeight = null;
-                    } else {
-                        answer.style.maxHeight = answer.scrollHeight + "px";
-                    }
+                    answer.style.maxHeight = answer.style.maxHeight ? null : answer.scrollHeight + "px";
                 });
             });
-
-            document.getElementById("lien-mentions").textContent = commun.mentions;
-            document.getElementById("lien-mentions").setAttribute("data-page", "MentionsLegales");
-            document.getElementById("lien-contact").textContent = commun.contact;
-            document.getElementById("lien-contact").setAttribute("data-page", "Contact");
-
-            const lienCompte = document.getElementById("lien-compte");
-            if (lienCompte) {
-                lienCompte.textContent = commun.compte;
-                lienCompte.setAttribute("data-page", "Connexion");
-            }
-
-            const lienApropos = document.getElementById("lien-apropos");
-            if (lienApropos) {
-                lienApropos.textContent = commun.info;
-                lienApropos.setAttribute("href", "a-propos.php");
-            }
         });
     </script>
 </head>
@@ -160,8 +157,8 @@ $estConnecte = isset($_SESSION['user_id']);
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none">À propos</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -178,7 +175,7 @@ $estConnecte = isset($_SESSION['user_id']);
 </div>
 
 <div class="faq-container" style="margin-top: 200px;">
-    <!-- Les questions dynamiques sont injectées ici par JS -->
+    <!-- Questions injectées dynamiquement -->
 </div>
 
 <div class="bouton-bas">
