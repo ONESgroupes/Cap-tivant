@@ -11,10 +11,12 @@ $estConnecte = isset($_SESSION['user_id']);
     <link rel="stylesheet" href="payement.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
-    <!-- IMPORTANT: Assurez-vous que info-bateau.js contient bien les données bateaux (bateaux, bateauxEN) -->
-    <!-- et les traductions (PaiementFR, PaiementEN, CommunFR, CommunEN) -->
     <script src="info-bateau.js"></script>
 </head>
+<script>
+    const estConnecte = <?= json_encode($estConnecte) ?>;
+</script>
+
 <body>
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu.png" alt="Menu">
@@ -58,7 +60,7 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
     </div>
     <a href="a-propos.php" style="color: #E0E0D5; text-decoration: none;">À propos</a>
-    <a href="Connexion.php" style="color: #E0E0D5; text-decoration: none;">Mon Compte</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="panier">
     </a>
@@ -120,7 +122,6 @@ $estConnecte = isset($_SESSION['user_id']);
     </div>
 </div>
 
-<!-- Modification: Remplacement de la div par un formulaire -->
 <form action="enregistrer_reservation.php" method="POST" class="total-et-paiement" id="payment-form">
     <br>
     <p><strong>Total à payer :</strong> <span id="total-prix">0€</span></p>
@@ -132,7 +133,6 @@ $estConnecte = isset($_SESSION['user_id']);
 </form>
 
 
-<!-- Pied de page -->
 <div class="bouton-bas" style="background: transparent">
     <a href="MentionsLegales.php" class="bottom-text">Mentions légales</a>
     <span class="bottom-text">•</span>
@@ -195,9 +195,7 @@ $estConnecte = isset($_SESSION['user_id']);
         const texte = (typeof PaiementFR !== 'undefined' && langue === 'fr') ? PaiementFR : (typeof PaiementEN !== 'undefined' && langue === 'en' ? PaiementEN : {});
         const texteCommun = (typeof CommunFR !== 'undefined' && langue === 'fr') ? CommunFR : (typeof CommunEN !== 'undefined' && langue === 'en' ? CommunEN : {});
 
-        // --- Mise à jour des textes statiques et du menu ---
         if (texteCommun.info) document.querySelector('a[href="a-propos.php"]').textContent = texteCommun.info;
-        if (texteCommun.compte) document.querySelector('a[href="Connexion.php"]').textContent = texteCommun.compte;
         if (texteCommun.mentions) document.querySelector('a[href="MentionsLegales.php"]').textContent = texteCommun.mentions;
         if (texteCommun.contact) document.querySelector('a[href="Contact.php"]').textContent = texteCommun.contact;
 
