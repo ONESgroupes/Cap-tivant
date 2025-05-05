@@ -86,6 +86,10 @@ $estConnecte = isset($_SESSION['user_id']);
         const commun = langue === 'en' ? CommunEN : CommunFR;
         const listeBateaux = langue === 'en' ? bateauxEN : bateaux;
         const texte = langue === 'en' ? InfoBateauEN : InfoBateauFR;
+        const lienCompte = document.getElementById("compte-link");
+        if (lienCompte && commun && commun.compte) {
+            lienCompte.textContent = commun.compte;
+        }
 
         document.getElementById("current-lang").src = langue === 'en' ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("lang-dropdown").innerHTML = langue === 'en'
@@ -102,6 +106,7 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("footer-mentions").textContent = commun.mentions;
         document.getElementById("footer-contact").textContent = commun.contact;
         document.getElementById("retour-offre").textContent = texte.retour + " >";
+
 
         const params = new URLSearchParams(window.location.search);
         const id = parseInt(params.get("id"));

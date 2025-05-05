@@ -83,6 +83,11 @@ $estConnecte = isset($_SESSION['user_id']);
         const texte = langue === "en" ? MentionsEN : MentionsFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
 
+        const compteLink = document.getElementById("compte-link");
+        if (compteLink) {
+            compteLink.textContent = commun.compte;
+        }
+
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("texte-legale").innerHTML = texte.texte;

@@ -177,7 +177,7 @@ $estConnecte = isset($_SESSION['user_id']);
     document.addEventListener('DOMContentLoaded', function() {
         const params = new URLSearchParams(window.location.search);
         const idParam = params.get("id");
-        // Validation de l'ID plus robuste
+
         const id = (idParam !== null && !isNaN(parseInt(idParam)) && parseInt(idParam) > 0) ? parseInt(idParam) : null;
         const categorie = params.get("categorie"); // Gardé pour le fil d'Ariane
 
@@ -189,10 +189,13 @@ $estConnecte = isset($_SESSION['user_id']);
 
         // Détection et application de la langue
         const langue = localStorage.getItem("langue") || "fr";
-        // S'assurer que les variables de données existent (elles viennent de info-bateau.js)
         const dataBateaux = (typeof bateaux !== 'undefined' && langue === 'fr') ? bateaux : (typeof bateauxEN !== 'undefined' && langue === 'en' ? bateauxEN : []);
         const texte = (typeof PaiementFR !== 'undefined' && langue === 'fr') ? PaiementFR : (typeof PaiementEN !== 'undefined' && langue === 'en' ? PaiementEN : {});
         const texteCommun = (typeof CommunFR !== 'undefined' && langue === 'fr') ? CommunFR : (typeof CommunEN !== 'undefined' && langue === 'en' ? CommunEN : {});
+        const lienCompte = document.getElementById("compte-link");
+        if (lienCompte && texteCommun.compte) {
+            lienCompte.textContent = texteCommun.compte;
+        }
 
         if (texteCommun.info) document.querySelector('a[href="a-propos.php"]').textContent = texteCommun.info;
         if (texteCommun.mentions) document.querySelector('a[href="MentionsLegales.php"]').textContent = texteCommun.mentions;

@@ -1,7 +1,9 @@
 <?php
+session_start();
 require_once 'config.php';
 
 $success = $error = '';
+$estConnecte = isset($_SESSION['user_id']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom'] ?? '');
@@ -18,22 +20,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $check = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $check->execute([$email]);
+
         if ($check->fetch()) {
             $error = "Cet e-mail est déjà utilisé.";
         } else {
             $hash = password_hash($mdp, PASSWORD_DEFAULT);
             $insert = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)");
             $insert->execute([$prenom, $nom, $email, $hash]);
-            $success = "✅ Inscription réussie ! <a href='Connexion.php'>Connectez-vous</a>";
+
+            // ✅ Redirection propre
+            header("Location: Connexion.php?inscription=ok");
+            exit;
         }
     }
 }
-
-session_start();
-$estConnecte = isset($_SESSION['user_id']);
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -60,7 +62,7 @@ $estConnecte = isset($_SESSION['user_id']);
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -94,16 +96,18 @@ $estConnecte = isset($_SESSION['user_id']);
                 <span class="conditions" id="conditions-text">Accepter les conditions d'utilisations</span>
             </label>
         </div>
-
-        <button type="submit" class="inscription" id="btn-inscription">S'inscrire</button>
+        <div class="conditions-general">
+            <br>
+            <button type="submit" class="inscription" id="btn-inscription">S'inscrire</button>
+        </div>
     </form>
-
-    <?php if ($error): ?>
-        <p style="color: red; text-align: center;"><?= htmlspecialchars($error) ?></p>
-    <?php elseif ($success): ?>
-        <p style="color: green; text-align: center;"><?= $success ?></p>
-    <?php endif; ?>
-
+    <strong>
+        <?php if ($error): ?>
+            <p style="color: red; text-align: center;"><?= htmlspecialchars($error) ?></p>
+        <?php elseif ($success): ?>
+            <p style="color: green; text-align: center;"><?= $success ?></p>
+        <?php endif; ?>
+    </strong>
     <div class="logo-block">
         <a href="Connexion.php" class="connexion" id="lien-connexion">Se connecter</a>
     </div>
@@ -143,6 +147,10 @@ $estConnecte = isset($_SESSION['user_id']);
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? InscriptionEN : InscriptionFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
+        const lienCompte = document.getElementById("compte-link");
+        if (lienCompte && commun && commun.compte) {
+            lienCompte.textContent = commun.compte;
+        }
 
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
@@ -161,7 +169,6 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("lien-contact").href = "Contact.php";
 
         document.getElementById("a-propos-link").textContent = commun.info;
-        document.getElementById("mon-compte-link").textContent = commun.compte;
 
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         const langDropdown = document.getElementById("lang-dropdown");
