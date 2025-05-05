@@ -1,22 +1,15 @@
 <?php
-
-session_start(); // démarre la session si ce n’est pas déjà fait
-
-if (!isset($_SESSION['user_id'])) {
-    // Redirection si l’utilisateur n’est pas connecté
-    header('Location: Connexion.php');
-    exit;
-}
-
+session_start();
 require_once 'config.php';
 
-// Requête pour récupérer l'historique
-try {
-    $requete = $pdo->prepare("SELECT * FROM historique");
-    $requete->execute();
-    $historiqueBdd = $requete->fetchAll();
-} catch (Exception $e) {
-    $historiqueBdd = []; // En cas d'erreur, on garde un tableau vide
+$estConnecte = isset($_SESSION['user_id']);
+$historique = [];
+
+if ($estConnecte) {
+    $user_id = $_SESSION['user_id'];
+    $stmt = $pdo->prepare("SELECT b.* FROM historique h JOIN bateaux b ON h.bateau_id = b.id WHERE h.user_id = ? ORDER BY h.date_reservation DESC");
+    $stmt->execute([$user_id]);
+    $historique = $stmt->fetchAll();
 }
 ?>
 
@@ -36,7 +29,15 @@ try {
     <img src="images/menu-vert.png" alt="Menu">
 </div>
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content" id="menu-links"></div>
+    <div class="menu-content">
+        <a href="location.php">LOCATION</a>
+        <a href="ports.php">NOS PORTS</a>
+        <a href="MonCompte.php">MON COMPTE</a>
+        <a href="historique.php">HISTORIQUE</a>
+        <a href="faq.php">FAQ</a>
+        <a href="Avis.php">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
 </div>
 <div class="top-right">
     <div class="language-selector">
@@ -44,7 +45,7 @@ try {
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
-    <a id="lien-compte" class="lien-langue" data-page="Connexion" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -58,9 +59,26 @@ try {
         <h1 class="page-title" id="titre-page">Historique</h1>
     </div>
 </div>
-<div id="historique-container" class="historique-container"></div>
+<div class="historique-container">
+    <?php if (count($historique) === 0): ?>
+        <p style="text-align:center;">Aucune réservation.</p>
+    <?php else: ?>
+        <?php foreach ($historique as $bateau): ?>
+            <div class="historique-card">
+                <h2><?= htmlspecialchars($bateau['titre']) ?></h2>
+                <p><strong>Port :</strong> <?= htmlspecialchars($bateau['port']) ?></p>
+                <p><strong>Personnes :</strong> <?= htmlspecialchars($bateau['personnes']) ?></p>
+                <p><strong>Cabines :</strong> <?= htmlspecialchars($bateau['cabines']) ?></p>
+                <p><strong>Longueur :</strong> <?= htmlspecialchars($bateau['longueur']) ?></p>
+                <p><strong>Prix :</strong> <?= htmlspecialchars($bateau['prix']) ?></p>
+                <img src="images/<?= htmlspecialchars($bateau['image1']) ?>" alt="<?= htmlspecialchars($bateau['titre']) ?>">
+
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
 <div class="bouton-bas">
-    <button id="btn-clear" onclick="viderHistorique()" class="btn-vider-historique">Vider l'historique</button>
     <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
     <span class="bottom-text" style="color: #577550">&bull;</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
@@ -110,6 +128,7 @@ try {
 
         const menuContent = document.getElementById("menu-links");
         const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        console.log("Menu traduit :", commun.menu);
         menuContent.innerHTML = commun.menu.map((item, index) => {
             return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">&times;</span>';
@@ -209,13 +228,6 @@ try {
     function fermerAvisPopup() {
         const popup = document.querySelector(".avis-popup-overlay");
         if (popup) popup.remove();
-    }
-
-    function viderHistorique() {
-        if (confirm("Es-tu sûr de vouloir supprimer tout l'historique ?")) {
-            localStorage.removeItem("historique");
-            location.reload();
-        }
     }
 </script>
 </body>

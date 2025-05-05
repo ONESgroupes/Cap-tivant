@@ -1,16 +1,13 @@
 <?php
 session_start();
 require_once 'config.php';
+$estConnecte = isset($_SESSION['user_id']);
 
 // Vérifie si l'utilisateur est connecté (sinon redirige)
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
     exit;
 }
-
-session_start();
-$estConnecte = isset($_SESSION['user_id']);
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -22,7 +19,7 @@ $estConnecte = isset($_SESSION['user_id']);
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-    <script src="info-bateau.js" defer></script>
+    <script src="info-bateau.js"></script>
     <script>
         function getLangue() {
             return localStorage.getItem("langue") || "fr";
@@ -70,13 +67,11 @@ $estConnecte = isset($_SESSION['user_id']);
                 : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
             document.getElementById("lien-apropos").textContent = commun.info;
-            document.getElementById("lien-compte").textContent = commun.compte;
             document.getElementById("lien-mentions").textContent = commun.mentions;
             document.getElementById("lien-contact").textContent = commun.contact;
 
             const menuContent = document.getElementById("menu-links");
-            const compteLien = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
-            const liens = ["location", "ports", compteLien, "historique", "faq", "avis"];
+            const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
             menuContent.innerHTML = commun.menu.map((item, index) => {
                 return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
             }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
@@ -127,16 +122,16 @@ $estConnecte = isset($_SESSION['user_id']);
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
+    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
 
 <div class="bouton-bas">
-    <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
+    <a id="lien-mentions" href="MentionsLegales.php" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
     <span class="bottom-text" style="color: #577550">•</span>
-    <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
+    <a id="lien-contact" href="Contact.php" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
 </body>
 </html>

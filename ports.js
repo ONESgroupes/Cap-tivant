@@ -1,13 +1,13 @@
-// Initialisation de la carte
+// Initialisation par défaut de la carte sur la France
 var map = L.map('map').setView([46.603354, 1.888334], 6);
 
-// Ajout du fond de carte
+// Fond de carte
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; OpenStreetMap contributors'
 }).addTo(map);
 
-// Données des ports
-var ports = [
+// Liste des ports
+const ports = [
     { name: "Lorient", coords: [47.7489, -3.3666], image: "/images/lorient.jpg" },
     { name: "Concarneau", coords: [47.875, -3.9183], image: "/images/concarneau.jpeg" },
     { name: "Bordeaux", coords: [44.8378, -0.5792], image: "/images/bordeaux.jpg" },
@@ -16,9 +16,10 @@ var ports = [
     { name: "Marseille", coords: [43.2965, 5.3698], image: "/images/marseille.jpg" }
 ];
 
-const marqueursParNom = {}; // Stocker les marqueurs par nom pour les réutiliser plus tard
+// Utilisé pour retrouver le marqueur d’un port donné
+const marqueursParNom = {};
 
-// Ajout des marqueurs pour tous les ports
+// Création des marqueurs
 ports.forEach(port => {
     let boatCount = 0;
     if (typeof bateaux !== 'undefined' && Array.isArray(bateaux)) {
@@ -36,13 +37,16 @@ ports.forEach(port => {
 
     marqueursParNom[port.name.toLowerCase()] = marker;
 
-    // 🖼️ Création d’un tooltip riche en HTML
     const tooltipContent = `
         <div style="text-align:center; max-width: 200px;">
-            <strong style="font-size: 1em;">${port.name}</strong><br>
+            <strong>${port.name}</strong><br>
             <img src="${port.image}" alt="${port.name}" style="width: 100%; border-radius: 8px; margin: 5px 0;">
-            <p style="margin: 4px 0;">${boatCount} bateau${boatCount > 1 ? 'x' : ''} disponible${boatCount > 1 ? 's' : ''}</p>
-            <a href="offre.html?port=${encodeURIComponent(port.name)}" style="display: inline-block; margin-top: 8px; padding: 8px 16px; background-color: #f29066; color: white; border-radius: 8px; text-decoration: none; font-size: 0.95em; font-family: 'DM Serif Display', serif;">Voir les offres</a>
+            <p>${boatCount} bateau${boatCount > 1 ? 'x' : ''} disponible${boatCount > 1 ? 's' : ''}</p>
+            <a href="offre.php?port=${encodeURIComponent(port.name)}" 
+               style="display: inline-block; margin-top: 8px; padding: 8px 16px; background-color: #f29066; 
+               color: white; border-radius: 8px; text-decoration: none; font-family: 'DM Serif Display', serif;">
+               Voir les offres
+            </a>
         </div>
     `;
 
@@ -55,30 +59,36 @@ ports.forEach(port => {
         className: 'custom-tooltip'
     });
 
-    marker.on('click', () => {
-        window.location.href = `offre.html?port=${encodeURIComponent(port.name)}`;
-    });
-
     marker.bindPopup(`
         <div class="popup-content" style="text-align: center;">
             <h3>${port.name}</h3>
-            <img src="${port.image}" alt="${port.name}" style="max-width: 100%; display: block; margin: 0 auto;">
-            <p>${boatCount} bateau disponible</p>
+            <img src="${port.image}" alt="${port.name}" style="max-width: 100%; margin: 0 auto;">
+            <p>${boatCount} bateau${boatCount > 1 ? 'x' : ''} disponible${boatCount > 1 ? 's' : ''}</p>
         </div>
     `);
+
+    marker.on('click', () => {
+        window.location.href = `offre.php?port=${encodeURIComponent(port.name)}`;
+    });
 });
 
-// Fonction pour récupérer un paramètre de l'URL
-function getParametrePort() {
+// 📌 Fonction utilitaire pour lire les paramètres URL
+function getParametreURL(nom) {
     const params = new URLSearchParams(window.location.search);
-    return params.get("port");
+    return params.get(nom);
 }
 
-// Si un port est spécifié en URL → zoom dessus
-const portDemande = getParametrePort();
+// 🔍 Vérifie si l'URL contient des coordonnées
+const lat = parseFloat(getParametreURL("lat"));
+const lng = parseFloat(getParametreURL("lng"));
+const zoom = parseInt(getParametreURL("zoom")) || 10;
+const portDemande = getParametreURL("port");
 
-if (portDemande && marqueursParNom[portDemande.toLowerCase()]) {
-    const marker = marqueursParNom[portDemande.toLowerCase()];
-    marker.openPopup();
-    map.setView(marker.getLatLng(), 10);
+// 📍 Si coordonnées valides → zoom sur le port
+if (!isNaN(lat) && !isNaN(lng)) {
+    map.setView([lat, lng], zoom);
+
+    if (portDemande && marqueursParNom[portDemande.toLowerCase()]) {
+        marqueursParNom[portDemande.toLowerCase()].openPopup();
+    }
 }

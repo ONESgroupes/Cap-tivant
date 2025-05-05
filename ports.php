@@ -2,7 +2,6 @@
 session_start();
 $estConnecte = isset($_SESSION['user_id']);
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -17,22 +16,17 @@ $estConnecte = isset($_SESSION['user_id']);
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 </head>
 <body style="background-color: #c5d8d3;">
+
+<!-- Menu gauche -->
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu-vert.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.php" id="menu-location"></a>
-        <a href="ports.php" id="menu-ports"></a>
-        <a href="MonCompte.php" id="menu-compte"></a>
-        <a href="historique.php" id="menu-historique"></a>
-        <a href="faq.php" id="menu-faq"></a>
-        <a href="avis.php" id="menu-avis"></a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
 
+<!-- Logo au centre -->
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
@@ -43,24 +37,27 @@ $estConnecte = isset($_SESSION['user_id']);
     </div>
 </div>
 
+<!-- Haut droit -->
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a href="a-propos.php" id="lien-apropos" style="color: #577550; text-decoration: none;"></a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;"></a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
 
+<!-- Contenu principal -->
 <main>
     <div class="carte-container">
         <div id="map"></div>
     </div>
 </main>
 
+<!-- Bas de page -->
 <div class="bouton-bas">
     <a href="MentionsLegales.php" id="lien-mentions" class="bottom-text" style="color: #577550"></a>
     <span class="bottom-text" style="color: #577550">•</span>
@@ -68,6 +65,8 @@ $estConnecte = isset($_SESSION['user_id']);
 </div>
 
 <script>
+    const lienCompte = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
+
     function toggleMenu() {
         const menu = document.getElementById("menu-overlay");
         menu.classList.toggle("active");
@@ -85,27 +84,27 @@ $estConnecte = isset($_SESSION['user_id']);
 
     window.onload = function () {
         const langue = localStorage.getItem("langue") || "fr";
-        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         const texte = langue === "en" ? PortsEN : PortsFR;
         const texteCommun = langue === "en" ? CommunEN : CommunFR;
 
-        document.querySelector('a[href="a-propos.php"]').textContent = texteCommun.info;
-        document.querySelector('a[href="Connexion.php"]').textContent = texteCommun.compte;
-        document.querySelector('a[href="MentionsLegales.php"]').textContent = texteCommun.mentions;
-        document.querySelector('a[href="Contact.php"]').textContent = texteCommun.contact;
+        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("lien-compte").textContent = texteCommun.compte;
 
-        const menuItems = document.querySelectorAll('#menu-overlay .menu-content a');
-        menuItems.forEach((link, index) => {
-            if (texteCommun.menu[index]) {
-                link.textContent = texteCommun.menu[index];
-            }
-        });
+        document.getElementById("lien-apropos").textContent = texteCommun.info;
+        document.getElementById("lien-mentions").textContent = texteCommun.mentions;
+        document.getElementById("lien-contact").textContent = texteCommun.contact;
+
+        const menuContent = document.getElementById("menu-links");
+        const liens = ["location", "ports", lienCompte, "historique", "faq", "avis"];
+        menuContent.innerHTML = texteCommun.menu.map((item, index) => {
+            return `<a class="lien-langue" href="${liens[index]}.php">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
 
         const dropdown = document.getElementById("lang-dropdown");
         dropdown.innerHTML = langue === "en"
-            ? `<img src=\"images/drapeau-francais.png\" alt=\"Français\" class=\"drapeau-option\" onclick=\"changerLangue('fr')\">`
-            : `<img src=\"images/drapeau-anglais.png\" alt=\"Anglais\" class=\"drapeau-option\" onclick=\"changerLangue('en')\">`;
+            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
     };
 
     document.addEventListener("click", function(event) {

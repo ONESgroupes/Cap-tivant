@@ -81,7 +81,15 @@ $estConnecte = isset($_SESSION['user_id']);
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content" id="menu-links"></div>
+    <div class="menu-content">
+        <a href="location.php">LOCATION</a>
+        <a href="ports.php">NOS PORTS</a>
+        <a href="MonCompte.php">MON COMPTE</a>
+        <a href="historique.php">HISTORIQUE</a>
+        <a href="faq.php">FAQ</a>
+        <a href="Avis.php">AVIS</a>
+        <span onclick="toggleMenu()" class="close-menu">✕</span>
+    </div>
 </div>
 
 <div class="top-right">
@@ -117,21 +125,14 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
         <div class="champ-double">
             <input type="text" name="nom" id="nom" value="<?= $nom ?>" placeholder="Nom" required>
-            <input type="text" name="adresse" id="adresse" value="<?= $adresse ?>" placeholder="Adresse">
-        </div>
-        <div class="champ-double">
-            <input type="text" name="prenom" id="prenom" value="<?= $prenom ?>" placeholder="Prénom" required>
             <input type="text" name="code_postal" id="code-postal" value="<?= $postal ?>" placeholder="Code postal">
         </div>
         <div class="champ-double">
-            <input type="email" name="email" id="mail" value="<?= $email ?>" placeholder="E-mail" required>
+            <input type="text" name="prenom" id="prenom" value="<?= $prenom ?>" placeholder="Prénom" required>
             <input type="text" name="ville" id="ville" value="<?= $ville ?>" placeholder="Ville">
         </div>
         <div class="champ-double">
-            <div class="champ-password" style="position: relative; display: flex; align-items: center;">
-                <input type="password" id="mdp" name="mdp" placeholder="Nouveau mot de passe" style="flex: 1; padding-right: 40px;">
-                <img src="images/oeil.png" id="oeil-toggle" onclick="togglePassword()" alt="Afficher mot de passe" style="width: 24px; height: 24px; position: absolute; right: 10px; cursor: pointer;">
-            </div>
+            <input type="email" name="email" id="mail" value="<?= $email ?>" placeholder="E-mail" required>
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
 
@@ -189,7 +190,6 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("code-postal").placeholder = texte.codePostal;
         document.getElementById("mail").placeholder = texte.email;
         document.getElementById("ville").placeholder = texte.ville;
-        document.getElementById("mdp").placeholder = texte.mdp;
         document.getElementById("pays").placeholder = texte.pays;
         document.getElementById("btn-modifier").textContent = texte.bouton;
 

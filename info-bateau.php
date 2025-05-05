@@ -163,7 +163,14 @@ $estConnecte = isset($_SESSION['user_id']);
                 ${langue === 'en' ? 'See offers' : 'Voir les offres'}
               </a>
             </div>`;
-                L.marker(port.coords).addTo(map).bindPopup(popupContent);
+                const marker = L.marker(port.coords).addTo(map);
+                marker.bindPopup(popupContent);
+
+// 👉 Ajoute ceci pour rediriger au clic
+                marker.on('click', () => {
+                    window.location.href = `ports.php?port=${encodeURIComponent(port.name)}&lat=${port.coords[0]}&lng=${port.coords[1]}&zoom=13`;
+                });
+
             }
         }, 0);
     };
