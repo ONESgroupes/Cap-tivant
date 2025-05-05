@@ -130,6 +130,49 @@
             return `<a href="${liens[index]}.html">${item}</a>`;
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
     });
+
+
+    document.getElementById("btn-inscription").addEventListener("click", function() {
+        // Récupération des valeurs du formulaire
+        const nom = document.getElementById("nom").value;
+        const prenom = document.getElementById("prenom").value;
+        const email = document.getElementById("email").value;
+        const mdp = document.getElementById("mdp").value;
+        const mdpConfirm = document.getElementById("mdp-confirm").value;
+        const mentions = document.getElementById("mentions").checked;
+
+        // Validation simple
+        if (!nom || !prenom || !email || !mdp || !mdpConfirm) {
+            alert("Veuillez remplir tous les champs");
+            return;
+        }
+
+        if (mdp !== mdpConfirm) {
+            alert("Les mots de passe ne correspondent pas");
+            return;
+        }
+
+        if (!mentions) {
+            alert("Veuillez accepter les conditions d'utilisation");
+            return;
+        }
+
+        // Enregistrement des données (simplifié - en réalité vous enverriez ça à un serveur)
+        const userData = {
+            nom,
+            prenom,
+            email,
+            mdp
+        };
+
+        // Stockage local (temporaire)
+        localStorage.setItem('userData', JSON.stringify(userData));
+
+        // Redirection vers la page de connexion
+        window.location.href = "Connexion.html";
+    });
+
+
 </script>
 </body>
 </html>
