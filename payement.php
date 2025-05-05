@@ -128,7 +128,7 @@ $estConnecte = isset($_SESSION['user_id']);
     <!-- Champ caché pour envoyer l'ID du bateau -->
     <input type="hidden" name="id_bateau" id="form_id_bateau" value="">
     <div class="total-et-paiement" id="zone-paiement">
-        <button type="submit" id="btn-payer-submit">Payer</button>
+        <button id="btn-payer">Payer</button>
     </div>
 </form>
 
