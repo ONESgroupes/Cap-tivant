@@ -141,7 +141,26 @@ $estConnecte = isset($_SESSION['user_id']);
                 lienRecherche.href = "offre.php";
             }
         }
+        mettreAJourLienRecherche();
     }
+    function mettreAJourLienRecherche() {
+        const lieu = document.getElementById("lieu").value.trim();
+        const lienRecherche = document.getElementById("lien-recherche");
+
+        let url = "offre.php?";
+        if (lieu !== "") {
+            url += `port=${encodeURIComponent(lieu)}&`;
+        }
+        if (typeSelectionne) {
+            url += `type=${typeSelectionne}`;
+        }
+
+        lienRecherche.href = url;
+    }
+
+    document.getElementById("lieu").addEventListener("input", mettreAJourLienRecherche);
+    document.getElementById("btn-moteur").addEventListener("click", mettreAJourLienRecherche);
+    document.getElementById("btn-voile").addEventListener("click", mettreAJourLienRecherche);
 </script>
 </body>
 </html>

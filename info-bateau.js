@@ -420,11 +420,13 @@ const CompteEN = {
 };
 
 const OffreFR = {
-    titre: "Offres"
+    titre: "Offres",
+    aucunBateau: "Aucun bateau trouvé pour ce port."
 };
 
 const OffreEN = {
-    titre: "Offers"
+    titre: "Offers",
+    aucunBateau: "No boats found for this port."
 };
 
 const AccueilFR = {

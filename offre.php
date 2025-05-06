@@ -146,7 +146,7 @@ $estConnecte = isset($_SESSION['user_id']);
         });
 
         if (filteredBateaux.length === 0) {
-            container.innerHTML = "<p style='text-align:center; font-size:1.2em;'>Aucun bateau trouvé pour ce port.</p>";
+            container.innerHTML = `<p style='text-align:center; font-size:1.2em; margin-top: 100px'>${texte.aucunBateau}</p>`;
         }
     });
 
