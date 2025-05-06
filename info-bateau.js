@@ -248,7 +248,16 @@ const HistoriqueFR = {
     cabines: "Cabines",
     longueur: "Longueur",
     prix: "Prix",
-    avis: "Laisser un avis"
+    avis: "Laisser un avis",
+    commentaire: "Commentaire",
+    note: "Note",
+    poste: "Posté le",
+    popup_titre: "Merci pour votre réservation !",
+    popup_texte: "Laissez-nous un avis sur votre expérience :",
+    popup_commentaire: "Votre commentaire...",
+    popup_label_note: "Note",
+    popup_bouton_valider: "Valider l'avis",
+    popup_bouton_fermer: "Fermer"
 };
 
 const HistoriqueEN = {
@@ -260,7 +269,16 @@ const HistoriqueEN = {
     cabines: "Cabins",
     longueur: "Length",
     prix: "Price",
-    avis: "Leave a review"
+    avis: "Leave a review",
+    commentaire: "Comment",
+    note: "Rating",
+    poste: "Posted on",
+    popup_titre: "Thank you for your booking!",
+    popup_texte: "Leave us a review about your experience:",
+    popup_commentaire: "Your comment...",
+    popup_label_note: "Rating",
+    popup_bouton_valider: "Submit review",
+    popup_bouton_fermer: "Close"
 };
 
 const InfoBateauFR = {
