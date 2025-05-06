@@ -3,7 +3,6 @@ session_start();
 $estConnecte = isset($_SESSION['user_id']);
 ?>
 
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -16,6 +15,13 @@ $estConnecte = isset($_SESSION['user_id']);
     <script src="info-bateau.js"></script>
 </head>
 <body>
+<?php
+if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
+    $email = htmlspecialchars($_GET['email']);
+    echo "<p style='color: rgb(87,117,80); text-align:center; font-weight:bold; margin-top: 200px'>✔️ Un lien a été envoyé à l'adresse : $email</p>";
+}
+?>
+
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu-vert.png" alt="Menu">
 </div>
@@ -44,20 +50,23 @@ $estConnecte = isset($_SESSION['user_id']);
         <h1 class="page-title" id="titre-page"></h1>
     </div>
 
-    <div class="formulaire-connexion">
+    <form action="traitement-mdp.php" method="POST" class="formulaire-connexion">
         <div class="champ">
             <img src="images/email.png" alt="email">
-            <input type="email" id="email" placeholder="E-mail lié au compte">
+            <input type="email" id="email" name="email" placeholder="E-mail lié au compte" required>
         </div>
-    </div>
-    <div class="logo-block">
-        <div class="connexion" id="btn-recevoir-lien">
-            <a href="#" style="color: white; text-decoration: none;"></a>
+        <div class="logo-block">
+            <div class="connexion">
+                <button type="submit" style="color: white; text-decoration: none; background:none; border:none;">
+                    Envoyer un lien
+                </button>
+            </div>
+            <div class="retour" style="margin-top: 10px;">
+                <a href="Connexion.php" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
+            </div>
         </div>
-        <div class="retour">
-            <a id="retour-connexion" href="Connexion.php" style="color: #ee9c72; text-decoration: none;"></a>
-        </div>
-    </div>
+
+    </form>
 </div>
 
 <div class="bouton-bas">
@@ -98,25 +107,21 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("email").placeholder = texte.placeholder;
-        document.getElementById("btn-recevoir-lien").innerHTML = `<a href=\"#\" style=\"color: white; text-decoration: none;\">${texte.bouton}</a>`;
-        document.getElementById("retour-connexion").textContent = texte.retour;
 
         document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-mentions").href = "MentionsLegales.php";
         document.getElementById("lien-contact").textContent = commun.contact;
-        document.getElementById("lien-contact").href = "Contact.php";
         document.getElementById("a-propos-link").textContent = commun.info;
 
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("lang-dropdown").innerHTML = langue === "en"
-            ? `<img src=\"images/drapeau-francais.png\" alt=\"Français\" class=\"drapeau-option\" onclick=\"changerLangue('fr')\">`
-            : `<img src=\"images/drapeau-anglais.png\" alt=\"Anglais\" class=\"drapeau-option\" onclick=\"changerLangue('en')\">`;
+            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
         const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
         const menuContent = document.getElementById("menu-links");
         menuContent.innerHTML = commun.menu.map((item, index) => {
-            return `<a href=\"${liens[index]}.php\">${item}</a>`;
-        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+            return `<a href="${liens[index]}.php">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">\u2715</span>';
     });
 </script>
 </body>
