@@ -2,19 +2,16 @@
 session_start();
 require_once 'config.php';
 
-// 🔐 Vérifie que l'utilisateur est connecté
+// 🔐 Vérification de session utilisateur
 if (!isset($_SESSION['user_id'])) {
     header("Location: Connexion.php");
     exit;
 }
 
-$estConnecte = true;
-$user_id = $_SESSION['user_id'];
+session_start();
+$estConnecte = isset($_SESSION['user_id']);
 
-// 🔍 Récupération des avis de l'utilisateur avec les titres de bateau
-$stmt = $pdo->prepare("SELECT r.*, b.titre FROM reviews r JOIN bateaux b ON r.boat_id = b.id WHERE r.user_id = ?");
-$stmt->execute([$user_id]);
-$avis = $stmt->fetchAll();
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -41,8 +38,8 @@ $avis = $stmt->fetchAll();
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none">À propos</a>
-    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;">Mon Compte</a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -58,20 +55,8 @@ $avis = $stmt->fetchAll();
     </div>
 </div>
 
-<!-- 💬 Section des avis depuis la base -->
 <div class="background" id="avis-container">
-    <?php if (empty($avis)): ?>
-        <p style='text-align:center;'>Aucun avis enregistré.</p>
-    <?php else: ?>
-        <?php foreach ($avis as $a): ?>
-            <div class="avis-card">
-                <h3><?= htmlspecialchars($a['titre']) ?></h3>
-                <p class="etoiles"><?= str_repeat('⭐', (int)$a['rating']) ?></p>
-                <p class="commentaire">"<?= htmlspecialchars($a['comment']) ?>"</p>
-                <p class="date"><?= date('d/m/Y', strtotime($a['created_at'])) ?></p>
-            </div>
-        <?php endforeach; ?>
-    <?php endif; ?>
+    <!-- Avis affichés dynamiquement ici -->
 </div>
 
 <div class="bouton-bas">
@@ -96,7 +81,8 @@ $avis = $stmt->fetchAll();
     }
 
     function toggleMenu() {
-        document.getElementById("menu-overlay").classList.toggle("active");
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
     }
 
     document.addEventListener("click", function(event) {
@@ -109,31 +95,52 @@ $avis = $stmt->fetchAll();
 
     document.addEventListener("DOMContentLoaded", function () {
         const langue = getLangue();
-        const commun = langue === "en" ? CommunEN : CommunFR;
         const texte = langue === "en" ? AvisEN : AvisFR;
+        const commun = langue === "en" ? CommunEN : CommunFR;
 
         document.title = texte.titre;
         document.querySelector(".page-title").textContent = texte.titre;
-        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
+
+        const currentLang = document.getElementById("current-lang");
+        currentLang.src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
 
         const langDropdown = document.getElementById("lang-dropdown");
         langDropdown.innerHTML = langue === "en"
             ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
             : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
-        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        document.getElementById("lien-apropos").textContent = commun.info;
+        document.getElementById("lien-compte").textContent = commun.compte;
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-contact").textContent = commun.contact;
+
         const menuContent = document.getElementById("menu-links");
-        menuContent.innerHTML = commun.menu.map((item, index) => `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+        const compteLien = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
+        const liens = ["location", "ports", compteLien, "historique", "faq", "avis"];
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
 
         document.querySelectorAll(".lien-langue").forEach(lien => {
             const page = lien.getAttribute("data-page");
             lien.setAttribute("href", `${page}.php`);
         });
 
-        document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
-        document.getElementById("compte-link").textContent = commun.compte;
+        const avis = JSON.parse(localStorage.getItem("avis") || "[]");
+        const container = document.getElementById("avis-container");
+
+        if (avis.length === 0) {
+            container.innerHTML = `<p style='text-align:center;'>${texte.aucunAvis}</p>`;
+        } else {
+            container.innerHTML = avis.map(entry => `
+        <div class="avis-card">
+          <h3>${entry.titre}</h3>
+          <p class="etoiles">${'⭐'.repeat(entry.etoiles)}</p>
+          <p class="commentaire">"${entry.commentaire}"</p>
+          <p class="date">${entry.date}</p>
+        </div>
+      `).join('');
+        }
     });
 </script>
 </body>
