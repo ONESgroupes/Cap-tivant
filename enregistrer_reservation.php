@@ -62,6 +62,14 @@ if (!isset($_SESSION['user_id'])) {
 
 // Si on arrive ici, l'utilisateur est connecté et l'ID est valide
 $user_id = $_SESSION['user_id'];
+$date_debut = $_POST['date_debut'] ?? null;
+$date_fin = $_POST['date_fin'] ?? null;
+
+if (!$date_debut || !$date_fin || $date_debut > $date_fin) {
+    error_log("Dates invalides : date_debut = $date_debut, date_fin = $date_fin");
+    header("Location: payement.php?id=" . $id_bateau . "&error=invalid_dates");
+    exit;
+}
 
 // --- Traitement de la réservation ---
 try {
@@ -80,10 +88,13 @@ try {
         exit;
 
     } else {
-        // 2. Insérer la nouvelle réservation car elle n'existe pas
-        $stmt = $pdo->prepare("INSERT INTO historique (user_id, bateau_id, date_reservation) VALUES (:user_id, :bateau_id, NOW())");
+        $stmt = $pdo->prepare("INSERT INTO historique (user_id, bateau_id, date_reservation, date_debut, date_fin)
+                       VALUES (:user_id, :bateau_id, NOW(), :date_debut, :date_fin)");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindParam(':bateau_id', $id_bateau, PDO::PARAM_INT);
+        $stmt->bindParam(':date_debut', $date_debut);
+        $stmt->bindParam(':date_fin', $date_fin);
+
         $stmt->execute();
 
         // Vérifier si l'insertion a réussi (optionnel, execute() lèverait une exception en cas d'erreur PDO)

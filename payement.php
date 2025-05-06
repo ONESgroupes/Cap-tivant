@@ -124,9 +124,18 @@ $estConnecte = isset($_SESSION['user_id']);
 <form action="enregistrer_reservation.php" method="POST" class="total-et-paiement" id="payment-form">
     <br>
     <p><strong>Total à payer :</strong> <span id="total-prix">0€</span></p>
-    <!-- Champ caché pour envoyer l'ID du bateau -->
+
     <input type="hidden" name="id_bateau" id="form_id_bateau" value="">
-    <div class="total-et-paiement" id="zone-paiement">
+
+    <div style="margin-top: 10px;">
+        <label for="date_debut">Date de départ :</label><br>
+        <input type="date" name="date_debut" id="date_debut" required><br><br>
+
+        <label for="date_fin">Date de retour :</label><br>
+        <input type="date" name="date_fin" id="date_fin" required>
+    </div>
+
+    <div class="total-et-paiement" id="zone-paiement" style="margin-top: 20px;">
         <button id="btn-payer">Payer</button>
     </div>
 </form>

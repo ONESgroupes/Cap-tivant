@@ -48,14 +48,15 @@ $estConnecte = isset($_SESSION['user_id']);
         <div class="background">
             <div class="champ-double">
                 <input type="date" id="départ">
-                <input type="text" id="lieu" placeholder="">
+                <input type="date" id="arrivée">
             </div>
             <div class="champ-trois">
                 <button class="bouton-type" id="btn-moteur" onclick="selectType(this)"></button>
                 <button class="bouton-type" id="btn-voile" onclick="selectType(this)"></button>
             </div>
             <div class="champ" style="padding: 22px;">
-                <a id="lien-recherche" href="offre.php" class="connexion"></a>
+                <input type="text" id="lieu" placeholder="">
+                <button id="lien-recherche" class="connexion" onclick="verifierEtRediriger()">Rechercher</button>
             </div>
         </div>
     </div>
@@ -161,6 +162,29 @@ $estConnecte = isset($_SESSION['user_id']);
     document.getElementById("lieu").addEventListener("input", mettreAJourLienRecherche);
     document.getElementById("btn-moteur").addEventListener("click", mettreAJourLienRecherche);
     document.getElementById("btn-voile").addEventListener("click", mettreAJourLienRecherche);
+    function verifierEtRediriger() {
+        const depart = document.getElementById("départ").value;
+        const arrivee = document.getElementById("arrivée").value;
+
+        if (!depart || !arrivee) {
+            alert("Merci de renseigner les dates de départ et d'arrivée.");
+            return;
+        }
+
+        const lieu = document.getElementById("lieu").value.trim();
+        let url = "offre.php?";
+
+        if (lieu !== "") {
+            url += `port=${encodeURIComponent(lieu)}&`;
+        }
+        if (typeSelectionne) {
+            url += `type=${typeSelectionne}&`;
+        }
+
+        url += `depart=${depart}&arrivee=${arrivee}`;
+        window.location.href = url;
+    }
+
 </script>
 </body>
 </html>

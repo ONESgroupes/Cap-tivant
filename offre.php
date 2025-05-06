@@ -1,7 +1,39 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+require_once 'config.php'; // ✅ ajout nécessaire pour que $pdo soit défini
+
 session_start();
 $estConnecte = isset($_SESSION['user_id']);
+
+$depart = $_GET['depart'] ?? null;
+$arrivee = $_GET['arrivee'] ?? null;
+
+if ($depart && $arrivee) {
+    $stmt = $pdo->prepare("
+        SELECT * FROM bateaux b
+        WHERE NOT EXISTS (
+            SELECT 1 FROM historique h
+            WHERE h.bateau_id = b.id
+              AND h.date_debut <= :date_fin
+              AND h.date_fin >= :date_debut
+        )
+    ");
+
+    $stmt->execute([
+        ':date_debut' => $depart,
+        ':date_fin' => $arrivee
+    ]);
+    $bateauxDisponibles = $stmt->fetchAll();
+} else {
+    $bateauxDisponibles = $pdo->query("SELECT * FROM bateaux")->fetchAll();
+}
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -13,6 +45,9 @@ $estConnecte = isset($_SESSION['user_id']);
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
+    <script>
+        const bateauxDisponibles = <?= json_encode($bateauxDisponibles, JSON_UNESCAPED_UNICODE) ?>;
+    </script>
 </head>
 <body style="background-color: #c5d8d3;">
 
@@ -86,7 +121,8 @@ $estConnecte = isset($_SESSION['user_id']);
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? OffreEN : OffreFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-        const bateauxData = langue === "en" ? bateauxEN : bateaux;
+        const bateauxData = bateauxDisponibles;
+
 
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
@@ -130,8 +166,8 @@ $estConnecte = isset($_SESSION['user_id']);
                 <button class="prev" onclick="changeSlide(this, -1)">❮</button>
                 <div class="slides">
                     <a href="info-bateau.php?id=${bateau.id}">
-                        <img src="${bateau.image1}" class="slide active">
-                        <img src="${bateau.image2}" class="slide">
+                        <img src="${bateau.image1 || 'images/default-boat.jpg'}" class="slide active">
+                        ${bateau.image2 ? `<img src="${bateau.image2}" class="slide">` : ''}
                         <div class="background">
                             <a class="description">${bateau.port}, ${bateau.personnes}, ${bateau.longueur}</a>
                             <div class="ligne-info">
