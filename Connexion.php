@@ -26,6 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
+session_start();
 $estConnecte = isset($_SESSION['user_id']);
 
 
@@ -94,20 +95,17 @@ $estConnecte = isset($_SESSION['user_id']);
                 : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
             const menuContent = document.getElementById("menu-links");
-            const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+            const compteLien = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
+            const liens = ["location", "ports", compteLien, "historique", "faq", "avis"];
             menuContent.innerHTML = commun.menu.map((item, index) => {
                 return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
             }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
 
             document.querySelectorAll(".lien-langue").forEach(lien => {
                 const page = lien.getAttribute("data-page");
-                if (page && !lien.hasAttribute("href")) {
-                    lien.setAttribute("href", `${page}.php`);
-                }
+                lien.setAttribute("href", `${page}.php`);
             });
 
-
-            // Mise à jour du lien À propos avec traduction
             const lienApropos = document.getElementById("lien-apropos");
             lienApropos.textContent = commun.info;
             lienApropos.setAttribute("href", "a-propos.php");
@@ -128,7 +126,7 @@ $estConnecte = isset($_SESSION['user_id']);
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;"></a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -143,19 +141,24 @@ $estConnecte = isset($_SESSION['user_id']);
         <h1 class="page-title" id="titre-page">Connexion</h1>
     </div>
 
-    <div class="formulaire-connexion">
+    <form method="POST" action="Connexion.php" class="formulaire-connexion">
         <div class="champ">
             <img src="images/email.png" alt="email">
-            <input type="email" id="email" placeholder="Entrez votre adresse mail">
+            <input type="email" id="email" name="email" placeholder="Entrez votre adresse mail" required>
         </div>
         <div class="champ">
             <img src="images/mdp.png" alt="mot de passe">
-            <input type="password" id="password" placeholder="Entrez votre mot de passe">
+            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
         </div>
-    </div>
-    <div class="connexion" id="btn-connexion">Se connecter</div>
+        <button type="submit" class="connexion" id="btn-connexion">Se connecter</button>
+    </form>
+
+    <?php if ($error): ?>
+        <p style="color:red; text-align:center;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
     <div class="logo-block">
-        <a id="inscription-lien" href="inscription.php" class="inscription" style="text-decoration: none;">Inscription</a>
+        <a id="inscription-lien" href="Inscription.php" class="inscription" style="text-decoration: none;">Inscription</a>
         <a id="mdp-lien" href="mdp-oublier.php" class="mdp-oublier" style="text-decoration: none;">Mot de passe oublié</a>
     </div>
 </div>
