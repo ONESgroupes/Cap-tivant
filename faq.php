@@ -68,7 +68,6 @@ $estConnecte = isset($_SESSION['user_id']);
             const texte = langue === "en" ? FAQEN : FAQFR;
             const commun = langue === "en" ? CommunEN : CommunFR;
 
-            // Mise à jour du titre
             document.title = texte.titre;
             document.querySelector(".page-title").textContent = texte.titre;
 

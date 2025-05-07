@@ -42,7 +42,7 @@ try {
     file_put_contents($dossier . $token . '.txt', $email);
 
     // Lien de réinitialisation
-    $lien = "http://localhost/app/reinitialisation.php?token=$token";
+    $lien = "http://localhost/Cap-tivant/reinitialisation.php?token=$token";
 
     // Contenu du mail
     $mail->isHTML(true);

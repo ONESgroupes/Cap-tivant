@@ -2,11 +2,6 @@
 session_start();
 require_once 'config.php';
 
-// 🔐 Vérifie que l'utilisateur est connecté
-if (!isset($_SESSION['user_id'])) {
-    header("Location: Connexion.php");
-    exit;
-}
 
 $estConnecte = true;
 $user_id = $_SESSION['user_id'];

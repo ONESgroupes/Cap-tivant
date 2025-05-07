@@ -166,11 +166,6 @@ $estConnecte = isset($_SESSION['user_id']);
         const depart = document.getElementById("départ").value;
         const arrivee = document.getElementById("arrivée").value;
 
-        if (!depart || !arrivee) {
-            alert("Merci de renseigner les dates de départ et d'arrivée.");
-            return;
-        }
-
         const lieu = document.getElementById("lieu").value.trim();
         let url = "offre.php?";
 

@@ -3,11 +3,6 @@ session_start();
 require_once 'config.php';
 $estConnecte = isset($_SESSION['user_id']);
 
-// Vérifie si l'utilisateur est connecté (sinon redirige)
-if (!isset($_SESSION['user_id'])) {
-    header("Location: Connexion.php");
-    exit;
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
