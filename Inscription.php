@@ -1,6 +1,12 @@
 <?php
 session_start();
 require_once 'config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 $success = $error = '';
 $estConnecte = isset($_SESSION['user_id']);
@@ -12,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mdp = $_POST['mdp'] ?? '';
     $mdp_confirm = $_POST['mdp_confirm'] ?? '';
     $mentions = isset($_POST['mentions']);
+    $newsletter = isset($_POST['newsletter']) ? 1 : 0;
 
     if (!$nom || !$prenom || !$email || !$mdp || !$mdp_confirm || !$mentions) {
         $error = "Tous les champs sont obligatoires.";
@@ -25,12 +32,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $error = "Cet e-mail est déjà utilisé.";
         } else {
             $hash = password_hash($mdp, PASSWORD_DEFAULT);
-            $insert = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password_hash) VALUES (?, ?, ?, ?)");
-            $insert->execute([$prenom, $nom, $email, $hash]);
+            $insert = $pdo->prepare("INSERT INTO users (first_name, last_name, email, password_hash, newsletter) VALUES (?, ?, ?, ?, ?)");
+            $insert->execute([$prenom, $nom, $email, $hash, $newsletter]);
 
-            // ✅ Redirection propre
-            header("Location: Connexion.php?inscription=ok");
-            exit;
+            if ($newsletter) {
+                $mail = new PHPMailer(true);
+                try {
+                    $mail->isSMTP();
+                    $mail->Host = 'smtp.gmail.com';
+                    $mail->SMTPAuth = true;
+                    $mail->Username = 'paule.rochette2004@gmail.com';
+                    $mail->Password = 'cgzteciubsyxsxmv';
+                    $mail->SMTPSecure = 'tls';
+                    $mail->Port = 587;
+
+                    $mail->setFrom('paule.rochette2004@gmail.com', 'Cap\'Tivant');
+                    $mail->addAddress($email, "$prenom $nom");
+
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Bienvenue à la newsletter Cap\'Tivant';
+                    $mail->Body = "<p>Bonjour $prenom,</p><p>Merci pour votre inscription à notre newsletter ! Vous recevrez bientôt nos meilleures offres de location ⛵.</p>";
+
+                    $mail->send();
+                    error_log("✅ Email envoyé à $email");
+                } catch (Exception $e) {
+                    error_log("❌ Erreur envoi mail : " . $mail->ErrorInfo);
+                    $error = "L'inscription est réussie, mais l'email n'a pas pu être envoyé.";
+                }
+            }
+
+            // ✅ Redirection uniquement si pas d'erreur
+            if (!$error) {
+                header("Location: Connexion.php?inscription=ok");
+                exit;
+            }
         }
     }
 }
@@ -96,6 +131,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="conditions" id="conditions-text">Accepter les conditions d'utilisations</span>
             </label>
         </div>
+        <div class="conditions-general">
+            <label class="checkbox-container">
+                <input type="checkbox" id="newsletter" name="newsletter">
+                <span class="checkmark"></span>
+                <span class="conditions">Je souhaite m'inscrire à la newsletter</span>
+            </label>
+        </div>
+
         <div class="conditions-general">
             <br>
             <button type="submit" class="inscription" id="btn-inscription">S'inscrire</button>
