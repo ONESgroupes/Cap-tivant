@@ -101,7 +101,7 @@ $estConnecte = isset($_SESSION['user_id']);
             </div>
         </div>
     </div>
-    <div id="error-message" style="color: rgb(234,61,61); text-align: center; margin-top: -10px;">
+    <div id="error-message" style=' color: red; text-align: center;'>
         <strong>
             <?php
             if (isset($_GET['error'])) {
@@ -111,7 +111,7 @@ $estConnecte = isset($_SESSION['user_id']);
                 } elseif ($error === 'db_error') {
                     echo "Problème lors de l'enregistrement de la réservation.";
                 } elseif ($error === 'not_logged_in') {
-                    echo "Vous devez être connecté pour réserver. <a href='Connexion.php'>Se connecter</a>";
+                    echo "<a style=' color: red;'>Vous devez être connecté pour réserver. </a>";
                 } else {
                     echo "Une erreur inconnue est survenue.";
                 }
