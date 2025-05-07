@@ -1,6 +1,16 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 session_start();
 require_once 'config.php';
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require 'PHPMailer/src/Exception.php';
+require 'PHPMailer/src/PHPMailer.php';
+require 'PHPMailer/src/SMTP.php';
 
 $success = $error = '';
 
@@ -13,13 +23,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$nom || !$email || !$message) {
         $error = "Merci de remplir tous les champs obligatoires.";
     } else {
+        // Sauvegarde en base
         $stmt = $pdo->prepare("INSERT INTO contact_messages (name, email, phone, message, created_at) VALUES (?, ?, ?, ?, NOW())");
         $stmt->execute([$nom, $email, $tel, $message]);
-        $success = "Votre message a bien été envoyé.";
+
+        // Envoi de l'email
+        $mail = new PHPMailer(true);
+        try {
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = 'paule.rochette2004@gmail.com';
+            $mail->Password = 'vnwumyeurcexvkwh';
+            $mail->SMTPSecure = 'tls';
+            $mail->Port = 587;
+
+            $mail->setFrom($email, $nom);
+            $mail->addReplyTo($email, $nom);
+
+            $mail->addAddress('paule.rochette2004@gmail.com', 'Cap-Tivant');
+
+            $mail->isHTML(true);
+            $mail->Subject = '📩 Nouveau message depuis le formulaire de contact';
+            $mail->Body = "
+                <strong>Nom :</strong> $nom<br>
+                <strong>Email :</strong> $email<br>
+                <strong>Téléphone :</strong> $tel<br><br>
+                <strong>Message :</strong><br>" . nl2br(htmlspecialchars($message));
+
+            $mail->send();
+            $success = "Votre message a bien été envoyé.";
+        } catch (Exception $e) {
+            $error = "Erreur lors de l'envoi du mail : " . $mail->ErrorInfo;
+        }
     }
 }
 
-session_start();
 $estConnecte = isset($_SESSION['user_id']);
 
 
@@ -141,26 +180,33 @@ $estConnecte = isset($_SESSION['user_id']);
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Nous contacter</h1>
+        <?php if (!empty($success)): ?>
+            <p style="color: green; text-align: center; font-weight: bold;"><?= htmlspecialchars($success) ?></p>
+        <?php elseif (!empty($error)): ?>
+            <p style="color: red; text-align: center; font-weight: bold;"><?= htmlspecialchars($error) ?></p>
+        <?php endif; ?>
+
         <p class="texte" id="contact-texte" style="text-shadow: none;">
             Pour toute question, veuillez nous contacter par mail à captivant@gmail.com ou via le formulaire de contact ci-dessous.
         </p>
     </div>
 
-    <div class="formulaire-connexion">
+    <form method="POST" action="Contact.php" class="formulaire-connexion">
         <div class="champ-double">
-            <input type="text" id="nom" placeholder="Nom">
-            <input type="text" id="mail" placeholder="E-mail">
+            <input type="text" name="nom" id="nom" placeholder="Nom" required>
+            <input type="email" name="email" id="mail" placeholder="E-mail" required>
         </div>
         <div class="champ">
-            <input type="text" id="tel" placeholder="Entrez votre téléphone">
+            <input type="text" name="telephone" id="tel" placeholder="Entrez votre téléphone">
             <br>
             <label for="msg" id="label-msg">Message</label>
         </div>
         <div class="champ-msg">
-            <textarea id="msg" placeholder="Entrez votre message"></textarea>
+            <textarea name="message" id="msg" placeholder="Entrez votre message" required></textarea>
         </div>
-        <div class="connexion" id="btn-envoyer">Envoyer</div>
-    </div>
+        <button type="submit" id="btn-envoyer" class="connexion">Envoyer</button>
+    </form>
+
 </div>
 
 <div class="bouton-bas">
