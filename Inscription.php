@@ -19,6 +19,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $mdp_confirm = $_POST['mdp_confirm'] ?? '';
     $mentions = isset($_POST['mentions']);
     $newsletter = isset($_POST['newsletter']) ? 1 : 0;
+    $recaptchaSecret = '6LfJqjErAAAAABxFJ1B916BkIyvUe2S5CyvNjdbl';
+    $recaptchaResponse = $_POST['g-recaptcha-response'] ?? '';
+    $recaptchaVerified = false;
+
+    if ($recaptchaResponse) {
+        $verify = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=$recaptchaSecret&response=$recaptchaResponse");
+        $responseData = json_decode($verify);
+        $recaptchaVerified = $responseData->success;
+    }
+
+    if (!$recaptchaVerified) {
+        $error = "Veuillez confirmer que vous n'êtes pas un robot.";
+    }
 
     if (!$nom || !$prenom || !$email || !$mdp || !$mdp_confirm || !$mentions) {
         $error = "Tous les champs sont obligatoires.";
@@ -81,6 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -137,6 +152,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <span class="checkmark"></span>
                 <span class="conditions">Je souhaite m'inscrire à la newsletter</span>
             </label>
+        </div>
+        <div class="conditions-general">
+            <div class="g-recaptcha" data-sitekey="6LfJqjErAAAAAChIifxO3-ht7cVOz2HVz03aWZSF"></div>
         </div>
 
         <div class="conditions-general">
