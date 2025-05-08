@@ -1,5 +1,11 @@
 <?php
+session_start(); // important pour lire les messages d'erreur
 require_once 'config.php';
+
+$errorMessage = $_SESSION['error'] ?? null;
+$lastTable = $_SESSION['last_table'] ?? null;
+$lastValues = $_SESSION['last_values'] ?? [];
+unset($_SESSION['error'], $_SESSION['last_table'], $_SESSION['last_values']);
 
 $tables = [];
 try {
@@ -69,6 +75,13 @@ try {
 
             }
             ?>
+            <?php if ($errorMessage && $lastTable === $tableName): ?>
+                <tr>
+                    <td colspan="<?= count($columns) + 1 ?>" style="color: red; font-weight: bold; text-align: center;">
+                        <?= htmlspecialchars($errorMessage) ?>
+                    </td>
+                </tr>
+            <?php endif; ?>
             <form method="POST" action="ajouter_table.php">
                 <tr>
                     <?php foreach ($columns as $col): ?>

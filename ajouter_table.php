@@ -1,9 +1,6 @@
 <?php
 require_once 'config.php';
-
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['table'])) {
     $table = $_POST['table'];
@@ -16,12 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['table'])) {
     foreach ($_POST as $column => $value) {
         if ($column === 'created_at') continue;
 
-        // Hash automatique du mot de passe si c'est le bon champ
         if ($column === 'password_hash') {
             $value = password_hash($value, PASSWORD_DEFAULT);
         }
 
-        if ($value === '') {
+        if (trim($value) === '') {
             $missingFields[] = $column;
         }
 
@@ -29,16 +25,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['table'])) {
         $placeholders[] = ':' . $column;
     }
 
-
-    // Affiche un message d’erreur si des champs sont vides
     if (!empty($missingFields)) {
-        echo "Veuillez remplir les champs suivants : <strong>" . implode(', ', $missingFields) . "</strong>";
-        echo '<br><a href="admin.php">Retour</a>';
+        $_SESSION['error'] = "Champs manquants : " . implode(', ', $missingFields);
+        $_SESSION['last_table'] = $table;
+        header("Location: admin.php");
         exit;
     }
 
     $columns = array_keys($data);
-
     $sql = "INSERT INTO `$table` (" . implode(", ", $columns) . ")
             VALUES (" . implode(", ", $placeholders) . ")";
 
@@ -48,8 +42,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['table'])) {
         header("Location: admin.php");
         exit;
     } catch (PDOException $e) {
-        echo "Erreur : " . $e->getMessage();
+        $_SESSION['error'] = "Erreur SQL : " . $e->getMessage();
+        $_SESSION['last_table'] = $table;
+        header("Location: admin.php");
+        exit;
     }
 } else {
-    echo "Requête invalide.";
+    $_SESSION['error'] = "Requête invalide.";
+    header("Location: admin.php");
+    exit;
 }
