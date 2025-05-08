@@ -47,7 +47,7 @@ if ($estConnecte) {
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos lien-langue" data-key="compte" style="color: #577550">Mon Compte</a>
+    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;"></a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -138,6 +138,7 @@ if ($estConnecte) {
         document.title = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
+        document.getElementById("lien-compte").textContent = commun.compte;
 
         document.getElementById("lien-apropos").textContent = commun.info;
         document.getElementById("lien-mentions").textContent = commun.mentions;
