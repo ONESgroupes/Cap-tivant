@@ -47,8 +47,14 @@ $estConnecte = isset($_SESSION['user_id']);
     <div class="formulaire-connexion">
         <div class="background">
             <div class="champ-double">
-                <input type="date" id="départ">
-                <input type="date" id="arrivée">
+                <div class="champ-date" style="margin-left: 95px">
+                    <label for="départ">Date de départ</label>
+                    <input type="date" id="départ">
+                </div>
+                <div class="champ-date" style="margin-right: 95px">
+                    <label for="arrivée">Date d'arrivée</label>
+                    <input type="date" id="arrivée">
+                </div>
             </div>
             <div class="champ-trois">
                 <button class="bouton-type" id="btn-moteur" onclick="selectType(this)"></button>
@@ -56,6 +62,7 @@ $estConnecte = isset($_SESSION['user_id']);
             </div>
             <div class="champ" style="padding: 22px;">
                 <input type="text" id="lieu" placeholder="">
+                <br>
                 <button id="lien-recherche" class="connexion" onclick="verifierEtRediriger()">Rechercher</button>
             </div>
         </div>
