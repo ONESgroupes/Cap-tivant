@@ -111,21 +111,6 @@
     z-index: 10;
 }
 
-.btn-vider-historique {
-    display: block;
-    margin: 0 auto 10px auto; /* centre horizontalement */
-    padding: 5px 10px;
-    background-color: rgba(87, 117, 80, 0.84);
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    cursor: pointer;
-    font-family: 'DM Serif Display', serif;
-    width: fit-content;
-}
-
-
 @media screen and (max-width: 768px) {
     .historique-card {
         width: 90%;

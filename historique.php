@@ -2,13 +2,17 @@
 session_start();
 require_once 'config.php';
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 $estConnecte = isset($_SESSION['user_id']);
 $historique = [];
 $avisParBateau = [];
 
 if ($estConnecte) {
     $user_id = $_SESSION['user_id'];
-    $stmt = $pdo->prepare("SELECT b.* FROM historique h JOIN bateaux b ON h.bateau_id = b.id WHERE h.user_id = ? ORDER BY h.date_reservation DESC");
+    $stmt = $pdo->prepare("SELECT b.* FROM historique h JOIN bateaux b ON h.bateau_id = b.id WHERE h.user_id = ? ORDER BY h.created_at DESC");
     $stmt->execute([$user_id]);
     $historique = $stmt->fetchAll();
 
@@ -70,7 +74,6 @@ if ($estConnecte) {
                 <p><strong class="label-longueur">Longueur :</strong> <?= htmlspecialchars($bateau['longueur']) ?></p>
                 <p><strong class="label-prix">Prix :</strong> <?= htmlspecialchars($bateau['prix']) ?></p>
                 <img src="images/<?= htmlspecialchars($bateau['image1']) ?>" alt="<?= htmlspecialchars($bateau['titre']) ?>">
-
                 <?php if (isset($avisParBateau[$bateau['id']])): ?>
                     <!-- Pas de bouton si l'avis existe -->
                 <?php else: ?>
