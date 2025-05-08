@@ -1,6 +1,32 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* empêche que body lui-même scroll */
+    font-family: sans-serif;
+}
+
 body {
-    background-color: #c5d8d3;
-    font-family: 'DM Serif Display', serif;
+    display: flex;
+    flex-direction: column;
+}
+
+
+main.contenu-scrollable {
+    position: absolute;
+    top: 130px; /* même que header */
+    bottom: 60px; /* même que footer */
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.bouton-bas {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
 }
 
 .formulaire-connexion {
@@ -84,12 +110,10 @@ body {
     border: 2px solid #335533;
     border-radius: 4px;
     margin-right: 10px;
-    position: relative;
 }
 
 .checkbox-container input:checked + .checkmark::after {
     content: "";
-    position: absolute;
     left: 5px;
     top: 1px;
     width: 5px;
@@ -98,3 +122,30 @@ body {
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
 }
+
+.message-area {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-family: sans-serif;
+}
+.message-area.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.message-area.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.message-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.message-area li {
+    margin-bottom: 5px;
+}
+

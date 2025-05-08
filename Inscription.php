@@ -123,9 +123,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title" id="titre-page"></h1>
+        <h1 class="page-title" id="titre-page">Inscription</h1>
     </div>
+</div>
 
+<main class="contenu-scrollable" style="margin-top: 100px;">
     <form method="POST" action="Inscription.php" class="formulaire-inscription">
         <div class="champ">
             <br>
@@ -161,6 +163,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="inscription" id="btn-inscription">S'inscrire</button>
         </div>
     </form>
+
     <strong>
         <?php if ($error): ?>
             <p style="color: red; text-align: center;"><?= htmlspecialchars($error) ?></p>
@@ -168,10 +171,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <p style="color: green; text-align: center;"><?= $success ?></p>
         <?php endif; ?>
     </strong>
+
     <div class="logo-block">
         <a href="Connexion.php" class="connexion" id="lien-connexion">Se connecter</a>
     </div>
-</div>
+</main>
 
 <div class="bouton-bas">
     <a id="lien-mentions" href="MentionsLegales.php" class="bottom-text" style="color: #577550">Mentions légales</a>
