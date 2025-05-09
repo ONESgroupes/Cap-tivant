@@ -88,7 +88,7 @@ try {
         exit;
 
     } else {
-        $stmt = $pdo->prepare("INSERT INTO historique (user_id, bateau_id, date_reservation, date_debut, date_fin)
+        $stmt = $pdo->prepare("INSERT INTO historique (user_id, bateau_id, created_at, date_debut, date_fin)
                        VALUES (:user_id, :bateau_id, NOW(), :date_debut, :date_fin)");
         $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->bindParam(':bateau_id', $id_bateau, PDO::PARAM_INT);

@@ -131,12 +131,19 @@ $estConnecte = isset($_SESSION['user_id']);
     <br>
     <p><strong>Total à payer :</strong> <span id="total-prix">0€</span></p>
 
-    <input type="hidden" name="id_bateau" id="form_id_bateau" value="">
+    <!-- Champs cachés à remplir dynamiquement -->
+    <input type="hidden" name="id_bateau" id="form_id_bateau">
+    <input type="hidden" name="date_debut" id="form_date_debut">
+    <input type="hidden" name="date_fin" id="form_date_fin">
+    <input type="hidden" name="nombre_personnes" id="form_nombre_personnes">
+    <input type="hidden" name="enfant_a_bord" id="form_enfant_a_bord">
+    <input type="hidden" name="options" id="form_options">
 
     <div class="total-et-paiement" id="zone-paiement" style="margin-top: 20px;">
-        <button id="btn-payer">Payer</button>
+        <button type="submit" id="btn-payer">Payer</button>
     </div>
 </form>
+
 
 
 <div class="bouton-bas" style="background: transparent">
@@ -382,5 +389,35 @@ $estConnecte = isset($_SESSION['user_id']);
     });
 
 </script>
+<script>
+    document.getElementById("payment-form").addEventListener("submit", function(e) {
+        const dateDebut = document.getElementById("date_debut").value;
+        const dateFin = document.getElementById("date_fin").value;
+        const personnes = document.getElementById("select-personnes").value;
+        const enfant = document.getElementById("enfant-checkbox").checked ? "1" : "0";
+        const idBateau = new URLSearchParams(window.location.search).get("id");
+
+        if (!dateDebut || !dateFin || !personnes) {
+            alert("Veuillez remplir toutes les informations obligatoires.");
+            e.preventDefault();
+            return;
+        }
+
+        // Remplir les champs du formulaire
+        document.getElementById("form_id_bateau").value = idBateau;
+        document.getElementById("form_date_debut").value = dateDebut;
+        document.getElementById("form_date_fin").value = dateFin;
+        document.getElementById("form_nombre_personnes").value = personnes;
+        document.getElementById("form_enfant_a_bord").value = enfant;
+
+        // Options sélectionnées
+        const options = [];
+        document.querySelectorAll(".option-checkbox").forEach(opt => {
+            if (opt.checked) options.push(opt.value);
+        });
+        document.getElementById("form_options").value = options.join(",");
+    });
+</script>
+
 </body>
 </html>
