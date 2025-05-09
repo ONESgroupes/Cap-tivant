@@ -1,0 +1,52 @@
+<html>
+<head>
+<title>ports.js</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #cf8e6d;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #6aab73;}
+.s4 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ports.js</font>
+</center></td></tr></table>
+<pre><span class="s0">var </span><span class="s1">map </span><span class="s2">= </span><span class="s1">L</span><span class="s2">.</span><span class="s1">map</span><span class="s2">(</span><span class="s3">'map'</span><span class="s2">).</span><span class="s1">setView</span><span class="s2">([</span><span class="s4">46.603354</span><span class="s2">, </span><span class="s4">1.888334</span><span class="s2">], </span><span class="s4">6</span><span class="s2">);</span>
+
+<span class="s1">L</span><span class="s2">.</span><span class="s1">tileLayer</span><span class="s2">(</span><span class="s3">'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'</span><span class="s2">, {</span>
+    <span class="s1">attribution</span><span class="s2">: </span><span class="s3">'&amp;copy; OpenStreetMap contributors'</span>
+<span class="s2">}).</span><span class="s1">addTo</span><span class="s2">(</span><span class="s1">map</span><span class="s2">);</span>
+
+<span class="s0">var </span><span class="s1">ports </span><span class="s2">= [</span>
+    <span class="s2">{ </span><span class="s1">name</span><span class="s2">: </span><span class="s3">&quot;Lorient&quot;</span><span class="s2">, </span><span class="s1">coords</span><span class="s2">: [</span><span class="s4">47.7489</span><span class="s2">, -</span><span class="s4">3.3666</span><span class="s2">], </span><span class="s1">boats</span><span class="s2">: </span><span class="s4">6</span><span class="s2">, </span><span class="s1">image</span><span class="s2">: </span><span class="s3">&quot;/images/lorient.jpg&quot; </span><span class="s2">},</span>
+    <span class="s2">{ </span><span class="s1">name</span><span class="s2">: </span><span class="s3">&quot;Concarneau&quot;</span><span class="s2">, </span><span class="s1">coords</span><span class="s2">: [</span><span class="s4">47.875</span><span class="s2">, -</span><span class="s4">3.9183</span><span class="s2">], </span><span class="s1">boats</span><span class="s2">: </span><span class="s4">8</span><span class="s2">, </span><span class="s1">image</span><span class="s2">: </span><span class="s3">&quot;/images/concarneau.jpeg&quot; </span><span class="s2">},</span>
+    <span class="s2">{ </span><span class="s1">name</span><span class="s2">: </span><span class="s3">&quot;Bordeaux&quot;</span><span class="s2">, </span><span class="s1">coords</span><span class="s2">: [</span><span class="s4">44.8378</span><span class="s2">, -</span><span class="s4">0.5792</span><span class="s2">], </span><span class="s1">boats</span><span class="s2">: </span><span class="s4">2</span><span class="s2">, </span><span class="s1">image</span><span class="s2">: </span><span class="s3">&quot;/images/bordeaux.jpg&quot; </span><span class="s2">},</span>
+    <span class="s2">{ </span><span class="s1">name</span><span class="s2">: </span><span class="s3">&quot;Vannes&quot;</span><span class="s2">, </span><span class="s1">coords</span><span class="s2">: [</span><span class="s4">47.6559</span><span class="s2">, -</span><span class="s4">2.7603</span><span class="s2">], </span><span class="s1">boats</span><span class="s2">: </span><span class="s4">10</span><span class="s2">, </span><span class="s1">image</span><span class="s2">: </span><span class="s3">&quot;/images/vannes.jpeg&quot; </span><span class="s2">},</span>
+    <span class="s2">{ </span><span class="s1">name</span><span class="s2">: </span><span class="s3">&quot;Brest&quot;</span><span class="s2">, </span><span class="s1">coords</span><span class="s2">: [</span><span class="s4">48.3904</span><span class="s2">, -</span><span class="s4">4.4861</span><span class="s2">], </span><span class="s1">boats</span><span class="s2">: </span><span class="s4">5</span><span class="s2">, </span><span class="s1">image</span><span class="s2">: </span><span class="s3">&quot;/images/brest&quot; </span><span class="s2">}</span>
+<span class="s2">];</span>
+
+<span class="s1">ports</span><span class="s2">.</span><span class="s1">forEach</span><span class="s2">(</span><span class="s1">port </span><span class="s2">=&gt; {</span>
+    <span class="s1">L</span><span class="s2">.</span><span class="s1">marker</span><span class="s2">(</span><span class="s1">port</span><span class="s2">.</span><span class="s1">coords</span><span class="s2">, {</span>
+        <span class="s1">icon</span><span class="s2">: </span><span class="s1">L</span><span class="s2">.</span><span class="s1">icon</span><span class="s2">({</span>
+            <span class="s1">iconUrl</span><span class="s2">: </span><span class="s3">'https://maps.google.com/mapfiles/ms/icons/red-dot.png'</span><span class="s2">,</span>
+            <span class="s1">iconSize</span><span class="s2">: [</span><span class="s4">32</span><span class="s2">, </span><span class="s4">32</span><span class="s2">],</span>
+            <span class="s1">iconAnchor</span><span class="s2">: [</span><span class="s4">16</span><span class="s2">, </span><span class="s4">32</span><span class="s2">],</span>
+            <span class="s1">popupAnchor</span><span class="s2">: [</span><span class="s4">0</span><span class="s2">, -</span><span class="s4">32</span><span class="s2">]</span>
+        <span class="s2">})</span>
+    <span class="s2">}).</span><span class="s1">addTo</span><span class="s2">(</span><span class="s1">map</span><span class="s2">)</span>
+        <span class="s2">.</span><span class="s1">bindPopup</span><span class="s2">(</span><span class="s3">`</span>
+        <span class="s3">&lt;div class=&quot;popup-content&quot; style=&quot;text-align: center;&quot;&gt; 
+            &lt;h3&gt;</span><span class="s1">$</span><span class="s2">{</span><span class="s1">port</span><span class="s2">.</span><span class="s1">name</span><span class="s2">}</span><span class="s3">&lt;/h3&gt; 
+            &lt;img src=&quot;</span><span class="s1">$</span><span class="s2">{</span><span class="s1">port</span><span class="s2">.</span><span class="s1">image</span><span class="s2">}</span><span class="s3">&quot; alt=&quot;</span><span class="s1">$</span><span class="s2">{</span><span class="s1">port</span><span class="s2">.</span><span class="s1">name</span><span class="s2">}</span><span class="s3">&quot; style=&quot;max-width: 100%; display: block; margin: 0 auto;&quot;&gt; 
+            &lt;p&gt;Nombre de bateaux disponibles : </span><span class="s1">$</span><span class="s2">{</span><span class="s1">port</span><span class="s2">.</span><span class="s1">boats</span><span class="s2">}</span><span class="s3">&lt;/p&gt; 
+        &lt;/div&gt; 
+    `</span><span class="s2">);</span>
+<span class="s2">});</span>
+</pre>
+</body>
+</html>

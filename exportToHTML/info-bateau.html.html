@@ -1,0 +1,228 @@
+<html>
+<head>
+<title>info-bateau.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #56a8f5;}
+.s5 { color: #2aacb8;}
+.s6 { color: #cf8e6d;}
+.s7 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+info-bateau.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;fr&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Détail du Bateau</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;offre.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;info-bateau.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=Lobster&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;script </span><span class="s2">src</span><span class="s3">=&quot;info-bateau.js&quot;</span><span class="s0">&gt;&lt;/script&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">background-color</span><span class="s1">: </span><span class="s4">#c5d8d3</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-left&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/menu-vert.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Menu&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-left retour-offre&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;offre.html&quot;</span><span class="s0">&gt;</span><span class="s1">Offre &gt;</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;label </span><span class="s2">id</span><span class="s3">=&quot;titre-bateau-label&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">font-size</span><span class="s1">: </span><span class="s5">0.85</span><span class="s3">em</span><span class="s1">; </span><span class="s2">color</span><span class="s1">: </span><span class="s0">rgba</span><span class="s1">(</span><span class="s5">0</span><span class="s1">, </span><span class="s5">0</span><span class="s1">, </span><span class="s5">0</span><span class="s1">, </span><span class="s5">0.44</span><span class="s1">); </span><span class="s2">font-family</span><span class="s1">: </span><span class="s3">'DM Serif Display'</span><span class="s1">, </span><span class="s3">serif</span><span class="s1">;</span><span class="s3">&quot; </span><span class="s0">&gt;&lt;/label&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;logo-block&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.html&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/logo-transparent.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Logo&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">width</span><span class="s1">: </span><span class="s5">30</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;p </span><span class="s2">class</span><span class="s3">=&quot;logo-slogan&quot;</span><span class="s0">&gt;</span><span class="s1">Cap'Tivant</span><span class="s0">&lt;/p&gt;</span>
+        <span class="s0">&lt;h1 </span><span class="s2">class</span><span class="s3">=&quot;page-title&quot; </span><span class="s2">id</span><span class="s3">=&quot;titre-bateau&quot;</span><span class="s0">&gt;&lt;/h1&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;menu-overlay&quot; </span><span class="s2">class</span><span class="s3">=&quot;menu-overlay&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;menu-content&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;location.html&quot;</span><span class="s0">&gt;</span><span class="s1">LOCATION</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;ports.html&quot;</span><span class="s0">&gt;</span><span class="s1">NOS PORTS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MonCompte.html&quot;</span><span class="s0">&gt;</span><span class="s1">MON COMPTE</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;faq.html&quot;</span><span class="s0">&gt;</span><span class="s1">FAQ</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;avis.html&quot;</span><span class="s0">&gt;</span><span class="s1">AVIS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;span </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;close-menu&quot;</span><span class="s0">&gt;</span><span class="s1">✕</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-right&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/drapeau-francais.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Langue&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;a-propos.html&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#577550</span><span class="s1">; </span><span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">À propos</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Connexion.html&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#577550</span><span class="s1">; </span><span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Mon Compte</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;favoris.html&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/favoris.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Favoris&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;double-carrousel&quot; </span><span class="s2">id</span><span class="s3">=&quot;contenu&quot;</span><span class="s0">&gt;&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;bottom-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MentionsLegales.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color </span><span class="s1">: </span><span class="s4">#577550</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Mentions légales</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#577550</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">•</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Contact.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#577550</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Contact</span><span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">function </span><span class="s1">toggleMenu() {</span>
+        <span class="s6">const </span><span class="s1">menu = document.getElementById(</span><span class="s3">&quot;menu-overlay&quot;</span><span class="s1">);</span>
+        <span class="s1">menu.style.display = (menu.style.display === </span><span class="s3">&quot;flex&quot;</span><span class="s1">) ? </span><span class="s3">&quot;none&quot; </span><span class="s1">: </span><span class="s3">&quot;flex&quot;</span><span class="s1">;</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">const </span><span class="s1">params = </span><span class="s6">new </span><span class="s1">URLSearchParams(window.location.search);</span>
+    <span class="s6">const </span><span class="s1">id = parseInt(params.get(</span><span class="s3">&quot;id&quot;</span><span class="s1">));</span>
+    <span class="s6">const </span><span class="s1">bateau = bateaux.find(b =&gt; b.id === id);</span>
+
+    <span class="s6">if </span><span class="s1">(bateau) {</span>
+        <span class="s1">document.getElementById(</span><span class="s3">&quot;titre-bateau&quot;</span><span class="s1">).textContent = bateau.titre;</span>
+        <span class="s1">document.getElementById(</span><span class="s3">&quot;titre-bateau-label&quot;</span><span class="s1">).textContent = bateau.titre;</span>
+        <span class="s1">document.getElementById(</span><span class="s3">&quot;contenu&quot;</span><span class="s1">).innerHTML = </span><span class="s3">`</span>
+                <span class="s3">&lt;/div&gt; 
+                &lt;div class=&quot;detail-container&quot;&gt; 
+                    &lt;div class=&quot;bloc-gauche&quot;&gt; 
+                        &lt;div class=&quot;carrousel&quot; data-id=&quot;</span><span class="s1">${bateau.id}</span><span class="s3">&quot;&gt; 
+                            &lt;button class=&quot;prev&quot; onclick=&quot;changeSlide(this, -1)&quot;&gt;❮&lt;/button&gt; 
+                            &lt;div class=&quot;slides&quot;&gt; 
+                                &lt;img src=&quot;</span><span class="s1">${bateau.image1}</span><span class="s3">&quot; class=&quot;slide active&quot;&gt; 
+                                &lt;img src=&quot;</span><span class="s1">${bateau.image2}</span><span class="s3">&quot; class=&quot;slide&quot;&gt; 
+                            &lt;/div&gt; 
+                            &lt;button class=&quot;next&quot; onclick=&quot;changeSlide(this, 1)&quot;&gt;❯&lt;/button&gt; 
+                        &lt;/div&gt; 
+                        &lt;div class=&quot;texte-photo&quot;&gt; 
+                            &lt;p&gt; 
+                                &lt;span&gt;</span><span class="s1">${bateau.avis}</span><span class="s3">&lt;/span&gt; 
+                                &lt;span style=&quot;margin-left: 80px;&quot;&gt;</span><span class="s1">${bateau.port}</span><span class="s3">&lt;/span&gt; 
+                            &lt;/p&gt; 
+                        &lt;/div&gt; 
+                    &lt;/div&gt; 
+                    &lt;div class=&quot;background&quot;&gt; 
+                        &lt;p class=&quot;infos&quot;&gt;</span><span class="s1">${bateau.personnes}</span><span class="s3">&lt;/p&gt; 
+                        &lt;p class=&quot;infos&quot;&gt;</span><span class="s1">${bateau.cabines}</span><span class="s3">&lt;/p&gt; 
+                        &lt;p class=&quot;infos&quot;&gt;</span><span class="s1">${bateau.longueur}</span><span class="s3">&lt;/p&gt; 
+                    &lt;/div&gt; 
+                    &lt;div class=&quot;texte-photo&quot;&gt; 
+                    &lt;p&gt; 
+                        &lt;span&gt;&lt;strong&gt;</span><span class="s1">${bateau.prix}</span><span class="s3">&lt;/strong&gt;&lt;/span&gt; 
+                    &lt;/p&gt; 
+                    &lt;/div&gt; 
+                &lt;/div&gt; 
+ 
+                &lt;div class=&quot;boutons-actions&quot;&gt; 
+                    &lt;a href=&quot;payement.html?id=</span><span class="s1">${bateau.id}</span><span class="s3">&quot; class=&quot;btn-reserver&quot;&gt;Réserver&lt;/a&gt; 
+                    &lt;a style=&quot;gap: 60px&quot;&gt;&lt;/a&gt; 
+                    &lt;button class=&quot;btn-favoris&quot; onclick=&quot;ajouterAuxFavoris(</span><span class="s1">${bateau.id}</span><span class="s3">)&quot;&gt;Ajouter aux favoris&lt;/button&gt; 
+                &lt;/div&gt; 
+        `</span><span class="s1">;</span>
+    <span class="s1">} </span><span class="s6">else </span><span class="s1">{</span>
+        <span class="s1">document.getElementById(</span><span class="s3">&quot;contenu&quot;</span><span class="s1">).innerHTML = </span><span class="s3">&quot;&lt;p style='text-align:center;'&gt;Bateau introuvable&lt;/p&gt;&quot;</span><span class="s1">;</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s7">&lt;!-- Script : Carrousel --&gt;</span>
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">const </span><span class="s1">carrouselIndexes = </span><span class="s6">new </span><span class="s1">Map();</span>
+
+    <span class="s6">function </span><span class="s1">changeSlide(button, direction) {</span>
+        <span class="s6">const </span><span class="s1">carrousel = button.closest(</span><span class="s3">'.carrousel'</span><span class="s1">);</span>
+        <span class="s6">const </span><span class="s1">slides = carrousel.querySelectorAll(</span><span class="s3">'.slide'</span><span class="s1">);</span>
+
+        <span class="s6">if </span><span class="s1">(!carrouselIndexes.has(carrousel)) {</span>
+            <span class="s1">carrouselIndexes.set(carrousel, </span><span class="s5">0</span><span class="s1">);</span>
+        <span class="s1">}</span>
+
+        <span class="s6">let </span><span class="s1">currentIndex = carrouselIndexes.get(carrousel);</span>
+        <span class="s1">slides[currentIndex].classList.remove(</span><span class="s3">'active'</span><span class="s1">);</span>
+
+        <span class="s1">currentIndex = (currentIndex + direction + slides.length) % slides.length;</span>
+
+        <span class="s1">slides[currentIndex].classList.add(</span><span class="s3">'active'</span><span class="s1">);</span>
+        <span class="s1">carrouselIndexes.set(carrousel, currentIndex);</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">let </span><span class="s1">popupIndex = </span><span class="s5">0</span><span class="s1">;</span>
+    <span class="s6">let </span><span class="s1">popupImages = [];</span>
+
+    <span class="s1">document.addEventListener(</span><span class="s3">&quot;click&quot;</span><span class="s1">, </span><span class="s6">function </span><span class="s1">(e) {</span>
+        <span class="s6">if </span><span class="s1">(e.target.classList.contains(</span><span class="s3">&quot;slide&quot;</span><span class="s1">)) {</span>
+            <span class="s6">const </span><span class="s1">carrousel = e.target.closest(</span><span class="s3">&quot;.carrousel&quot;</span><span class="s1">);</span>
+            <span class="s1">popupImages = Array.from(carrousel.querySelectorAll(</span><span class="s3">&quot;.slide&quot;</span><span class="s1">)).map(img =&gt; img.src);</span>
+            <span class="s1">popupIndex = popupImages.indexOf(e.target.src);</span>
+
+            <span class="s1">openPopup(popupIndex);</span>
+        <span class="s1">}</span>
+    <span class="s1">});</span>
+
+    <span class="s6">function </span><span class="s1">openPopup(index) {</span>
+        <span class="s6">const </span><span class="s1">popup = document.createElement(</span><span class="s3">&quot;div&quot;</span><span class="s1">);</span>
+        <span class="s1">popup.classList.add(</span><span class="s3">&quot;image-popup&quot;</span><span class="s1">);</span>
+        <span class="s1">popup.innerHTML = </span><span class="s3">`</span>
+            <span class="s3">&lt;span class=&quot;close&quot; onclick=&quot;document.querySelector('.image-popup').remove()&quot;&gt;✖&lt;/span&gt; 
+            &lt;div class=&quot;controls&quot;&gt; 
+                &lt;span class=&quot;arrow&quot; onclick=&quot;navigatePopup(-1)&quot;&gt;❮&lt;/span&gt; 
+                &lt;span class=&quot;arrow&quot; onclick=&quot;navigatePopup(1)&quot;&gt;❯&lt;/span&gt; 
+            &lt;/div&gt; 
+            &lt;img src=&quot;</span><span class="s1">${popupImages[index]}</span><span class="s3">&quot; id=&quot;popup-image&quot;&gt; 
+        `</span><span class="s1">;</span>
+        <span class="s1">document.body.appendChild(popup);</span>
+    <span class="s1">}</span>
+
+    <span class="s6">function </span><span class="s1">navigatePopup(direction) {</span>
+        <span class="s1">popupIndex = (popupIndex + direction + popupImages.length) % popupImages.length;</span>
+        <span class="s6">const </span><span class="s1">popupImage = document.getElementById(</span><span class="s3">&quot;popup-image&quot;</span><span class="s1">);</span>
+        <span class="s1">popupImage.src = popupImages[popupIndex];</span>
+    <span class="s1">}</span>
+
+    <span class="s7">// Optionnel : fermer avec &quot;Échap&quot;</span>
+    <span class="s1">document.addEventListener(</span><span class="s3">&quot;keydown&quot;</span><span class="s1">, </span><span class="s6">function </span><span class="s1">(e) {</span>
+        <span class="s6">if </span><span class="s1">(e.key === </span><span class="s3">&quot;Escape&quot; </span><span class="s1">&amp;&amp; document.querySelector(</span><span class="s3">&quot;.image-popup&quot;</span><span class="s1">)) {</span>
+            <span class="s1">document.querySelector(</span><span class="s3">&quot;.image-popup&quot;</span><span class="s1">).remove();</span>
+        <span class="s1">}</span>
+    <span class="s1">});</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">function </span><span class="s1">ajouterAuxFavoris(id) {</span>
+        <span class="s6">const </span><span class="s1">bateau = bateaux.find(b =&gt; b.id === id);</span>
+        <span class="s6">if </span><span class="s1">(!bateau) </span><span class="s6">return</span><span class="s1">;</span>
+
+        <span class="s6">let </span><span class="s1">favoris = JSON.parse(localStorage.getItem(</span><span class="s3">&quot;favoris&quot;</span><span class="s1">) || </span><span class="s3">&quot;[]&quot;</span><span class="s1">);</span>
+
+        <span class="s7">// Évite les doublons</span>
+        <span class="s6">if </span><span class="s1">(!favoris.some(fav =&gt; fav.id === bateau.id)) {</span>
+            <span class="s1">favoris.push(bateau);</span>
+            <span class="s1">localStorage.setItem(</span><span class="s3">&quot;favoris&quot;</span><span class="s1">, JSON.stringify(favoris));</span>
+            <span class="s1">alert(</span><span class="s3">&quot;Bateau ajouté aux favoris !&quot;</span><span class="s1">);</span>
+        <span class="s1">} </span><span class="s6">else </span><span class="s1">{</span>
+            <span class="s1">alert(</span><span class="s3">&quot;Ce bateau est déjà dans vos favoris.&quot;</span><span class="s1">);</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

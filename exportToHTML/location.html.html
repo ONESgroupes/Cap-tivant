@@ -1,0 +1,131 @@
+<html>
+<head>
+<title>location.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #56a8f5;}
+.s5 { color: #2aacb8;}
+.s6 { color: #cf8e6d;}
+.s7 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+location.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;fr&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Connexion</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;location.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=Lobster&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-left&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/menu.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Menu&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;menu-overlay&quot; </span><span class="s2">class</span><span class="s3">=&quot;menu-overlay&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;menu-content&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;location.html&quot;</span><span class="s0">&gt;</span><span class="s1">LOCATION</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;ports.html&quot;</span><span class="s0">&gt;</span><span class="s1">NOS PORTS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MonCompte.html&quot;</span><span class="s0">&gt;</span><span class="s1">MON COMPTE</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;faq.html&quot;</span><span class="s0">&gt;</span><span class="s1">FAQ</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;avis.html&quot;</span><span class="s0">&gt;</span><span class="s1">AVIS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;span </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;close-menu&quot;</span><span class="s0">&gt;</span><span class="s1">✕</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-right&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/drapeau-francais.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Langue&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;a-propos.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;top-infos&quot;</span><span class="s0">&gt;</span><span class="s1">À propos</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Connexion.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;top-infos&quot;</span><span class="s0">&gt;</span><span class="s1">Mon compte</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;favoris.html&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/favoris.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Favoris&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;logo-block&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.html&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/logo.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Logo&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;p </span><span class="s2">class</span><span class="s3">=&quot;logo-slogan&quot;</span><span class="s0">&gt;</span><span class="s1">Cap'Tivant</span><span class="s0">&lt;/p&gt;</span>
+        <span class="s0">&lt;h1 </span><span class="s2">class</span><span class="s3">=&quot;page-title&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#e0e0d5</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Location</span><span class="s0">&lt;/h1&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;formulaire-connexion&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;background&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;champ-double&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;date&quot; </span><span class="s2">id</span><span class="s3">=&quot;départ&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;Date de départ&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">border-radius</span><span class="s1">: </span><span class="s5">20</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border</span><span class="s1">: </span><span class="s3">none</span><span class="s1">; </span><span class="s2">background-color</span><span class="s1">: </span><span class="s4">#e6ece9</span><span class="s1">; </span><span class="s2">width</span><span class="s1">: </span><span class="s5">230</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">12</span><span class="s3">px</span><span class="s1">; </span><span class="s2">font-size</span><span class="s1">: </span><span class="s5">0.95</span><span class="s3">em</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;text&quot; </span><span class="s2">id</span><span class="s3">=&quot;lieu&quot; </span><span class="s2">placeholder</span><span class="s3">=&quot;Lieu de location&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">border-radius</span><span class="s1">: </span><span class="s5">20</span><span class="s3">px</span><span class="s1">; </span><span class="s2">border</span><span class="s1">: </span><span class="s3">none</span><span class="s1">; </span><span class="s2">background-color</span><span class="s1">: </span><span class="s4">#e6ece9</span><span class="s1">; </span><span class="s2">width</span><span class="s1">: </span><span class="s5">230</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">12</span><span class="s3">px</span><span class="s1">; </span><span class="s2">font-size</span><span class="s1">: </span><span class="s5">0.95</span><span class="s3">em</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;champ-trois&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;bouton-type&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">selectType(</span><span class="s6">this</span><span class="s1">)</span><span class="s3">&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">width</span><span class="s1">: </span><span class="s5">230</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">12</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Moteur</span><span class="s0">&lt;/button&gt;</span>
+                <span class="s0">&lt;button </span><span class="s2">class</span><span class="s3">=&quot;bouton-type&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">selectType(</span><span class="s6">this</span><span class="s1">)</span><span class="s3">&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">width</span><span class="s1">: </span><span class="s5">230</span><span class="s3">px</span><span class="s1">; </span><span class="s2">padding</span><span class="s1">: </span><span class="s5">12</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">À voile</span><span class="s0">&lt;/button&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;champ&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">padding</span><span class="s1">: </span><span class="s5">22</span><span class="s3">px</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;a </span><span class="s2">id</span><span class="s3">=&quot;lien-recherche&quot; </span><span class="s2">href</span><span class="s3">=&quot;offre.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;connexion&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s4">#FFFFFF</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Recherche</span><span class="s0">&lt;/a&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;bottom-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MentionsLegales.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">Mentions légales</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">•</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Contact.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">Contact</span><span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s6">function </span><span class="s1">toggleMenu() {</span>
+        <span class="s6">const </span><span class="s1">menu = document.getElementById(</span><span class="s3">&quot;menu-overlay&quot;</span><span class="s1">);</span>
+        <span class="s6">if </span><span class="s1">(menu.style.display === </span><span class="s3">&quot;flex&quot;</span><span class="s1">) {</span>
+            <span class="s1">menu.style.display = </span><span class="s3">&quot;none&quot;</span><span class="s1">;</span>
+        <span class="s1">} </span><span class="s6">else </span><span class="s1">{</span>
+            <span class="s1">menu.style.display = </span><span class="s3">&quot;flex&quot;</span><span class="s1">;</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s6">let </span><span class="s1">typeSelectionne = </span><span class="s3">&quot;&quot;</span><span class="s1">;</span>
+
+    <span class="s6">function </span><span class="s1">selectType(button) {</span>
+        <span class="s6">const </span><span class="s1">boutonClique = button.textContent.trim().toLowerCase(); </span><span class="s7">// &quot;moteur&quot; ou &quot;à voile&quot;</span>
+        <span class="s6">const </span><span class="s1">lienRecherche = document.getElementById(</span><span class="s3">&quot;lien-recherche&quot;</span><span class="s1">);</span>
+
+        <span class="s7">// Si on reclique sur le même bouton déjà actif, on désactive tout</span>
+        <span class="s6">if </span><span class="s1">(button.classList.contains(</span><span class="s3">&quot;active&quot;</span><span class="s1">)) {</span>
+            <span class="s1">button.classList.remove(</span><span class="s3">&quot;active&quot;</span><span class="s1">);</span>
+            <span class="s1">typeSelectionne = </span><span class="s3">&quot;&quot;</span><span class="s1">;</span>
+            <span class="s1">lienRecherche.href = </span><span class="s3">&quot;offre.html&quot;</span><span class="s1">;</span>
+        <span class="s1">} </span><span class="s6">else </span><span class="s1">{</span>
+            <span class="s7">// On désactive les autres boutons</span>
+            <span class="s1">document.querySelectorAll(</span><span class="s3">'.bouton-type'</span><span class="s1">).forEach(btn =&gt; btn.classList.remove(</span><span class="s3">'active'</span><span class="s1">));</span>
+            <span class="s7">// On active celui qu'on vient de cliquer</span>
+            <span class="s1">button.classList.add(</span><span class="s3">&quot;active&quot;</span><span class="s1">);</span>
+            <span class="s1">typeSelectionne = boutonClique;</span>
+
+            <span class="s6">if </span><span class="s1">(typeSelectionne === </span><span class="s3">&quot;moteur&quot;</span><span class="s1">) {</span>
+                <span class="s1">lienRecherche.href = </span><span class="s3">&quot;offre.html?type=moteur&quot;</span><span class="s1">;</span>
+            <span class="s1">} </span><span class="s6">else if </span><span class="s1">(typeSelectionne === </span><span class="s3">&quot;à voile&quot;</span><span class="s1">) {</span>
+                <span class="s1">lienRecherche.href = </span><span class="s3">&quot;offre.html?type=voile&quot;</span><span class="s1">;</span>
+            <span class="s1">} </span><span class="s6">else </span><span class="s1">{</span>
+                <span class="s1">lienRecherche.href = </span><span class="s3">&quot;offre.html&quot;</span><span class="s1">;</span>
+            <span class="s1">}</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

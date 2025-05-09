@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>Avis.css</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #bababa;}
+.s4 { color: #bcbec4;}
+.s5 { color: #56a8f5;}
+.s6 { color: #6aab73;}
+.s7 { color: #2aacb8;}
+.s8 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Avis.css</font>
+</center></td></tr></table>
+<pre><span class="s0">body </span><span class="s2">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s5">#c5d8d3</span><span class="s2">;</span>
+    <span class="s3">font-family</span><span class="s4">: </span><span class="s6">'DM Serif Display'</span><span class="s2">, </span><span class="s6">serif</span><span class="s2">;</span>
+    <span class="s3">margin</span><span class="s4">: </span><span class="s7">0</span><span class="s2">;</span>
+    <span class="s3">padding</span><span class="s4">: </span><span class="s7">0</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Conteneur principal des avis */</span>
+<span class="s0">#avis-container </span><span class="s2">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s5">#FFEFDC</span><span class="s2">;</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">flex</span><span class="s2">;</span>
+    <span class="s3">flex-direction</span><span class="s4">: </span><span class="s6">column</span><span class="s2">;</span>
+    <span class="s3">align-items</span><span class="s4">: </span><span class="s6">center</span><span class="s2">;</span>
+    <span class="s3">padding</span><span class="s4">: </span><span class="s7">20</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">gap</span><span class="s4">: </span><span class="s7">30</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">max-width</span><span class="s4">: </span><span class="s7">600</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">margin</span><span class="s4">: </span><span class="s7">180</span><span class="s6">px auto</span><span class="s2">;</span>
+    <span class="s3">max-height</span><span class="s4">: </span><span class="s7">400</span><span class="s6">px</span><span class="s2">; </span><span class="s8">/* limite de hauteur */</span>
+    <span class="s3">overflow-y</span><span class="s4">: </span><span class="s6">auto</span><span class="s2">;  </span><span class="s8">/* active le scroll vertical */</span>
+    <span class="s3">border-radius</span><span class="s4">: </span><span class="s7">20</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">box-shadow</span><span class="s4">: </span><span class="s7">0 4</span><span class="s6">px </span><span class="s7">12</span><span class="s6">px </span><span class="s0">rgba</span><span class="s2">(</span><span class="s7">0</span><span class="s2">, </span><span class="s7">0</span><span class="s2">, </span><span class="s7">0</span><span class="s2">, </span><span class="s7">0.15</span><span class="s2">);</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Apparence de la barre de défilement (Chrome/Edge) */</span>
+<span class="s0">#avis-container</span><span class="s4">::</span><span class="s0">-webkit-scrollbar </span><span class="s2">{</span>
+    <span class="s3">width</span><span class="s4">: </span><span class="s7">8</span><span class="s6">px</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s0">#avis-container</span><span class="s4">::</span><span class="s0">-webkit-scrollbar-thumb </span><span class="s2">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s5">#577550</span><span class="s2">;</span>
+    <span class="s3">border-radius</span><span class="s4">: </span><span class="s7">4</span><span class="s6">px</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s0">#avis-container</span><span class="s4">::</span><span class="s0">-webkit-scrollbar-track </span><span class="s2">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s5">#c5d8d3</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Carte individuelle d’un avis */</span>
+<span class="s2">.</span><span class="s0">avis-card </span><span class="s2">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s6">white</span><span class="s2">;</span>
+    <span class="s3">border-radius</span><span class="s4">: </span><span class="s7">20</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">padding</span><span class="s4">: </span><span class="s7">24</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">width</span><span class="s4">: </span><span class="s7">90</span><span class="s2">%;</span>
+    <span class="s3">max-width</span><span class="s4">: </span><span class="s7">500</span><span class="s6">px</span><span class="s2">;</span>
+    <span class="s3">box-shadow</span><span class="s4">: </span><span class="s7">0 4</span><span class="s6">px </span><span class="s7">12</span><span class="s6">px </span><span class="s0">rgba</span><span class="s2">(</span><span class="s7">0</span><span class="s2">, </span><span class="s7">0</span><span class="s2">, </span><span class="s7">0</span><span class="s2">, </span><span class="s7">0.15</span><span class="s2">);</span>
+    <span class="s3">text-align</span><span class="s4">: </span><span class="s6">center</span><span class="s2">;</span>
+    <span class="s3">font-family</span><span class="s4">: </span><span class="s6">'DM Serif Display'</span><span class="s2">, </span><span class="s6">serif</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s2">.</span><span class="s0">avis-card h3 </span><span class="s2">{</span>
+    <span class="s3">margin-top</span><span class="s4">: </span><span class="s7">0</span><span class="s2">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s7">1.2</span><span class="s6">em</span><span class="s2">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s5">#577550</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s2">.</span><span class="s0">avis-card p </span><span class="s2">{</span>
+    <span class="s3">margin</span><span class="s4">: </span><span class="s7">10</span><span class="s6">px </span><span class="s7">0</span><span class="s2">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s5">#333</span><span class="s2">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s7">0.95</span><span class="s6">em</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Date de l’avis (dernier paragraphe) */</span>
+<span class="s2">.</span><span class="s0">avis-card p</span><span class="s4">:</span><span class="s0">last-child </span><span class="s2">{</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s7">0.75</span><span class="s6">em</span><span class="s2">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s6">gray</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Étoiles */</span>
+<span class="s2">.</span><span class="s0">etoiles </span><span class="s2">{</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s5">#f6a700</span><span class="s2">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s7">1.1</span><span class="s6">em</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+<span class="s8">/* Commentaire */</span>
+<span class="s2">.</span><span class="s0">commentaire </span><span class="s2">{</span>
+    <span class="s3">font-style</span><span class="s4">: </span><span class="s6">italic</span><span class="s2">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s5">#444</span><span class="s2">;</span>
+<span class="s2">}</span>
+
+
+</pre>
+</body>
+</html>

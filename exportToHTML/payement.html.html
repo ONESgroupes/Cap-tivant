@@ -1,0 +1,257 @@
+<html>
+<head>
+<title>payement.html</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bababa;}
+.s3 { color: #6aab73;}
+.s4 { color: #7a7e85;}
+.s5 { color: #56a8f5;}
+.s6 { color: #2aacb8;}
+.s7 { color: #cf8e6d;}
+.s8 { color: #42c3d4;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+payement.html</font>
+</center></td></tr></table>
+<pre><span class="s0">&lt;!DOCTYPE </span><span class="s2">html</span><span class="s0">&gt;</span>
+<span class="s0">&lt;html </span><span class="s2">lang</span><span class="s3">=&quot;fr&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;head&gt;</span>
+    <span class="s0">&lt;meta </span><span class="s2">charset</span><span class="s3">=&quot;UTF-8&quot; </span><span class="s0">/&gt;</span>
+    <span class="s0">&lt;title&gt;</span><span class="s1">Paiement</span><span class="s0">&lt;/title&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot; </span><span class="s2">href</span><span class="s3">=&quot;payement.css&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=DM+Serif+Display&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;link </span><span class="s2">href</span><span class="s3">=&quot;https://fonts.googleapis.com/css2?family=Lobster&amp;display=swap&quot; </span><span class="s2">rel</span><span class="s3">=&quot;stylesheet&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;script </span><span class="s2">src</span><span class="s3">=&quot;info-bateau.js&quot;</span><span class="s0">&gt;&lt;/script&gt;</span>
+    <span class="s0">&lt;style&gt;</span>
+    <span class="s0">&lt;/style&gt;</span>
+<span class="s0">&lt;/head&gt;</span>
+<span class="s0">&lt;body&gt;</span>
+
+<span class="s4">&lt;!-- Menu hamburger --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-left&quot; </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/menu.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Menu&quot;</span><span class="s0">&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Fil d’Ariane --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-left retour-offre&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">id</span><span class="s3">=&quot;lien-retour-offre&quot;</span><span class="s0">&gt;</span><span class="s1">Offre </span><span class="s5">&amp;gt;</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">id</span><span class="s3">=&quot;lien-info-bateau&quot;</span><span class="s0">&gt;&lt;label </span><span class="s2">id</span><span class="s3">=&quot;titre-bateau-label&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">cursor</span><span class="s1">: </span><span class="s3">pointer</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;&lt;/label&gt;&lt;span&gt; </span><span class="s5">&amp;gt;</span><span class="s0">&lt;/span&gt;&lt;/a&gt;</span>
+    <span class="s0">&lt;label </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">font-size</span><span class="s1">: </span><span class="s6">0.85</span><span class="s3">em</span><span class="s1">; </span><span class="s2">color</span><span class="s1">: </span><span class="s0">rgba</span><span class="s1">(</span><span class="s6">224</span><span class="s1">,</span><span class="s6">224</span><span class="s1">,</span><span class="s6">213</span><span class="s1">,</span><span class="s6">0.65</span><span class="s1">); </span><span class="s2">font-family</span><span class="s1">: </span><span class="s3">'DM Serif Display'</span><span class="s1">, </span><span class="s3">serif</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Reservation</span><span class="s0">&lt;/label&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Logo et titre --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;logo-block&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;PageAccueil.html&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/logo.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Logo&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;p </span><span class="s2">class</span><span class="s3">=&quot;logo-slogan&quot;</span><span class="s0">&gt;</span><span class="s1">Cap'Tivant</span><span class="s0">&lt;/p&gt;</span>
+        <span class="s0">&lt;h1 </span><span class="s2">class</span><span class="s3">=&quot;page-title&quot; </span><span class="s2">id</span><span class="s3">=&quot;titre-bateau&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s5">#E0E0D5</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Paiement</span><span class="s0">&lt;/h1&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Menu overlay --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">id</span><span class="s3">=&quot;menu-overlay&quot; </span><span class="s2">class</span><span class="s3">=&quot;menu-overlay&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;menu-content&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;location.html&quot;</span><span class="s0">&gt;</span><span class="s1">LOCATION</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;ports.html&quot;</span><span class="s0">&gt;</span><span class="s1">NOS PORTS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MonCompte.html&quot;</span><span class="s0">&gt;</span><span class="s1">MON COMPTE</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;faq.html&quot;</span><span class="s0">&gt;</span><span class="s1">FAQ</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;avis.html&quot;</span><span class="s0">&gt;</span><span class="s1">AVIS</span><span class="s0">&lt;/a&gt;</span>
+        <span class="s0">&lt;span </span><span class="s2">onclick</span><span class="s3">=&quot;</span><span class="s1">toggleMenu()</span><span class="s3">&quot; </span><span class="s2">class</span><span class="s3">=&quot;close-menu&quot;</span><span class="s0">&gt;</span><span class="s1">✕</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Lien langue / compte --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;top-right&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/drapeau-francais.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Langue&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;a-propos.html&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s5">#E0E0D5</span><span class="s1">; </span><span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">À propos</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Connexion.html&quot; </span><span class="s2">style</span><span class="s3">=&quot;</span><span class="s2">color</span><span class="s1">: </span><span class="s5">#E0E0D5</span><span class="s1">; </span><span class="s2">text-decoration</span><span class="s1">: </span><span class="s3">none</span><span class="s1">;</span><span class="s3">&quot;</span><span class="s0">&gt;</span><span class="s1">Mon Compte</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;favoris.html&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;img </span><span class="s2">src</span><span class="s3">=&quot;/images/favoris.png&quot; </span><span class="s2">alt</span><span class="s3">=&quot;Favoris&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Bloc central : infos + sélection --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;background&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;conteneur-info&quot;</span><span class="s0">&gt;</span>
+        <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;carte-bateau&quot; </span><span class="s2">id</span><span class="s3">=&quot;carte-bateau&quot;</span><span class="s0">&gt;</span>
+            <span class="s0">&lt;h2 </span><span class="s2">id</span><span class="s3">=&quot;titre-fiche&quot;</span><span class="s0">&gt;&lt;/h2&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Port :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;port&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Nombre de personnes maximum :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;personnes&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Cabines :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;cabines&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Longueur :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;longueur&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Prix :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;prix&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+            <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Avis :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;avis&quot;</span><span class="s0">&gt;&lt;/span&gt;&lt;/p&gt;</span>
+        <span class="s0">&lt;/div&gt;</span>
+
+        <span class="s0">&lt;div&gt;</span>
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;select-personnes-container&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;label </span><span class="s2">for</span><span class="s3">=&quot;select-personnes&quot;</span><span class="s0">&gt;&lt;strong&gt;</span><span class="s1">Sélectionnez le nombre de personnes :</span><span class="s0">&lt;/strong&gt;&lt;/label&gt;</span>
+                <span class="s0">&lt;select </span><span class="s2">id</span><span class="s3">=&quot;select-personnes&quot;</span><span class="s0">&gt;&lt;/select&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;enfant-a-bord&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">id</span><span class="s3">=&quot;enfant-checkbox&quot; </span><span class="s0">/&gt;</span>
+                <span class="s0">&lt;label </span><span class="s2">for</span><span class="s3">=&quot;enfant-checkbox&quot;</span><span class="s0">&gt;</span><span class="s1">Enfant à bord</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            <span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;options-bateau&quot;</span><span class="s0">&gt;</span>
+                <span class="s0">&lt;h3&gt;</span><span class="s1">Options supplémentaires</span><span class="s0">&lt;/h3&gt;</span>
+                <span class="s0">&lt;br&gt;</span>
+                <span class="s0">&lt;label&gt;&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">class</span><span class="s3">=&quot;option-checkbox&quot; </span><span class="s2">data-prix</span><span class="s3">=&quot;200&quot;</span><span class="s0">&gt; </span><span class="s1">Skipper (+200€)</span><span class="s0">&lt;/label&gt;&lt;br&gt;</span>
+                <span class="s0">&lt;label&gt;&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">class</span><span class="s3">=&quot;option-checkbox&quot; </span><span class="s2">data-prix</span><span class="s3">=&quot;80&quot;</span><span class="s0">&gt; </span><span class="s1">Nettoyage final (+80€)</span><span class="s0">&lt;/label&gt;&lt;br&gt;</span>
+                <span class="s0">&lt;label&gt;&lt;input </span><span class="s2">type</span><span class="s3">=&quot;checkbox&quot; </span><span class="s2">class</span><span class="s3">=&quot;option-checkbox&quot; </span><span class="s2">data-prix</span><span class="s3">=&quot;50&quot;</span><span class="s0">&gt; </span><span class="s1">Literie et serviettes (+50€)</span><span class="s0">&lt;/label&gt;</span>
+            <span class="s0">&lt;/div&gt;</span>
+
+            
+
+        <span class="s0">&lt;/div&gt;</span>
+
+    <span class="s0">&lt;/div&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Paiement --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;total-et-paiement&quot; </span><span class="s2">id</span><span class="s3">=&quot;zone-paiement&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;br&gt;</span>
+    <span class="s0">&lt;p&gt;&lt;strong&gt;</span><span class="s1">Total à payer :</span><span class="s0">&lt;/strong&gt; &lt;span </span><span class="s2">id</span><span class="s3">=&quot;total-prix&quot;</span><span class="s0">&gt;</span><span class="s1">0€</span><span class="s0">&lt;/span&gt;&lt;/p&gt;</span>
+    <span class="s0">&lt;button </span><span class="s2">id</span><span class="s3">=&quot;btn-payer&quot;</span><span class="s0">&gt;</span><span class="s1">Payer</span><span class="s0">&lt;/button&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s4">&lt;!-- Pied de page --&gt;</span>
+<span class="s0">&lt;div </span><span class="s2">class</span><span class="s3">=&quot;bottom-center&quot;</span><span class="s0">&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;MentionsLegales.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">Mentions légales</span><span class="s0">&lt;/a&gt;</span>
+    <span class="s0">&lt;span </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">•</span><span class="s0">&lt;/span&gt;</span>
+    <span class="s0">&lt;a </span><span class="s2">href</span><span class="s3">=&quot;Contact.html&quot; </span><span class="s2">class</span><span class="s3">=&quot;bottom-text&quot;</span><span class="s0">&gt;</span><span class="s1">Contact</span><span class="s0">&lt;/a&gt;</span>
+<span class="s0">&lt;/div&gt;</span>
+
+<span class="s0">&lt;script&gt;</span>
+    <span class="s7">function </span><span class="s1">toggleMenu() {</span>
+        <span class="s7">const </span><span class="s1">menu = document.getElementById(</span><span class="s3">&quot;menu-overlay&quot;</span><span class="s1">);</span>
+        <span class="s1">menu.style.display = menu.style.display === </span><span class="s3">&quot;flex&quot; </span><span class="s1">? </span><span class="s3">&quot;none&quot; </span><span class="s1">: </span><span class="s3">&quot;flex&quot;</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s7">const </span><span class="s1">params = </span><span class="s7">new </span><span class="s1">URLSearchParams(window.location.search);</span>
+    <span class="s7">const </span><span class="s1">id = parseInt(params.get(</span><span class="s3">&quot;id&quot;</span><span class="s1">));</span>
+    <span class="s7">const </span><span class="s1">categorie = params.get(</span><span class="s3">&quot;categorie&quot;</span><span class="s1">);</span>
+    <span class="s7">const </span><span class="s1">lienRetour = document.getElementById(</span><span class="s3">&quot;lien-retour-offre&quot;</span><span class="s1">);</span>
+    <span class="s7">if </span><span class="s1">(categorie) {</span>
+        <span class="s1">lienRetour.href = </span><span class="s3">`offre.html?categorie=</span><span class="s1">${categorie}</span><span class="s3">`</span><span class="s1">;</span>
+    <span class="s1">} </span><span class="s7">else </span><span class="s1">{</span>
+        <span class="s1">lienRetour.href = </span><span class="s3">&quot;offre.html&quot;</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s7">if </span><span class="s1">(</span><span class="s7">typeof </span><span class="s1">bateaux !== </span><span class="s3">&quot;undefined&quot;</span><span class="s1">) {</span>
+        <span class="s7">const </span><span class="s1">bateau = bateaux.find(b =&gt; b.id === id);</span>
+
+        <span class="s7">if </span><span class="s1">(bateau) {</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;titre-bateau-label&quot;</span><span class="s1">).textContent = bateau.titre;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;titre-fiche&quot;</span><span class="s1">).textContent = bateau.titre;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;port&quot;</span><span class="s1">).textContent = bateau.port;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;personnes&quot;</span><span class="s1">).textContent = bateau.personnes;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;cabines&quot;</span><span class="s1">).textContent = bateau.cabines;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;longueur&quot;</span><span class="s1">).textContent = bateau.longueur;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;prix&quot;</span><span class="s1">).textContent = bateau.prix;</span>
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;avis&quot;</span><span class="s1">).textContent = bateau.avis;</span>
+
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;lien-info-bateau&quot;</span><span class="s1">).href = </span><span class="s3">`info-bateau.html?id=</span><span class="s1">${bateau.id}</span><span class="s3">`</span><span class="s1">;</span>
+
+            <span class="s7">const </span><span class="s1">chiffres = bateau.prix.match(</span><span class="s8">/\d+/g</span><span class="s1">);</span>
+            <span class="s7">const </span><span class="s1">prixBase = chiffres ? parseInt(chiffres.join(</span><span class="s3">&quot;&quot;</span><span class="s1">)) : </span><span class="s6">0</span><span class="s1">;</span>
+            <span class="s7">const </span><span class="s1">totalPrixElem = document.getElementById(</span><span class="s3">&quot;total-prix&quot;</span><span class="s1">);</span>
+            <span class="s1">totalPrixElem.textContent = prixBase + </span><span class="s3">&quot;€&quot;</span><span class="s1">;</span>
+
+            <span class="s7">const </span><span class="s1">options = document.querySelectorAll(</span><span class="s3">'.option-checkbox'</span><span class="s1">);</span>
+            <span class="s1">options.forEach(option =&gt; {</span>
+                <span class="s1">option.addEventListener(</span><span class="s3">'change'</span><span class="s1">, () =&gt; {</span>
+                    <span class="s7">let </span><span class="s1">total = prixBase;</span>
+                    <span class="s1">options.forEach(opt =&gt; {</span>
+                        <span class="s7">if </span><span class="s1">(opt.checked) {</span>
+                            <span class="s1">total += parseInt(opt.getAttribute(</span><span class="s3">&quot;data-prix&quot;</span><span class="s1">));</span>
+                        <span class="s1">}</span>
+                    <span class="s1">});</span>
+                    <span class="s1">totalPrixElem.textContent = total + </span><span class="s3">&quot;€&quot;</span><span class="s1">;</span>
+                <span class="s1">});</span>
+            <span class="s1">});</span>
+
+            <span class="s7">const </span><span class="s1">nbPersonnesMax = parseInt(bateau.personnes.match(</span><span class="s8">/\d+/</span><span class="s1">));</span>
+            <span class="s7">const </span><span class="s1">select = document.getElementById(</span><span class="s3">&quot;select-personnes&quot;</span><span class="s1">);</span>
+            <span class="s1">select.innerHTML = </span><span class="s3">&quot;&quot;</span><span class="s1">;</span>
+            <span class="s7">const </span><span class="s1">defaultOption = document.createElement(</span><span class="s3">&quot;option&quot;</span><span class="s1">);</span>
+            <span class="s1">defaultOption.disabled = </span><span class="s7">true</span><span class="s1">;</span>
+            <span class="s1">defaultOption.selected = </span><span class="s7">true</span><span class="s1">;</span>
+            <span class="s1">defaultOption.textContent = </span><span class="s3">&quot;Choisissez un nombre&quot;</span><span class="s1">;</span>
+            <span class="s1">select.appendChild(defaultOption);</span>
+            <span class="s7">for </span><span class="s1">(</span><span class="s7">let </span><span class="s1">i = </span><span class="s6">1</span><span class="s1">; i &lt;= nbPersonnesMax; i++) {</span>
+                <span class="s7">const </span><span class="s1">option = document.createElement(</span><span class="s3">&quot;option&quot;</span><span class="s1">);</span>
+                <span class="s1">option.value = i;</span>
+                <span class="s1">option.textContent = i + (i === </span><span class="s6">1 </span><span class="s1">? </span><span class="s3">&quot; personne&quot; </span><span class="s1">: </span><span class="s3">&quot; personnes&quot;</span><span class="s1">);</span>
+                <span class="s1">select.appendChild(option);</span>
+            <span class="s1">}</span>
+
+            <span class="s1">document.getElementById(</span><span class="s3">&quot;btn-payer&quot;</span><span class="s1">).addEventListener(</span><span class="s3">&quot;click&quot;</span><span class="s1">, </span><span class="s7">function </span><span class="s1">() {</span>
+                <span class="s7">const </span><span class="s1">popup = document.createElement(</span><span class="s3">&quot;div&quot;</span><span class="s1">);</span>
+                <span class="s1">popup.className = </span><span class="s3">&quot;avis-popup-overlay&quot;</span><span class="s1">;</span>
+                <span class="s1">popup.innerHTML = </span><span class="s3">`</span>
+                    <span class="s3">&lt;div class=&quot;avis-popup-bulle&quot;&gt; 
+                        &lt;h2&gt;Merci pour votre réservation !&lt;/h2&gt; 
+                        &lt;p&gt;Laissez-nous un avis sur votre expérience :&lt;/p&gt; 
+                        &lt;textarea id=&quot;commentaire&quot; placeholder=&quot;Votre commentaire...&quot;&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt; 
+                        &lt;label&gt;Note :&lt;/label&gt; 
+                        &lt;select id=&quot;etoiles&quot;&gt; 
+                            &lt;option value=&quot;1&quot;&gt;⭐&lt;/option&gt; 
+                            &lt;option value=&quot;2&quot;&gt;⭐⭐&lt;/option&gt; 
+                            &lt;option value=&quot;3&quot;&gt;⭐⭐⭐&lt;/option&gt; 
+                            &lt;option value=&quot;4&quot;&gt;⭐⭐⭐⭐&lt;/option&gt; 
+                            &lt;option value=&quot;5&quot;&gt;⭐⭐⭐⭐⭐&lt;/option&gt; 
+                        &lt;/select&gt;&lt;br&gt;&lt;br&gt; 
+                        &lt;button onclick=&quot;validerAvis('</span><span class="s1">${bateau.titre}</span><span class="s3">')&quot;&gt;Valider l'avis&lt;/button&gt; 
+                        &lt;button onclick=&quot;fermerAvisPopup()&quot;&gt;Fermer&lt;/button&gt; 
+                    &lt;/div&gt; 
+                `</span><span class="s1">;</span>
+                <span class="s1">document.body.appendChild(popup);</span>
+            <span class="s1">});</span>
+        <span class="s1">}</span>
+    <span class="s1">}</span>
+
+    <span class="s7">function </span><span class="s1">validerAvis(titreBateau) {</span>
+        <span class="s7">const </span><span class="s1">commentaire = document.getElementById(</span><span class="s3">&quot;commentaire&quot;</span><span class="s1">).value.trim();</span>
+        <span class="s7">const </span><span class="s1">etoiles = parseInt(document.getElementById(</span><span class="s3">&quot;etoiles&quot;</span><span class="s1">).value);</span>
+
+        <span class="s7">if </span><span class="s1">(!commentaire || isNaN(etoiles)) {</span>
+            <span class="s1">alert(</span><span class="s3">&quot;Merci de remplir tous les champs.&quot;</span><span class="s1">);</span>
+            <span class="s7">return</span><span class="s1">;</span>
+        <span class="s1">}</span>
+
+        <span class="s7">const </span><span class="s1">avis = JSON.parse(localStorage.getItem(</span><span class="s3">&quot;avis&quot;</span><span class="s1">) || </span><span class="s3">&quot;[]&quot;</span><span class="s1">);</span>
+        <span class="s1">avis.push({</span>
+            <span class="s1">titre: titreBateau,</span>
+            <span class="s1">commentaire: commentaire,</span>
+            <span class="s1">etoiles: etoiles,</span>
+            <span class="s1">date: </span><span class="s7">new </span><span class="s1">Date().toLocaleDateString()</span>
+        <span class="s1">});</span>
+
+        <span class="s1">localStorage.setItem(</span><span class="s3">&quot;avis&quot;</span><span class="s1">, JSON.stringify(avis));</span>
+        <span class="s1">alert(</span><span class="s3">&quot;Merci pour votre avis !&quot;</span><span class="s1">);</span>
+        <span class="s1">window.location.href = </span><span class="s3">&quot;avis.html&quot;</span><span class="s1">;</span>
+    <span class="s1">}</span>
+
+    <span class="s7">function </span><span class="s1">fermerAvisPopup() {</span>
+        <span class="s7">const </span><span class="s1">popup = document.querySelector(</span><span class="s3">&quot;.avis-popup-overlay&quot;</span><span class="s1">);</span>
+        <span class="s7">if </span><span class="s1">(popup) popup.remove();</span>
+    <span class="s1">}</span>
+<span class="s0">&lt;/script&gt;</span>
+
+<span class="s0">&lt;/body&gt;</span>
+<span class="s0">&lt;/html&gt;</span>
+</pre>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>offre.css</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #d5b778;}
+.s1 { color: #bcbec4;}
+.s2 { color: #bcbec4;}
+.s3 { color: #bababa;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+.s6 { color: #6aab73;}
+.s7 { color: #7a7e85;}
+.s8 { color: #56a8f5;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+offre.css</font>
+</center></td></tr></table>
+<pre><span class="s0">body</span><span class="s1">, </span><span class="s0">html </span><span class="s1">{</span>
+    <span class="s3">height</span><span class="s4">: </span><span class="s5">100</span><span class="s1">%;</span>
+    <span class="s3">font-family</span><span class="s4">: </span><span class="s6">'Helvetica Neue'</span><span class="s1">, </span><span class="s0">Helvetica</span><span class="s1">, </span><span class="s0">Arial</span><span class="s1">, </span><span class="s6">sans-serif</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">double-carrousel </span><span class="s1">{</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">flex</span><span class="s1">;</span>
+    <span class="s3">justify-content</span><span class="s4">: </span><span class="s6">center</span><span class="s1">;</span>
+    <span class="s3">align-items</span><span class="s4">: </span><span class="s6">center</span><span class="s1">;</span>
+    <span class="s3">gap</span><span class="s4">: </span><span class="s5">40</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">height</span><span class="s4">: </span><span class="s5">100</span><span class="s6">vh</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">carrousel </span><span class="s1">{</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">flex</span><span class="s1">;</span>
+    <span class="s3">align-items</span><span class="s4">: </span><span class="s6">center</span><span class="s1">;</span>
+    <span class="s3">gap</span><span class="s4">: </span><span class="s5">10</span><span class="s6">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">slides </span><span class="s1">{</span>
+    <span class="s3">width</span><span class="s4">: </span><span class="s5">300</span><span class="s6">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">slide </span><span class="s1">{</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">none</span><span class="s1">;</span>
+    <span class="s3">width</span><span class="s4">: </span><span class="s5">300</span><span class="s6">px</span><span class="s1">;          </span><span class="s7">/* largeur fixe */</span>
+    <span class="s3">height</span><span class="s4">: </span><span class="s5">200</span><span class="s6">px</span><span class="s1">;         </span><span class="s7">/* hauteur fixe */</span>
+    <span class="s3">object-fit</span><span class="s4">: </span><span class="s6">cover</span><span class="s1">;     </span><span class="s7">/* recadre l’image sans la déformer */</span>
+    <span class="s3">border-radius</span><span class="s4">: </span><span class="s5">10</span><span class="s6">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">slide</span><span class="s1">.</span><span class="s0">active </span><span class="s1">{</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">block</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">description </span><span class="s1">{</span>
+    <span class="s3">margin-top</span><span class="s4">: </span><span class="s5">10</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s5">0.9</span><span class="s6">em</span><span class="s1">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s0">rgba</span><span class="s1">(</span><span class="s5">0</span><span class="s1">, </span><span class="s5">0</span><span class="s1">, </span><span class="s5">0</span><span class="s1">, </span><span class="s5">0.5</span><span class="s1">);</span>
+    <span class="s3">font-family</span><span class="s4">: </span><span class="s6">'DM Serif Display'</span><span class="s1">, </span><span class="s6">serif</span><span class="s1">;</span>
+    <span class="s3">text-decoration</span><span class="s4">: </span><span class="s6">none</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">prev</span><span class="s1">, .</span><span class="s0">next </span><span class="s1">{</span>
+    <span class="s3">background</span><span class="s4">: </span><span class="s6">none</span><span class="s1">;</span>
+    <span class="s3">border</span><span class="s4">: </span><span class="s6">none</span><span class="s1">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s5">2</span><span class="s6">em</span><span class="s1">;</span>
+    <span class="s3">cursor</span><span class="s4">: </span><span class="s6">pointer</span><span class="s1">;</span>
+    <span class="s3">color</span><span class="s4">: </span><span class="s8">#335533</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">background </span><span class="s1">{</span>
+    <span class="s3">background-color</span><span class="s4">: </span><span class="s0">rgb</span><span class="s1">(</span><span class="s5">224</span><span class="s1">, </span><span class="s5">224</span><span class="s1">, </span><span class="s5">213</span><span class="s1">);</span>
+    <span class="s3">border-radius</span><span class="s4">: </span><span class="s5">20</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">border</span><span class="s4">: </span><span class="s6">none</span><span class="s1">;</span>
+    <span class="s3">width</span><span class="s4">: </span><span class="s5">300</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">padding</span><span class="s4">: </span><span class="s5">12</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s5">0.95</span><span class="s6">em</span><span class="s1">;</span>
+<span class="s1">}</span>
+
+<span class="s1">.</span><span class="s0">ligne-info </span><span class="s1">{</span>
+    <span class="s3">display</span><span class="s4">: </span><span class="s6">flex</span><span class="s1">;</span>
+    <span class="s3">justify-content</span><span class="s4">: </span><span class="s6">space-between</span><span class="s1">;</span>
+    <span class="s3">align-items</span><span class="s4">: </span><span class="s6">center</span><span class="s1">;</span>
+    <span class="s3">gap</span><span class="s4">: </span><span class="s5">10</span><span class="s6">px</span><span class="s1">;</span>
+    <span class="s3">font-size</span><span class="s4">: </span><span class="s5">0.9</span><span class="s6">em</span><span class="s1">;</span>
+    <span class="s3">padding</span><span class="s4">: </span><span class="s5">0 10</span><span class="s6">px</span><span class="s1">;</span>
+<span class="s1">}</span>
+</pre>
+</body>
+</html>
