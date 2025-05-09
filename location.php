@@ -46,12 +46,12 @@ $estConnecte = isset($_SESSION['user_id']);
 
     <div class="formulaire-connexion">
         <div class="background">
-            <div class="champ-double">
-                <div class="champ-date" style="margin-left: 95px">
+            <div class="champ-double" style="gap: 20px">
+                <div class="champ-date" >
                     <label for="départ">Date de départ</label>
                     <input type="date" id="départ">
                 </div>
-                <div class="champ-date" style="margin-right: 95px">
+                <div class="champ-date" >
                     <label for="arrivée">Date d'arrivée</label>
                     <input type="date" id="arrivée">
                 </div>
