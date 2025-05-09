@@ -1,30 +1,40 @@
 body {
-    background: url("images/fond-bateau.png") no-repeat center center fixed;
-    background-size: cover;
-    font-family: 'DM Serif Display', serif;
+    display: flex;
+    background-color: #c5d8d3;
+    flex-direction: column;
 }
 
 
+main.contenu-scrollable {
+    position: absolute;
+    top: 130px; /* même que header */
+    bottom: 60px; /* même que footer */
+    left: 0;
+    right: 0;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.bouton-bas {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
 .formulaire-connexion {
+    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center; /* Centrage vertical */
-    min-height: 60vh; /* hauteur minimum pour placement */
-}
-
-.champ-date {
-    display: flex;
-    flex-direction: column;
-    font-family: 'DM Serif Display', serif;
-    color: white;
-    font-size: 14px;
+    gap: 10px;
 }
 
 .champ {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 10px;
 }
 
 .champ img {
@@ -33,7 +43,7 @@ body {
 }
 
 .champ input {
-    width: 500px;
+    width: 280px;
     padding: 12px;
     border-radius: 20px;
     border: none;
@@ -42,47 +52,8 @@ body {
     text-align: center;
 }
 
-.champ-double {
-    display: flex;
-    justify-content: center;
-}
-
-.champ-double input {
-    margin-top: 20px;
-    border-radius: 20px;
-    border: none;
-    background-color: #e6ece9;
-    width: 230px;
-    padding: 12px;
-    font-size: 0.95em;
-}
-
-.champ-trois {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 20px;
-}
-
-.champ-trois input {
-    border-radius: 20px;
-    border: none;
-    background-color: #e6ece9;
-    width: 230px;
-    padding: 12px;
-    font-size: 0.95em;
-}
-
-.background {
-    margin-top: 60px;
-    background-color: rgba(197, 216, 211, 0.8);
-    border-radius: 20px;
-    border: none;
-    padding: 20px 20px;
-}
-
-.connexion {
-    margin-top: -5px;
+.inscription {
+    margin-top: 5px;
     padding: 12px 24px;
     background-color: rgba(242, 144, 102, 0.8);
     color: white;
@@ -92,44 +63,97 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
     cursor: pointer;
     transition: background-color 0.3s ease;
-    text-decoration: none;
 }
 
-.connexion:hover {
-    background-color: rgba(242, 144, 102, 1);
-}
-
-.inscription {
+.connexion {
     margin-top: 15px;
     font-size: 0.9em;
     color: #ee9c72;
     font-family: 'DM Serif Display', cursive;
     text-align: center;
+    text-decoration: none;
 }
 
-.mdp-oublier {
+.conditions-general {
+    display: flex;
+    align-items: center; /* pour aligner verticalement */
+    justify-content: center; /* pour centrer horizontalement */
+    gap: 8px; /* espace entre le carré et le texte */
     margin-top: 10px;
-    font-size: 0.7em;
-    color: rgba(0, 0, 0, 0.62);
-    font-family: 'DM Serif Display', cursive;
-    text-align: center;
 }
 
-.bouton-type {
-    width: 230px; /* même largeur que les champs input */
-    background-color: #e6ece9;
-    border: none;
-    border-radius: 20px;
-    padding: 12px;
-    font-size: 0.95em;
+.checkbox-container {
+    display: flex;
+    align-items: center;
     cursor: pointer;
-    transition: background-color 0.3s, color 0.3s;
+    font-size: 0.85em;
+    color: #0000009E;
     font-family: 'DM Serif Display', serif;
-    text-align: center;
+    margin-top: 10px;
 }
 
+.checkbox-container input {
+    display: none; /* cacher la vraie case */
+}
 
-.bouton-type.active {
-    background-color: rgba(242, 144, 102, 0.9);
-    color: white;
+.checkmark {
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid #335533;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.checkbox-container input:checked + .checkmark::after {
+    content: "";
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 10px;
+    border: solid #335533;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.message-area {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    text-align: center;
+    font-family: sans-serif;
+}
+.message-area.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.message-area.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+.message-area ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.message-area li {
+    margin-bottom: 5px;
+}
+
+.champ-obligatoire {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.champ-obligatoire .etoile {
+    color: red;
+    font-size: 1.2em;
+    position: absolute;
+    left: -15px; /* ajuste si nécessaire */
+    top: 50%;
+    transform: translateY(-50%);
 }

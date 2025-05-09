@@ -11,26 +11,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$email || !$password) {
         $error = "Veuillez remplir tous les champs.";
     } else {
-        $stmt = $pdo->prepare("SELECT id, first_name, password_hash FROM users WHERE email = ?");
+        $stmt = $pdo->prepare("SELECT id, first_name, password_hash, admin FROM users WHERE email = ?");
         $stmt->execute([$email]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($password, $user['password_hash'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['first_name'] = $user['first_name'];
-            header("Location: MonCompte.php");
+            $_SESSION['is_admin'] = $user['admin']; // ← enregistre le rôle
+
+            if ($user['admin']) {
+                header('Location: admin.php');
+            } else {
+                header('Location: MonCompte.php');
+            }
             exit;
         } else {
             $error = "Email ou mot de passe incorrect.";
         }
     }
 }
-
-session_start();
-$estConnecte = isset($_SESSION['user_id']);
-
-
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -158,8 +160,8 @@ $estConnecte = isset($_SESSION['user_id']);
     <?php endif; ?>
 
     <div class="logo-block">
-        <a id="inscription-lien" href="Inscription.php" class="inscription" style="text-decoration: none;">Inscription</a>
-        <a id="mdp-lien" href="mdp-oublier.php" class="mdp-oublier" style="text-decoration: none;">Mot de passe oublié</a>
+        <a id="inscription-lien" href="Inscription.php" class="inscription" style="text-decoration: none; font-size: 1.2em">Inscription</a>
+        <a id="mdp-lien" href="mdp-oublier.php" class="mdp-oublier" style="text-decoration: none; font-size: 1.2em">Mot de passe oublié</a>
     </div>
 </div>
 

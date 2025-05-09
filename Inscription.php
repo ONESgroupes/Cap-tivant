@@ -36,6 +36,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = "Tous les champs sont obligatoires.";
     } elseif ($mdp !== $mdp_confirm) {
         $error = "Les mots de passe ne correspondent pas.";
+    } elseif (strlen($mdp) < 12 || !preg_match('/[A-Z]/', $mdp) || !preg_match('/[a-z]/', $mdp)) {
+        $error = "Le mot de passe doit contenir au moins 12 caractères, une majuscule et une minuscule.";
     } else {
         $check = $pdo->prepare("SELECT id FROM users WHERE email = ?");
         $check->execute([$email]);
@@ -127,25 +129,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<main class="contenu-scrollable" style="margin-top: 100px;">
+<main class="contenu-scrollable" >
     <form method="POST" action="Inscription.php" class="formulaire-inscription">
         <div class="champ">
             <br>
-            <input type="text" id="nom" name="nom" placeholder="Nom" required>
-            <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <input type="text" id="nom" name="nom" placeholder="Last name" required>
+            </div>
+
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <input type="text" id="prenom" name="prenom" placeholder="First name" required>
+            </div>
+
             <img src="images/email.png" alt="email">
-            <input type="email" id="email" name="email" placeholder="Entrez votre adresse mail" required>
+
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+            </div>
+
             <img src="images/mdp.png" alt="mot de passe">
-            <input type="password" id="mdp" name="mdp" placeholder="Entrez votre mot de passe" required>
-            <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirmez votre mot de passe" required>
+
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <input type="password" id="mdp" name="mdp" placeholder="Enter your password" required>
+            </div>
+
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirm your password" required>
+            </div>
         </div>
 
         <div class="conditions-general">
-            <label class="checkbox-container">
-                <input type="checkbox" id="mentions" name="mentions" required>
-                <span class="checkmark"></span>
-                <span class="conditions" id="conditions-text">Accepter les conditions d'utilisations</span>
-            </label>
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <label class="checkbox-container">
+                    <input type="checkbox" id="mentions" name="mentions" required>
+                    <span class="checkmark"></span>
+                    <span class="conditions" id="conditions-text">Accepter les conditions d'utilisations</span>
+                </label>
+            </div>
         </div>
         <div class="conditions-general">
             <label class="checkbox-container">
@@ -155,7 +181,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </label>
         </div>
         <div class="conditions-general">
-            <div class="g-recaptcha" data-sitekey="6LfJqjErAAAAAChIifxO3-ht7cVOz2HVz03aWZSF"></div>
+            <div class="champ-obligatoire">
+                <span class="etoile">*</span>
+                <div class="g-recaptcha" data-sitekey="6LfJqjErAAAAAChIifxO3-ht7cVOz2HVz03aWZSF"></div>
+            </div>
         </div>
 
         <div class="conditions-general">
@@ -172,8 +201,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
     </strong>
 
-    <div class="logo-block">
+    <div class="logo-block" style="font-size: 1.2em">
         <a href="Connexion.php" class="connexion" id="lien-connexion">Se connecter</a>
+    </div>
+    <div class="conditions-general">
+        <div class="champ-obligatoire">
+            <span class="etoile">*</span>
+            <span class="conditions">Ce champ est obligatoire</span>
+        </div>
     </div>
 </main>
 
