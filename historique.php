@@ -143,7 +143,6 @@ if ($estConnecte) {
         document.getElementById("lien-apropos").textContent = commun.info;
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;
-        document.getElementById("compte-link").textContent = commun.compte;
 
         document.querySelectorAll(".label-port").forEach(el => el.textContent = texte.port + " :");
         document.querySelectorAll(".label-personnes").forEach(el => el.textContent = texte.personnes + " :");
