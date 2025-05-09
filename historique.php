@@ -73,9 +73,9 @@ if ($estConnecte) {
                 <p><strong class="label-cabines">Cabines :</strong> <?= htmlspecialchars($bateau['cabines']) ?></p>
                 <p><strong class="label-longueur">Longueur :</strong> <?= htmlspecialchars($bateau['longueur']) ?></p>
                 <p><strong class="label-prix">Prix :</strong> <?= htmlspecialchars($bateau['prix']) ?></p>
-                <img src="images/<?= htmlspecialchars($bateau['image1']) ?>" alt="<?= htmlspecialchars($bateau['titre']) ?>">
+                <img src="<?= htmlspecialchars($bateau['image1']) ?>" alt="<?= htmlspecialchars($bateau['titre']) ?>">
                 <?php if (isset($avisParBateau[$bateau['id']])): ?>
-                    <!-- Pas de bouton si l'avis existe -->
+
                 <?php else: ?>
                     <button class="btn-avis" onclick="laisserAvis('<?= htmlspecialchars($bateau['titre']) ?>')">Avis</button>
                 <?php endif; ?>
