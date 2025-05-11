@@ -60,3 +60,71 @@ body {
     color: rgba(0, 0, 0, 0.62);
     font-family: 'DM Serif Display', cursive;
 }
+
+/* Styles pour le menu */
+.top-left {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+}
+
+.menu-overlay {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 80%;
+    height: 100%;
+    background-color: #c5d8d3;
+    z-index: 999;
+    transition: left 0.3s ease;
+}
+
+.menu-overlay.active {
+    left: 0;
+}
+
+.menu-content {
+    padding: 60px 20px;
+}
+
+.close-menu {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.champ input[type="password"],
+.champ input[type="text"] {
+    width: 280px;
+    padding: 12px 35px 12px 40px;
+    border-radius: 20px;
+    border: none;
+    background-color: #e6ece9;
+    font-size: 1em;
+    text-align: center;
+}
+
+.champ img {
+    position: absolute;
+    left: 15px;
+    z-index: 1;
+    width: 24px;
+    height: auto;
+}

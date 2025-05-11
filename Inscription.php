@@ -155,11 +155,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="champ-obligatoire">
                 <span class="etoile">*</span>
                 <input type="password" id="mdp" name="mdp" placeholder="Enter your password" required>
+                <span toggle="#mdp" class="toggle-password">👁️</span>
             </div>
 
             <div class="champ-obligatoire">
                 <span class="etoile">*</span>
                 <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirm your password" required>
+                <span toggle="#mdp-confirm" class="toggle-password">👁️</span>
             </div>
         </div>
 
@@ -280,6 +282,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         menuContent.innerHTML = commun.menu.map((item, index) => {
             return `<a href="${liens[index]}.php">${item}</a>`;
         }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+    });
+
+
+    document.querySelectorAll('.toggle-password').forEach(function(element) {
+        element.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        });
     });
 </script>
 </body>

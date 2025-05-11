@@ -149,8 +149,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email" id="email" name="email" placeholder="Entrez votre adresse mail" required>
         </div>
         <div class="champ">
-            <img src="images/mdp.png" alt="mot de passe">
-            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            <div class="password-container">
+                <img src="images/mdp.png" alt="mot de passe">
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                <span toggle="#password" class="toggle-password">👁️</span>
+            </div>
         </div>
         <button type="submit" class="connexion" id="btn-connexion">Se connecter</button>
     </form>
@@ -170,5 +173,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <span class="bottom-text" style="color: #577550">•</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
+
+<script>
+    // Fonctionnalité œil pour mot de passe
+    document.querySelectorAll('.toggle-password').forEach(function(element) {
+        element.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        });
+    });
+</script>
 </body>
 </html>
