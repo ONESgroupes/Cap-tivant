@@ -30,13 +30,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pays = trim($_POST['pays']);
     $mdp = $_POST['mdp'];
     $telephone = $_POST['telephone'];
+    $rue= $_POST['rue'];
 
 
     if (!$nom || !$prenom || !$email) {
         $error = "Nom, prénom et email sont obligatoires.";
     } else {
         $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, address=?, postal_code=?, city=?, country=? WHERE id=?");
-        $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays,$telephone, $user_id]);
+        $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays,$telephone, $rue,$user_id]);
 
         if (!empty($mdp)) {
             $hashed = password_hash($mdp, PASSWORD_DEFAULT);
@@ -61,6 +62,7 @@ $postal = htmlspecialchars($user['postal_code']);
 $ville = htmlspecialchars($user['city']);
 $pays = htmlspecialchars($user['country']);
 $telephone = htmlspecialchars($user['telephone']);
+$rue = htmlspecialchars($user['rue']);
 
 
 
@@ -129,19 +131,22 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
         <div class="champ-double">
             <input type="text" name="nom" id="nom" value="<?= $nom ?>" placeholder="Nom" required>
-            <input type="text" name="code_postal" id="code-postal" value="<?= $postal ?>" placeholder="Code postal">
+            <input type="rue" name="rue" id="rue" value="<?= $rue ?>" placeholder="Rue" >
+
         </div>
         <div class="champ-double">
             <input type="text" name="prenom" id="prenom" value="<?= $prenom ?>" placeholder="Prénom" required>
-            <input type="text" name="ville" id="ville" value="<?= $ville ?>" placeholder="Ville">
+            <input type="text" name="code_postal" id="code-postal" value="<?= $postal ?>" placeholder="Code postal">
+
         </div>
         <div class="champ-double">
             <input type="email" name="email" id="mail" value="<?= $email ?>" placeholder="E-mail" required>
-            <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
+            <input type="text" name="ville" id="ville" value="<?= $ville ?>" placeholder="Ville">
+
         </div>
         <div class="champ-double">
             <input type="telephone" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" >
-            <input type="text" style="visibility: hidden;" disabled>
+            <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
 
         <div style="text-align: center; margin-top: 20px;">
@@ -199,6 +204,7 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("mail").placeholder = texte.email;
         document.getElementById("ville").placeholder = texte.ville;
         document.getElementById("telephone").placeholder = texte.telephone;
+        ocument.getElementById("rue").placeholder = texte.rue;
         document.getElementById("pays").placeholder = texte.pays;
         document.getElementById("btn-modifier").textContent = texte.bouton;
 
