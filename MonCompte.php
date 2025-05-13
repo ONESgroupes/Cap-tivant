@@ -24,11 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nom = trim($_POST['nom']);
     $prenom = trim($_POST['prenom']);
     $email = trim($_POST['email']);
-    $adresse = trim($_POST['adresse']);
     $postal = trim($_POST['code_postal']);
     $ville = trim($_POST['ville']);
     $pays = trim($_POST['pays']);
-    $mdp = $_POST['mdp'];
     $telephone = $_POST['telephone'];
     $rue= $_POST['rue'];
 
@@ -36,8 +34,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$nom || !$prenom || !$email) {
         $error = "Nom, prénom et email sont obligatoires.";
     } else {
-        $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, address=?, postal_code=?, city=?, country=?, phone=?,street=? WHERE id=?");
-        $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays,$telephone, $rue,$user_id]);
+        $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, postal_code=?, city=?, country=?, phone=?,street=? WHERE id=?");
+        $stmt->execute([$nom, $prenom, $email, $postal, $ville, $pays,$telephone, $rue,$user_id]);
 
         if (!empty($mdp)) {
             $hashed = password_hash($mdp, PASSWORD_DEFAULT);
@@ -57,7 +55,6 @@ $user = $stmt->fetch();
 $nom = htmlspecialchars($user['last_name']);
 $prenom = htmlspecialchars($user['first_name']);
 $email = htmlspecialchars($user['email']);
-$adresse = htmlspecialchars($user['address']);
 $postal = htmlspecialchars($user['postal_code']);
 $ville = htmlspecialchars($user['city']);
 $pays = htmlspecialchars($user['country']);
@@ -131,7 +128,7 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
         <div class="champ-double">
             <input type="text" name="nom" id="nom" value="<?= $nom ?>" placeholder="Nom" required>
-            <input type="rue" name="rue" id="rue" value="<?= $rue ?>" placeholder="Rue" >
+            <input type="text" name="rue" id="rue" value="<?= $rue ?>" placeholder="Rue" >
 
         </div>
         <div class="champ-double">
@@ -145,7 +142,7 @@ $estConnecte = isset($_SESSION['user_id']);
 
         </div>
         <div class="champ-double">
-            <input type="telephone" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" >
+            <input type="text" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" >
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
 
@@ -192,19 +189,17 @@ $estConnecte = isset($_SESSION['user_id']);
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? CompteEN : CompteFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-
+        console.log(CompteFR, CompteEN)
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("label-infos").textContent = texte.labelInfos;
-        document.getElementById("label-adresse").textContent = texte.labelAdresse;
         document.getElementById("nom").placeholder = texte.nom;
-        document.getElementById("adresse").placeholder = texte.adresse;
         document.getElementById("prenom").placeholder = texte.prenom;
         document.getElementById("code-postal").placeholder = texte.codePostal;
         document.getElementById("mail").placeholder = texte.email;
         document.getElementById("ville").placeholder = texte.ville;
         document.getElementById("telephone").placeholder = texte.telephone;
-        ocument.getElementById("rue").placeholder = texte.rue;
+        document.getElementById("rue").placeholder = texte.rue;
         document.getElementById("pays").placeholder = texte.pays;
         document.getElementById("btn-modifier").textContent = texte.bouton;
 
