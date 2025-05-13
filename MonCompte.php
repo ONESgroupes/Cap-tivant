@@ -36,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!$nom || !$prenom || !$email) {
         $error = "Nom, prénom et email sont obligatoires.";
     } else {
-        $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, address=?, postal_code=?, city=?, country=? WHERE id=?");
+        $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, address=?, postal_code=?, city=?, country=?, phone=?,street=? WHERE id=?");
         $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays,$telephone, $rue,$user_id]);
 
         if (!empty($mdp)) {
@@ -61,8 +61,8 @@ $adresse = htmlspecialchars($user['address']);
 $postal = htmlspecialchars($user['postal_code']);
 $ville = htmlspecialchars($user['city']);
 $pays = htmlspecialchars($user['country']);
-$telephone = htmlspecialchars($user['telephone']);
-$rue = htmlspecialchars($user['rue']);
+$telephone = htmlspecialchars($user['phone']);
+$rue = htmlspecialchars($user['street']);
 
 
 
