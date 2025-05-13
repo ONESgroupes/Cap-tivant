@@ -29,12 +29,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $ville = trim($_POST['ville']);
     $pays = trim($_POST['pays']);
     $mdp = $_POST['mdp'];
+    $telephone = $_POST['telephone'];
+
 
     if (!$nom || !$prenom || !$email) {
         $error = "Nom, prénom et email sont obligatoires.";
     } else {
         $stmt = $pdo->prepare("UPDATE users SET last_name=?, first_name=?, email=?, address=?, postal_code=?, city=?, country=? WHERE id=?");
-        $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays, $user_id]);
+        $stmt->execute([$nom, $prenom, $email, $adresse, $postal, $ville, $pays,$telephone, $user_id]);
 
         if (!empty($mdp)) {
             $hashed = password_hash($mdp, PASSWORD_DEFAULT);
@@ -58,8 +60,10 @@ $adresse = htmlspecialchars($user['address']);
 $postal = htmlspecialchars($user['postal_code']);
 $ville = htmlspecialchars($user['city']);
 $pays = htmlspecialchars($user['country']);
+$telephone = htmlspecialchars($user['telephone']);
 
-session_start();
+
+
 $estConnecte = isset($_SESSION['user_id']);
 
 
@@ -135,6 +139,10 @@ $estConnecte = isset($_SESSION['user_id']);
             <input type="email" name="email" id="mail" value="<?= $email ?>" placeholder="E-mail" required>
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
+        <div class="champ-double">
+            <input type="telephone" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" required>
+            <input type="text" style="visibility: hidden;" disabled>
+        </div>
 
         <div style="text-align: center; margin-top: 20px;">
             <button type="submit" class="connexion" id="btn-modifier">Modifier</button>
@@ -190,6 +198,7 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("code-postal").placeholder = texte.codePostal;
         document.getElementById("mail").placeholder = texte.email;
         document.getElementById("ville").placeholder = texte.ville;
+        document.getElementById("telephone").placeholder = texte.telephone;
         document.getElementById("pays").placeholder = texte.pays;
         document.getElementById("btn-modifier").textContent = texte.bouton;
 

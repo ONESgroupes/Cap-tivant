@@ -61,7 +61,14 @@ $estConnecte = isset($_SESSION['user_id']);
                 <button class="bouton-type" id="btn-voile" onclick="selectType(this)"></button>
             </div>
             <div class="champ" style="padding: 22px;">
-                <input type="text" id="lieu" placeholder="">
+                <select id="lieu">
+                    <option value="">Choisir un lieu</option>
+                    <option value="Marseille">Marseille</option>
+                    <option value="Nice">Nice</option>
+                    <option value="Toulon">Toulon</option>
+                    <option value="Cannes">Cannes</option>
+                    <option value="Saint-Tropez">Saint-Tropez</option>
+                </select>
                 <br>
                 <button id="lien-recherche" class="connexion" onclick="verifierEtRediriger()">Rechercher</button>
             </div>

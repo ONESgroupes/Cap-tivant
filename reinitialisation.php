@@ -30,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "❌ Lien invalide ou expiré.";
     } elseif (empty($nouveau_mdp)) {
         $message = "❌ Le mot de passe ne peut pas être vide.";
+    } elseif (strlen($nouveau_mdp) < 12 || !preg_match('/[A-Z]/', $nouveau_mdp) || !preg_match('/[a-z]/', $nouveau_mdp)) {
+        $message = "❌ Le mot de passe doit contenir au moins 12 caractères, une majuscule et une minuscule.";
     } else {
         $email = trim(file_get_contents($tokenPath));
         $hash = password_hash($nouveau_mdp, PASSWORD_DEFAULT);
@@ -42,6 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $redirect = true;
     }
 }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +91,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <form method="POST" action="">
                 <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
                 <div class="champ">
-                    <input type="password" name="new_password" placeholder="Nouveau mot de passe" required>
+                    <div class="password-container">
+                        <input type="password" name="new_password" id="new_password"
+                               placeholder="Nouveau mot de passe (12 caractères min, majuscule, minuscule)"
+                               required
+                               pattern="^(?=.*[a-z])(?=.*[A-Z]).{12,}$"
+                               title="12 caractères minimum avec au moins une majuscule et une minuscule">
+                        <span toggle="#new_password" class="toggle-password">👁️</span>
+                    </div>
+                    <p class="password-hint" style="font-size: 0.8em; color: #666; margin-top: 5px;">
+                        Le mot de passe doit contenir au moins 12 caractères, une majuscule et une minuscule
+                    </p>
                 </div>
                 <div class="logo-block">
                     <div class="connexion">
@@ -116,6 +130,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }, 3000); // Redirection après 3 secondes
     </script>
 <?php endif; ?>
+<script>
+    // Fonctionnalité œil pour mot de passe
+    document.querySelectorAll('.toggle-password').forEach(function(element) {
+        element.addEventListener('click', function() {
+            const input = document.querySelector(this.getAttribute('toggle'));
+            if (input.type === 'password') {
+                input.type = 'text';
+            } else {
+                input.type = 'password';
+            }
+        });
+    });
 
+    // Validation en temps réel
+    document.getElementById('new_password').addEventListener('input', function(e) {
+        const password = e.target.value;
+        const isValid = password.length >= 12 && /[A-Z]/.test(password) && /[a-z]/.test(password);
+
+        if (password.length > 0) {
+            e.target.style.borderColor = isValid ? 'green' : 'red';
+        } else {
+            e.target.style.borderColor = '';
+        }
+    });
+</script>
 </body>
 </html>
