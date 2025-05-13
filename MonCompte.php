@@ -140,7 +140,7 @@ $estConnecte = isset($_SESSION['user_id']);
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
         <div class="champ-double">
-            <input type="telephone" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" required>
+            <input type="telephone" name="telephone" id="telephone" value="<?= $telephone ?>" placeholder="Numéro de téléphone" >
             <input type="text" style="visibility: hidden;" disabled>
         </div>
 
