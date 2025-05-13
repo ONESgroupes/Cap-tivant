@@ -2,26 +2,14 @@
 session_start();
 require_once 'config.php';
 
-$faq_data = [
-    [
-        'question_fr' => "Comment réserver un bateau ?",
-        'reponse_fr'  => "Il vous suffit de vous connecter, choisir un port et sélectionner un bateau disponible.",
-        'question_en' => "How to book a boat?",
-        'reponse_en'  => "Just log in, choose a port, and pick an available boat.",
-    ],
-    [
-        'question_fr' => "Puis-je annuler ma réservation ?",
-        'reponse_fr'  => "Oui, vous pouvez annuler 24h avant sans frais.",
-        'question_en' => "Can I cancel my booking?",
-        'reponse_en'  => "Yes, you can cancel up to 24h in advance free of charge.",
-    ],
-    [
-        'question_fr' => "Y a-t-il une assistance en cas de problème ?",
-        'reponse_fr'  => "Oui, un service d’assistance est disponible 24/7.",
-        'question_en' => "Is there support in case of issues?",
-        'reponse_en'  => "Yes, support is available 24/7.",
-    ]
-];
+$faq_data = [];
+try {
+    $stmt = $pdo->query("SELECT question AS question_fr, reponse AS reponse_fr, question_en, reponse_en FROM faq");
+    $faq_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    $faq_data = [];
+}
+
 
 $estConnecte = isset($_SESSION['user_id']);
 ?>
