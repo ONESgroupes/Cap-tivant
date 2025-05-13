@@ -149,8 +149,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <input type="email" id="email" name="email" placeholder="Entrez votre adresse mail" required>
         </div>
         <div class="champ">
+            <img src="images/mdp.png" alt="mot de passe">
             <div class="password-container">
-                <img src="images/mdp.png" alt="mot de passe">
                 <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
                 <span toggle="#password" class="toggle-password">👁️</span>
             </div>
