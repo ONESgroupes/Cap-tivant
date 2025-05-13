@@ -89,6 +89,10 @@ $estConnecte = isset($_SESSION['user_id']);
                 <select id="select-personnes" name="nombre_personnes"> <!-- Ajout name si besoin côté serveur -->
                     <option disabled selected>Chargement...</option>
                 </select>
+                <p id="erreur-nb-personnes" style="color: red; text-align: center; display: none;">
+                    Veuillez sélectionner le nombre de personnes.
+                </p>
+
             </div>
 
             <div class="enfant-a-bord">
@@ -401,6 +405,16 @@ $estConnecte = isset($_SESSION['user_id']);
             alert("Veuillez remplir toutes les informations obligatoires.");
             e.preventDefault();
             return;
+        }
+        const select = document.getElementById("select-personnes");
+        const erreurNbPersonnes = document.getElementById("erreur-nb-personnes");
+
+        if (!select || !select.value || select.selectedIndex === 0) {
+            erreurNbPersonnes.style.display = "block";
+            e.preventDefault(); // Empêche l’envoi du formulaire
+            return;
+        } else {
+            erreurNbPersonnes.style.display = "none";
         }
 
         // Remplir les champs du formulaire
