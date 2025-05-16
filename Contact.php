@@ -36,7 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (!$nom || !$email || !$message) {
-        $error = "Merci de remplir tous les champs obligatoires.";
+        if (!$nom || !$email ) {
+            $error = "Nom et email sont obligatoires";
+        }if (!message) {
+            $error = "Le message est vide";
+        }
     } else {
         // Sauvegarde en base
         $stmt = $pdo->prepare("INSERT INTO contact_messages (name, email, phone, message, created_at) VALUES (?, ?, ?, ?, NOW())");
@@ -81,6 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
     <meta charset="UTF-8">
     <title id="page-title">Contact</title>
     <link rel="stylesheet" href="PageAccueil.css">
@@ -89,91 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
     <script>
-        function getLangue() {
-            return localStorage.getItem("langue") || "fr";
-        }
-
-        function toggleMenu() {
-            const menu = document.getElementById("menu-overlay");
-            menu.classList.toggle("active");
-        }
-
-        function toggleLangDropdown() {
-            const dropdown = document.getElementById("lang-dropdown");
-            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
-        }
-
-        function changerLangue(langue) {
-            localStorage.setItem("langue", langue);
-            location.reload();
-        }
-
-        document.addEventListener("click", function(event) {
-            const dropdown = document.getElementById("lang-dropdown");
-            const icon = document.getElementById("current-lang");
-            if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
-                dropdown.style.display = "none";
-            }
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const langue = getLangue();
-            const texte = langue === "en" ? ContactEN : ContactFR;
-            const commun = langue === "en" ? CommunEN : CommunFR;
-
-            const compteLink = document.getElementById("compte-link");
-            if (compteLink) {
-                compteLink.textContent = commun.compte;
-            }
-
-            document.title = texte.titre;
-            document.getElementById("page-title").textContent = texte.titre;
-            document.getElementById("titre-page").textContent = texte.titre;
-            document.getElementById("contact-texte").textContent = texte.texte;
-            if ($estConnecte) {
-                $nom = trim($_POST['last_name'] ?? '');
-                $mail = trim($_POST['email'] ?? '');
-                $telephone = trim($_POST['phone'] ?? '');
-            } else {
-                document.getElementById("nom").placeholder = texte.nom;
-                document.getElementById("mail").placeholder = texte.email;
-                document.getElementById("tel").placeholder = texte.telephone;
-            }
-
-
-            document.getElementById("label-msg").textContent = texte.label;
-            document.getElementById("msg").placeholder = texte.msg;
-            document.getElementById("btn-envoyer").textContent = texte.bouton;
-
-            document.getElementById("lien-mentions").textContent = commun.mentions;
-            document.getElementById("lien-mentions").setAttribute("data-page", "MentionsLegales");
-            document.getElementById("lien-contact").textContent = commun.contact;
-            document.getElementById("lien-contact").setAttribute("data-page", "Contact");
-
-            document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
-            const langDropdown = document.getElementById("lang-dropdown");
-            langDropdown.innerHTML = langue === "en"
-                ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
-                : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-
-            const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
-            const menuContent = document.getElementById("menu-links");
-            menuContent.innerHTML = commun.menu.map((item, index) => {
-                return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
-            }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
-
-            document.querySelectorAll(".lien-langue").forEach(lien => {
-                const page = lien.getAttribute("data-page");
-                lien.setAttribute("href", `${page}.php`);
-            });
-
-            const lienApropos = document.getElementById("lien-apropos");
-            if (lienApropos) {
-                lienApropos.textContent = commun.info;
-                lienApropos.setAttribute("href", "a-propos.php");
-            }
-        });
+        const estConnecte = <?= json_encode($estConnecte) ?>;
     </script>
+
+
+
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -250,5 +175,92 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <span class="bottom-text" style="color: #577550">•</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
+<script>
+
+    function getLangue() {
+        return localStorage.getItem("langue") || "fr";
+    }
+
+    function toggleMenu() {
+        const menu = document.getElementById("menu-overlay");
+        menu.classList.toggle("active");
+    }
+
+    function toggleLangDropdown() {
+        const dropdown = document.getElementById("lang-dropdown");
+        dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    function changerLangue(langue) {
+        localStorage.setItem("langue", langue);
+        location.reload();
+    }
+
+    document.addEventListener("click", function(event) {
+        const dropdown = document.getElementById("lang-dropdown");
+        const icon = document.getElementById("current-lang");
+        if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+            dropdown.style.display = "none";
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        const langue = getLangue();
+        const texte = langue === "en" ? ContactEN : ContactFR;
+        const commun = langue === "en" ? CommunEN : CommunFR;
+
+        const compteLink = document.getElementById("compte-link");
+        if (compteLink) {
+            compteLink.textContent = commun.compte;
+        }
+
+        document.title = texte.titre;
+        document.getElementById("page-title").textContent = texte.titre;
+        document.getElementById("titre-page").textContent = texte.titre;
+        document.getElementById("contact-texte").textContent = texte.texte;
+        if (estConnecte) {
+            $nom = trim($_POST['last_name'] ?? '');
+            $mail = trim($_POST['email'] ?? '');
+            $telephone = trim($_POST['phone'] ?? '');
+        } else {
+            document.getElementById("nom").placeholder = texte.nom;
+            document.getElementById("mail").placeholder = texte.email;
+            document.getElementById("tel").placeholder = texte.telephone;
+        }
+
+
+        document.getElementById("label-msg").textContent = texte.label;
+        document.getElementById("msg").placeholder = texte.msg;
+        document.getElementById("btn-envoyer").textContent = texte.bouton;
+
+        document.getElementById("lien-mentions").textContent = commun.mentions;
+        document.getElementById("lien-mentions").setAttribute("data-page", "MentionsLegales");
+        document.getElementById("lien-contact").textContent = commun.contact;
+        document.getElementById("lien-contact").setAttribute("data-page", "Contact");
+
+        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
+        document.getElementById("lang-dropdown").innerHTML = langue === "en"
+            ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+            : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+
+        const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+        const menuContent = document.getElementById("menu-links");
+        menuContent.innerHTML = commun.menu.map((item, index) => {
+            return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+        }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+
+        document.querySelectorAll(".lien-langue").forEach(lien => {
+            const page = lien.getAttribute("data-page");
+            lien.setAttribute("href", `${page}.php`);
+        });
+
+        const lienApropos = document.getElementById("lien-apropos");
+        if (lienApropos) {
+            lienApropos.textContent = commun.info;
+            lienApropos.setAttribute("href", "a-propos.php");
+        }
+    });
+</script>
+
 </body>
 </html>
