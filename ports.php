@@ -38,18 +38,31 @@ $estConnecte = isset($_SESSION['user_id']);
 </div>
 
 <!-- Haut droit -->
+<!-- Haut droit -->
 <div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown"></div>
-    </div>
-    <a href="a-propos.php" id="lien-apropos" style="color: #577550; text-decoration: none;"></a>
-    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;"></a>
-    <a href="favoris.php">
-        <img src="images/panier.png" alt="Panier">
-    </a>
-</div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <?php if ($estConnecte): ?>
+            <a href="MonCompte.php" style="color: #577550; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
+                <?= htmlspecialchars($_SESSION['first_name']) ?>
+            </a>
+        <?php endif; ?>
 
+        <div class="language-selector">
+            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+            <div id="lang-dropdown" class="lang-dropdown"></div>
+        </div>
+
+        <a id="lien-apropos" href="a-propos.php" style="color: #577550; text-decoration: none; white-space: nowrap;">À propos</a>
+
+        <?php if (!$estConnecte): ?>
+            <a id="lien-compte" href="Connexion.php" style="color: #577550; text-decoration: none; white-space: nowrap;">Mon Compte</a>
+        <?php endif; ?>
+
+        <a href="favoris.php">
+            <img src="images/panier.png" alt="Panier" style="min-width: 20px;">
+        </a>
+    </div>
+</div>
 <!-- Contenu principal -->
 <main>
     <div class="carte-container">
