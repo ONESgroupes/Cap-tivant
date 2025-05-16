@@ -94,8 +94,12 @@ $estConnecte = isset($_SESSION['user_id']);
         <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
 </div>
-
 <div class="top-right">
+    <?php if ($estConnecte): ?>
+        <span style="color: #577550; font-weight: bold; margin-right: 15px;">
+            <?= htmlspecialchars($_SESSION['first_name']) ?>
+        </span>
+    <?php endif; ?>
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
@@ -105,7 +109,6 @@ $estConnecte = isset($_SESSION['user_id']);
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
-
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
