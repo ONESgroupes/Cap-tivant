@@ -159,16 +159,30 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
 
 <!-- Haut de page -->
 <div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown"></div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <?php if ($estConnecte): ?>
+            <a href="MonCompte.php" style="color: #FFFFFF; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
+                <?= htmlspecialchars($_SESSION['first_name']) ?>
+            </a>
+        <?php endif; ?>
+
+        <div class="language-selector">
+            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+            <div id="lang-dropdown" class="lang-dropdown"></div>
+        </div>
+
+        <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #FFFFFF; text-decoration: none; white-space: nowrap;">À propos</a>
+
+        <?php if (!$estConnecte): ?>
+            <a id="compte-link" href="Connexion.php" style="color: #577550; text-decoration: none; white-space: nowrap;">Mon Compte</a>
+        <?php endif; ?>
+
+        <a href="favoris.php">
+            <img src="images/panier.png" alt="Panier" style="min-width: 20px;">
+        </a>
     </div>
-    <a id="a-propos-link" href="a-propos.php" class="top-infos"></a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos"></a>
-    <a href="favoris.php">
-        <img src="images/panier.png" alt="Panier">
-    </a>
 </div>
+
 
 <div class="top-center">
     <img src="images/logo.png" alt="Logo">
