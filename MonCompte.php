@@ -186,10 +186,14 @@ $estConnecte = isset($_SESSION['user_id']);
         }
     });
     document.addEventListener("DOMContentLoaded", function () {
+
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? CompteEN : CompteFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-        console.log(CompteFR, CompteEN)
+
+        const dropdown = document.getElementById("lang-dropdown");
+        console.log(dropdown); // Vérifie si l'élément est bien chargé
+
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("label-infos").textContent = texte.labelInfos;
