@@ -127,6 +127,7 @@ const CommunFR = {
     menu: ["LOCATION", "NOS PORTS", "MON COMPTE", "HISTORIQUE", "FAQ", "AVIS"],
     mentions: "Mentions légales",
     contact: "Contact",
+
 };
 
 const CommunEN = {
@@ -401,7 +402,9 @@ const CompteFR = {
     ville: "Ville",
     pays: "Pays",
     mdp: "Mot de passe",
-    bouton: "Modifier"
+    bouton: "Modifier",
+    telephone: "Numéro de téléphone",
+    rue: "Rue"
 };
 
 const CompteEN = {
@@ -416,7 +419,9 @@ const CompteEN = {
     ville: "City",
     pays: "Country",
     mdp: "Password",
-    bouton: "Update"
+    bouton: "Update",
+    telephone: "Phone number",
+    rue: "Street"
 };
 
 const OffreFR = {
