@@ -149,14 +149,14 @@ $estConnecte = isset($_SESSION['user_id']);
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
 
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 20px;font-size: 20px;">
             <button type="submit" class="connexion" id="btn-modifier">Modifier</button>
         </div>
     </form>
     <?php if ($estConnecte): ?>
         <div style="text-align: center; margin-top: 20px;">
             <form method="post" action="deconnexion.php">
-                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 15px;">Se déconnecter</button></strong>
+                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 20px;">Se déconnecter</button></strong>
             </form>
         </div>
     <?php endif; ?>
