@@ -59,6 +59,11 @@ $estConnecte = isset($_SESSION['user_id']);
                     <label for="arrivée">Date d'arrivée</label>
                     <input type="date" id="arrivée">
                 </div>
+                <form action="/recherche" method="get">
+                    <label for="search">Nombre de personnes :</label>
+                    <input type="text" id="search" name="p"placeholder="... personnes" >
+
+                </form>
             </div>
             <div class="champ-trois">
                 <button class="bouton-type" id="btn-moteur" onclick="selectType(this)"></button>
@@ -73,6 +78,7 @@ $estConnecte = isset($_SESSION['user_id']);
                     <option value="Cannes">Cannes</option>
                     <option value="Saint-Tropez">Saint-Tropez</option>
                 </select>
+
                 <br>
                 <button id="lien-recherche" class="connexion" onclick="verifierEtRediriger()">Rechercher</button>
             </div>
