@@ -94,7 +94,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
+    <style>
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -136,8 +149,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="images/email.png" alt="email">
             <input type="email" id="email" name="email" placeholder="Entrez votre adresse mail" required>
             <img src="images/mdp.png" alt="mot de passe">
-            <input type="password" id="mdp" name="mdp" placeholder="Entrez votre mot de passe" required>
-            <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirmez votre mot de passe" required>
+            <div class="password-container">
+                <input type="password" id="mdp" name="mdp" placeholder="Entrez votre mot de passe" required>
+                <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('mdp', this)">
+            </div>
+            <div class="password-container">
+                <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirmez votre mot de passe" required>
+                <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('mdp-confirm', this)">
+            </div>
         </div>
 
         <div class="conditions-general">
@@ -192,6 +211,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function toggleLangDropdown() {
         const dropdown = document.getElementById("lang-dropdown");
         dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+    }
+
+    function togglePasswordVisibility(inputId, icon) {
+        const input = document.getElementById(inputId);
+        if (input.type === "password") {
+            input.type = "text";
+            icon.src = "images/eye-open.png";
+            icon.alt = "Masquer mot de passe";
+        } else {
+            input.type = "password";
+            icon.src = "images/eye-closed.png";
+            icon.alt = "Afficher mot de passe";
+        }
     }
 
     function changerLangue(langue) {
