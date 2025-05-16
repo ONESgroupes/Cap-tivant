@@ -36,6 +36,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+
+    <style>
+        .password-container {
+            position: relative;
+        }
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+
     <meta charset="UTF-8">
     <title id="page-title">Connexion</title>
     <link rel="stylesheet" href="PageAccueil.css">
@@ -152,7 +168,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="images/mdp.png" alt="mot de passe">
             <div class="password-container">
                 <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                <span toggle="#password" class="toggle-password">👁️</span>
+                <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('password')">
             </div>
         </div>
         <button type="submit" class="connexion" id="btn-connexion">Se connecter</button>
@@ -176,16 +192,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <script>
     // Fonctionnalité œil pour mot de passe
-    document.querySelectorAll('.toggle-password').forEach(function(element) {
-        element.addEventListener('click', function() {
-            const input = document.querySelector(this.getAttribute('toggle'));
-            if (input.type === 'password') {
-                input.type = 'text';
-            } else {
-                input.type = 'password';
-            }
-        });
-    });
+    function togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = document.querySelector(`[onclick="togglePasswordVisibility('${inputId}')"]`);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.src = "images/eye-open.png";
+            icon.alt = "Masquer mot de passe";
+        } else {
+            input.type = "password";
+            icon.src = "images/eye-closed.png";
+            icon.alt = "Afficher mot de passe";
+        }
+    }
 </script>
 </body>
 </html>

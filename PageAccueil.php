@@ -494,4 +494,3 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
 </script>
 </body>
 </html>
-

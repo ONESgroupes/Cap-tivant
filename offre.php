@@ -10,6 +10,8 @@ $estConnecte = isset($_SESSION['user_id']);
 
 $depart = $_GET['depart'] ?? null;
 $arrivee = $_GET['arrivee'] ?? null;
+$type = $_GET['type'] ?? null;
+
 
 if ($depart && $arrivee) {
     $stmt = $pdo->prepare("
@@ -155,7 +157,9 @@ if ($depart && $arrivee) {
         }
 
         if (type === "moteur" || type === "voile") {
-            filteredBateaux = filteredBateaux.filter(b => b.categorie === type);
+            filteredBateaux = filteredBateaux.filter(b => {
+                return b.categorie && b.categorie.toLowerCase().trim() === type;
+            });
         }
 
         filteredBateaux.forEach((bateau, index) => {

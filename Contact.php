@@ -11,14 +11,29 @@ use PHPMailer\PHPMailer\Exception;
 require 'PHPMailer/src/Exception.php';
 require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
-
+$estConnecte = isset($_SESSION['user_id']);
 $success = $error = '';
 
+$user = null;
+if ($estConnecte) {
+    $stmt = $pdo->prepare("SELECT last_name, email, phone FROM users WHERE id = ?");
+    $stmt->execute([$_SESSION['user_id']]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $nom = trim($_POST['nom'] ?? '');
-    $email = trim($_POST['email'] ?? '');
-    $tel = trim($_POST['telephone'] ?? '');
     $message = trim($_POST['message'] ?? '');
+    if ($estConnecte && $user) {
+        $nom = $user['last_name'];
+        $email = $user['email'];
+        $tel = $user['phone'];
+    }
+    else {
+        $nom = trim($_POST['name'] ?? '');
+        $email = trim($_POST['email'] ?? '');
+        $tel = trim($_POST['phone'] ?? '');
+    }
+
 
     if (!$nom || !$email || !$message) {
         $error = "Merci de remplir tous les champs obligatoires.";
@@ -59,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-$estConnecte = isset($_SESSION['user_id']);
+
 
 
 ?>
@@ -115,9 +130,17 @@ $estConnecte = isset($_SESSION['user_id']);
             document.getElementById("page-title").textContent = texte.titre;
             document.getElementById("titre-page").textContent = texte.titre;
             document.getElementById("contact-texte").textContent = texte.texte;
-            document.getElementById("nom").placeholder = texte.nom;
-            document.getElementById("mail").placeholder = texte.email;
-            document.getElementById("tel").placeholder = texte.telephone;
+            if ($estConnecte) {
+                $nom = trim($_POST['last_name'] ?? '');
+                $mail = trim($_POST['email'] ?? '');
+                $telephone = trim($_POST['phone'] ?? '');
+            } else {
+                document.getElementById("nom").placeholder = texte.nom;
+                document.getElementById("mail").placeholder = texte.email;
+                document.getElementById("tel").placeholder = texte.telephone;
+            }
+
+
             document.getElementById("label-msg").textContent = texte.label;
             document.getElementById("msg").placeholder = texte.msg;
             document.getElementById("btn-envoyer").textContent = texte.bouton;
@@ -190,14 +213,27 @@ $estConnecte = isset($_SESSION['user_id']);
             Pour toute question, veuillez nous contacter par mail à captivant@gmail.com ou via le formulaire de contact ci-dessous.
         </p>
     </div>
+    <?php if ($estConnecte): ?>
+        <form method="POST" action="Contact.php" class="formulaire-connexion">
+            <div class="champ-msg">
+                <label for="msg" id="label-msg">Message</label>
+            </div>
+            <div class="champ-msg">
+                <textarea name="message" id="msg" placeholder="Entrez votre message" required></textarea>
+            </div>
+            <button type="submit" id="btn-envoyer" class="connexion">Envoyer</button>
+        </form>
+
+    <?php else: ?>
+
 
     <form method="POST" action="Contact.php" class="formulaire-connexion">
         <div class="champ-double">
-            <input type="text" name="nom" id="nom" placeholder="Nom" required>
+            <input type="text" name="name" id="nom" placeholder="Nom" required>
             <input type="email" name="email" id="mail" placeholder="E-mail" required>
         </div>
         <div class="champ">
-            <input type="text" name="telephone" id="tel" placeholder="Entrez votre téléphone">
+            <input type="text" name="phone" id="tel" placeholder="Entrez votre téléphone">
             <br>
             <label for="msg" id="label-msg">Message</label>
         </div>
@@ -206,7 +242,7 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
         <button type="submit" id="btn-envoyer" class="connexion">Envoyer</button>
     </form>
-
+    <?php endif; ?>
 </div>
 
 <div class="bouton-bas">
