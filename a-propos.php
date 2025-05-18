@@ -1,14 +1,31 @@
 <?php
 session_start();
 require_once 'config.php';
+
 $estConnecte = isset($_SESSION['user_id']);
 
+// Langue choisie dans localStorage (passée en cookie ou défaut fr)
+$langue = $_COOKIE['langue'] ?? 'fr';
+
+$contenu = [
+    'titre' => 'À propos',
+    'texte' => 'Contenu non disponible.'
+];
+
+try {
+    $stmt = $pdo->prepare("SELECT titre_$langue AS titre, texte_$langue AS texte FROM a_propos LIMIT 1");
+    $stmt->execute();
+    $contenu = $stmt->fetch(PDO::FETCH_ASSOC) ?: $contenu;
+} catch (PDOException $e) {
+    // En cas d'erreur, le contenu par défaut sera affiché
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title id="page-title">À propos</title>
+    <title><?= htmlspecialchars($contenu['titre']) ?></title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="a-propos.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -31,27 +48,14 @@ $estConnecte = isset($_SESSION['user_id']);
         }
 
         function changerLangue(langue) {
+            document.cookie = "langue=" + langue + "; path=/"; // <-- Cette ligne est essentielle
             localStorage.setItem("langue", langue);
             location.reload();
         }
 
         document.addEventListener("DOMContentLoaded", function () {
             const langue = getLangue();
-            const contenu = langue === "en" ? AProposEN : AProposFR;
             const commun = langue === "en" ? CommunEN : CommunFR;
-
-            document.title = contenu.titre;
-            document.getElementById("page-title").textContent = contenu.titre;
-            document.getElementById("titre-page").textContent = contenu.titre;
-            document.getElementById("banniere-texte").textContent = contenu.banniere;
-
-            const description = document.getElementById("description-a-propos");
-            description.innerHTML = "";
-            contenu.paragraphes.forEach(p => {
-                const paragraphe = document.createElement("p");
-                paragraphe.textContent = p;
-                description.appendChild(paragraphe);
-            });
 
             const currentLang = document.getElementById("current-lang");
             currentLang.src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
@@ -101,15 +105,17 @@ $estConnecte = isset($_SESSION['user_id']);
             <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title" id="titre-page">À propos</h1>
+        <h1 class="page-title"><?= htmlspecialchars($contenu['titre']) ?></h1>
     </div>
 </div>
 
 <div class="banniere">
-    <div class="texte banniere1" id="banniere-texte">Équipage Cap'Tivant</div>
+    <div class="texte banniere1">Équipage Cap'Tivant</div>
 </div>
 
-<div class="description" id="description-a-propos"></div>
+<div class="description" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: 'Questrial', sans-serif; font-size: 1.1em;">
+    <?= nl2br($contenu['texte']) ?>
+</div>
 
 <div class="top-right">
     <div class="language-selector">

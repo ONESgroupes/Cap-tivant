@@ -19,12 +19,3 @@ body, html {
     color: #000000;
     text-align: justify;
 }
-.top-right {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.top-right span {
-    font-size: 1.1em;
-}

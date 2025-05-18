@@ -8,7 +8,7 @@ body, html {
     position: relative;
     width: 100%;
     height: 350px;
-    background-image: url('/images/banniere.png');
+    background-image: url('images/banniere.png');
     background-size: cover;
     background-position: center;
     display: flex;
