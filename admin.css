@@ -28,8 +28,9 @@ body {
 .detail-label {
     font-weight: bold;
     display: inline-block;
-    width: 120px; /* ou ajuste selon ton design */
+    width: 180px; /* ou ajuste selon ton design */
 }
+
 
 
 .admin-table {
@@ -48,6 +49,7 @@ body {
 .admin-table th {
     background-color: #f0f0f0;
 }
+
 .alphabet-filter {
     margin-bottom: 15px;
     text-align: center;

@@ -14,12 +14,39 @@ $boats = $pdo->query("SELECT id, titre FROM bateaux")->fetchAll(PDO::FETCH_KEY_P
 $users = $pdo->query("SELECT id, CONCAT(first_name, ' ', last_name) AS full_name FROM users")->fetchAll(PDO::FETCH_KEY_PAIR);
 
 
-// Tables à configurer
 $readOnlyTables = ['contact_messages', 'historique'];
 $signalableTables = ['reviews'];
 
 // Liste des tables
 $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
+$colonneLabels = [
+    'user_id' => 'Utilisateur',
+    'boat_id' => 'Bateau',
+    'bateau_id' => 'Bateau',
+    'rating' => 'Note',
+    'date_debut' => 'Date de debut',
+    'date_fin' => 'Date de fin',
+    'first_name' => 'Prénom',
+    'last_name' => 'Nom',
+    'name' => 'Nom',
+    'phone' => 'Telephone',
+    'email' => 'Adresse email',
+    'comment' => 'Commentaire',
+    'question_en' => 'question en anglais',
+    'reponse_en' => 'réponse en anglais',
+    'texte_en' => 'texte en anglais',
+    'texte_fr' => 'texte',
+];
+$tableLabels = [
+    'users' => 'Utilisateurs',
+    'bateaux' => 'Bateaux sur le site',
+    'reviews' => 'Commentaires utilisateurs',
+    'contact_messages' => 'Messages utilisateurs',
+    'faq' => 'Foire aux questions',
+    'a_propos' => 'Description',
+    'cgu' => 'CGU',
+    'historique' => 'Historique des réservations',
+];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -69,7 +96,9 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
     <div class="menu-tables" style="text-align: center;">
         <h2 style="color: #f29066;">Choisissez une table</h2>
         <?php foreach ($tables as $tableName): ?>
-            <button onclick="afficherTable('<?= htmlspecialchars($tableName) ?>')" class="btn"><?= htmlspecialchars($tableName) ?></button>
+            <button onclick="afficherTable('<?= htmlspecialchars($tableName) ?>')" class="btn">
+                <?= htmlspecialchars($tableLabels[$tableName] ?? $tableName) ?>
+            </button>
         <?php endforeach; ?>
     </div>
     <?php foreach ($tables as $tableName): ?>
@@ -77,9 +106,12 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
         $columns = $pdo->query("DESCRIBE `$tableName`")->fetchAll(PDO::FETCH_COLUMN);
         $ignored = [
             'default' => ['id', 'created_at'],
-            'bateaux' => ['created_at'],
+            'a_propos' => ['id', 'created_at', 'titre_fr', 'titre_en'],
+            'cgu' => ['id', 'created_at', 'titre_fr', 'titre_en'],
+            'bateaux' => ['id', 'created_at', 'image1', 'image2', 'categorie'],
             'users' => ['id', 'created_at', 'password_hash', 'admin', 'newsletter', 'address', 'postal_code', 'city', 'country'],
         ];
+
         $columnsToShow = array_values(array_filter($columns, fn($c) => !in_array($c, $ignored[$tableName] ?? $ignored['default'])));
         $rows = $pdo->query("SELECT * FROM `$tableName`")->fetchAll(PDO::FETCH_ASSOC);
 
@@ -88,7 +120,7 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
             ->fetch(PDO::FETCH_ASSOC)['Column_name'] ?? 'id';
         ?>
         <div class="table-wrapper" id="table-<?= htmlspecialchars($tableName) ?>" style="display:none;">
-            <h2><?= htmlspecialchars($tableName) ?></h2>
+            <h2><?= htmlspecialchars($tableLabels[$tableName] ?? $tableName) ?></h2>
             <?php if (in_array($tableName, ['bateaux', 'users', 'contact_messages', 'historique', 'reviews'])): ?>
                 <div style="margin-bottom: 15px; text-align: center;">
                     <input type="text"
@@ -168,9 +200,10 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
 
                                 <?php foreach ($columnsToShow as $col): ?>
                                     <div class="detail-row">
-                                        <span class="detail-label" style="font-weight: bold; display: inline-block; width: 120px;">
-    <?= htmlspecialchars($col) ?> :
+                                        <span class="detail-label" style="font-weight: bold; display: inline-block; width: 160px;">
+    <?= htmlspecialchars($colonneLabels[$col] ?? $col) ?> :
 </span>
+
                                         <?php
                                         $isImportant = (str_starts_with($col, 'titre') || str_starts_with($col, 'texte')) && !in_array($tableName, ['cgu', 'a_propos', 'bateaux']);
                                         ?>
@@ -197,7 +230,7 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
                         <?php else: ?>
                             <?php foreach ($columnsToShow as $col): ?>
                                 <div class="detail-row">
-                                    <span class="detail-label"><?= htmlspecialchars($col) ?> :</span>
+                                    <span class="detail-label"><?= htmlspecialchars($colonneLabels[$col] ?? $col) ?> :</span>
                                     <span class="detail-value">
                     <?php
                     if (($col === 'bateau_id' || $col === 'boat_id') && isset($boats[$row[$col]])) {
@@ -225,6 +258,9 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
         <button type="submit" class="btn btn-delete">Retour au site web</button>
     </form>
 </div>
+<script>
+    const colonneLabels = <?= json_encode($colonneLabels) ?>;
+</script>
 
 <script>
     function afficherTable(tableName) {
@@ -257,7 +293,7 @@ $tables = $pdo->query("SHOW TABLES")->fetchAll(PDO::FETCH_COLUMN);
             const input = document.createElement('input');
             input.type = 'text';
             input.name = col;
-            input.placeholder = col;
+            input.placeholder = colonneLabels[col] || col;
             input.style = 'display:block; width:100%; margin:5px 0; padding:8px; border:1px solid #ccc; border-radius:5px;';
             container.appendChild(input);
         });
