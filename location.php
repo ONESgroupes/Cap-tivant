@@ -22,19 +22,23 @@ $estConnecte = isset($_SESSION['user_id']);
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
-
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="a-propos-link" href="a-propos.php" class="top-infos">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <?php if ($estConnecte): ?>
+        <a href="MonCompte.php" style="color: #577550; font-weight: bold; text-decoration: none; font-family: 'DM Serif Display', cursive;">
+            <?= htmlspecialchars($_SESSION['first_name']) ?>
+        </a>
+    <?php else: ?>
+        <a id="compte-link" href="Connexion.php" class="top-infos">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
-
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
@@ -55,6 +59,11 @@ $estConnecte = isset($_SESSION['user_id']);
                     <label for="arrivée">Date d'arrivée</label>
                     <input type="date" id="arrivée">
                 </div>
+                <form action="/recherche" method="get">
+                    <label for="search">Nombre de personnes :</label>
+                    <input type="text" id="search" name="p"placeholder="... personnes" >
+
+                </form>
             </div>
             <div class="champ-trois">
                 <button class="bouton-type" id="btn-moteur" onclick="selectType(this)"></button>
@@ -69,6 +78,7 @@ $estConnecte = isset($_SESSION['user_id']);
                     <option value="Cannes">Cannes</option>
                     <option value="Saint-Tropez">Saint-Tropez</option>
                 </select>
+
                 <br>
                 <button id="lien-recherche" class="connexion" onclick="verifierEtRediriger()">Rechercher</button>
             </div>

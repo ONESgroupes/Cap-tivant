@@ -40,17 +40,29 @@ if ($estConnecte) {
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
-
 <div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown"></div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <?php if ($estConnecte): ?>
+            <a href="MonCompte.php" style="color: #577550; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
+                <?= htmlspecialchars($_SESSION['first_name']) ?>
+            </a>
+        <?php endif; ?>
+
+        <div class="language-selector">
+            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+            <div id="lang-dropdown" class="lang-dropdown"></div>
+        </div>
+
+        <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none; white-space: nowrap;">À propos</a>
+
+        <?php if (!$estConnecte): ?>
+            <a id="lien-compte" href="Connexion.php" style="color: #577550; text-decoration: none; white-space: nowrap;">Mon Compte</a>
+        <?php endif; ?>
+
+        <a href="favoris.php">
+            <img src="images/panier.png" alt="Panier" style="min-width: 20px;">
+        </a>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">A propos</a>
-    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" style="color: #577550; text-decoration: none;"></a>
-    <a href="favoris.php">
-        <img src="images/panier.png" alt="Panier">
-    </a>
 </div>
 <div class="top-center">
     <div class="logo-block">

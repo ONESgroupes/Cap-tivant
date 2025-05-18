@@ -57,11 +57,11 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
         </div>
         <div class="logo-block">
             <div class="connexion">
-                <button type="submit" style="color: white; text-decoration: none; background:none; border:none;">
+                <button type="submit" style="color: white; text-decoration: none; background:none; border:none;font-size: 20px;">
                     Envoyer un lien
                 </button>
             </div>
-            <div class="retour" style="margin-top: 10px;">
+            <div class="retour" style="margin-top: 30px;font-size: 20px;">
                 <a href="Connexion.php" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
             </div>
         </div>
