@@ -87,56 +87,95 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
             opacity: 1;
         }
     </style>
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
+
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #c5d8d3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+
 </head>
 <body>
+</div>
 <audio id="background-music" loop>
     <source src="/Cap-tivant/son/piano.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="menu-sound">
     <source src="/Cap-tivant/son/interface menu copie.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="ports-hover-sound">
     <source src="/Cap-tivant/son/nos ports.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="location-hover-sound">
     <source src="/Cap-tivant/son/location.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="historique-hover-sound">
     <source src="/Cap-tivant/son/historique.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="faq-hover-sound">
     <source src="/Cap-tivant/son/faq.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="avis-hover-sound">
     <source src="/Cap-tivant/son/avis.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="historique-hover-sound">
     <source src="/Cap-tivant/son/historique.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="moncompte-hover-sound">
     <source src="/Cap-tivant/son/mon compte.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="contact-hover-sound">
     <source src="/Cap-tivant/son/contact.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="mentions-hover-sound">
     <source src="/Cap-tivant/son/mention legale.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="apropos-hover-sound">
     <source src="/Cap-tivant/son/a-propos.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
 </audio>
+
 <audio id="lang-fr-sound">
     <source src="/Cap-tivant/son/francais.mp3" type="audio/mpeg">
     Votre navigateur ne supporte pas l’audio.
@@ -147,6 +186,7 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
 
 
 <div class="background-fixe"></div>
+<div class="top-bar-background"></div>
 
 <!-- Menu -->
 <div class="top-left" onclick="toggleMenu()">
@@ -231,6 +271,7 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
             menuAudio.play().catch(() => {});
         }
     }
+
     function handleCompteClick() {
         const estConnecte = <?= json_encode($estConnecte) ?>;
 
