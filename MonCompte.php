@@ -94,8 +94,12 @@ $estConnecte = isset($_SESSION['user_id']);
         <span onclick="toggleMenu()" class="close-menu">✕</span>
     </div>
 </div>
-
 <div class="top-right">
+    <?php if ($estConnecte): ?>
+        <span style="color: #577550; font-weight: bold; margin-right: 15px;">
+            <?= htmlspecialchars($_SESSION['first_name']) ?>
+        </span>
+    <?php endif; ?>
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
@@ -105,7 +109,6 @@ $estConnecte = isset($_SESSION['user_id']);
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
-
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
@@ -146,14 +149,14 @@ $estConnecte = isset($_SESSION['user_id']);
             <input type="text" name="pays" id="pays" value="<?= $pays ?>" placeholder="Pays">
         </div>
 
-        <div style="text-align: center; margin-top: 20px;">
+        <div style="text-align: center; margin-top: 20px;font-size: 20px;">
             <button type="submit" class="connexion" id="btn-modifier">Modifier</button>
         </div>
     </form>
     <?php if ($estConnecte): ?>
         <div style="text-align: center; margin-top: 20px;">
             <form method="post" action="deconnexion.php">
-                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 15px;">Se déconnecter</button></strong>
+                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 20px;">Se déconnecter</button></strong>
             </form>
         </div>
     <?php endif; ?>
@@ -186,10 +189,14 @@ $estConnecte = isset($_SESSION['user_id']);
         }
     });
     document.addEventListener("DOMContentLoaded", function () {
+
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? CompteEN : CompteFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-        console.log(CompteFR, CompteEN)
+
+        const dropdown = document.getElementById("lang-dropdown");
+        console.log(dropdown); // Vérifie si l'élément est bien chargé
+
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("label-infos").textContent = texte.labelInfos;

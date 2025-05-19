@@ -1,0 +1,66 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-image: url("images/fond-bateau.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    font-family: 'DM Serif Display', serif;
+    overflow: hidden;
+}
+
+.tables-container {
+    height: 70vh;
+    overflow-y: auto;
+    padding: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+.detail-value.important {
+    font-weight: bold;
+}
+
+.detail-label {
+    font-weight: bold;
+    display: inline-block;
+    width: 180px; /* ou ajuste selon ton design */
+}
+
+
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 50px;
+    background: white;
+}
+
+.admin-table th, .admin-table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.admin-table th {
+    background-color: #f0f0f0;
+}
+
+.alphabet-filter {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.btn-filter {
+    background-color: #6495ed;
+    color: white;
+    margin: 3px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
