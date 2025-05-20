@@ -398,7 +398,8 @@ const InscriptionFR = {
     confirmerMdp: "Confirmez votre mot de passe",
     conditions: "Accepter les conditions d'utilisations",
     bouton: "S'inscrire",
-    lienConnexion: "Se connecter"
+    lienConnexion: "Se connecter",
+
 };
 
 const InscriptionEN = {
@@ -416,6 +417,9 @@ const InscriptionEN = {
 const LocationFR = {
     titre: "Location",
     lieu: "Lieu de location",
+    depart: "Date de départ",
+    arrive:"Date d'arrivée",
+    personnes:"Nombre minimum de personnes",
     moteur: "Moteur",
     voile: "À voile",
     recherche: "Recherche"
@@ -424,6 +428,9 @@ const LocationFR = {
 const LocationEN = {
     titre: "Rental",
     lieu: "Rental place",
+    depart: "Date of departure",
+    arrive:'Date of arrival',
+    personnes:'Minimal number of people',
     moteur: "Motor",
     voile: "Sailing",
     recherche: "Search"

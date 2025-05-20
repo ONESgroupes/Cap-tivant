@@ -112,11 +112,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
                 : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
 
+            const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
             const menuContent = document.getElementById("menu-links");
-            const compteLien = "<?= $estConnecte ? 'MonCompte' : 'Connexion' ?>";
-            const liens = ["location", "ports", compteLien, "historique", "faq", "avis"];
             menuContent.innerHTML = commun.menu.map((item, index) => {
-                return `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`;
+                return `<a href="${liens[index]}.php">${item}</a>`;
             }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
 
             document.querySelectorAll(".lien-langue").forEach(lien => {
