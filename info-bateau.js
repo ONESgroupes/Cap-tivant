@@ -95,7 +95,30 @@ const bateaux = [
         prix: "2240€/semaine",
         port: "Vannes",
         categorie: "voile",
+    },  {
+        id: 9,
+        titre: "Ocean Breeze 45 - 2010",
+        image1: "images/oceanbreeze1.png",
+        image2: "images/oceanbreeze2.png",
+        personnes: "6 personnes",
+        cabines: "3 cabines",
+        longueur: "14 mètres",
+        prix: "1980€/semaine",
+        port: "Bordeaux",
+        categorie: "voile",
     },
+    {
+        id: 10,
+        titre: "Speed Cruiser 38 - 2015",
+        image1: "images/speedcruiser1.png",
+        image2: "images/speedcruiser2.png",
+        personnes: "4 personnes",
+        cabines: "1 cabine",
+        longueur: "12 mètres",
+        prix: "2750€/semaine",
+        port: "Bordeaux",
+        categorie: "moteur",
+    }
 
 ];
 
@@ -193,7 +216,30 @@ const bateauxEN = [
         prix: "2240€/week",
         port: "Vannes",
         categorie: "voile",
+    }, {
+        id: 9,
+        titre: "Ocean Breeze 45 - 2010",
+        image1: "images/oceanbreeze1.png",
+        image2: "images/oceanbreeze2.png",
+        personnes: "6 people",
+        cabines: "3 cabins",
+        longueur: "14 meters",
+        prix: "1980€/week",
+        port: "Bordeaux",
+        categorie: "voile",
     },
+    {
+        id: 10,
+        titre: "Speed Cruiser 38 - 2015",
+        image1: "images/speedcruiser1.png",
+        image2: "images/speedcruiser2.png",
+        personnes: "4 people",
+        cabines: "1 cabin",
+        longueur: "12 meters",
+        prix: "2750€/week",
+        port: "Bordeaux",
+        categorie: "moteur",
+    }
 
 ];
 
