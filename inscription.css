@@ -1,13 +1,6 @@
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden; /* empêche que body lui-même scroll */
-    font-family: sans-serif;
-}
-
 body {
     display: flex;
+    background-color: #c5d8d3;
     flex-direction: column;
 }
 
@@ -95,12 +88,11 @@ main.contenu-scrollable {
     cursor: pointer;
     font-size: 0.85em;
     color: #0000009E;
-    font-family: 'DM Serif Display', serif;
     margin-top: 10px;
 }
 
 .checkbox-container input {
-    display: none; /* cacher la vraie case */
+    display: none;
 }
 
 .checkmark {
@@ -110,10 +102,12 @@ main.contenu-scrollable {
     border: 2px solid #335533;
     border-radius: 4px;
     margin-right: 10px;
+    position: relative;
 }
 
 .checkbox-container input:checked + .checkmark::after {
     content: "";
+    position: absolute;
     left: 5px;
     top: 1px;
     width: 5px;
@@ -149,16 +143,18 @@ main.contenu-scrollable {
     margin-bottom: 5px;
 }
 
-.password-container {
+.champ-obligatoire {
     position: relative;
-}
-.toggle-password {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    width: 20px;
-    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
+.champ-obligatoire .etoile {
+    color: red;
+    font-size: 1.2em;
+    position: absolute;
+    left: -15px; /* ajuste si nécessaire */
+    top: 50%;
+    transform: translateY(-50%);
+}

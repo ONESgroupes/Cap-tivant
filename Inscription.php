@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<main class="contenu-scrollable" style="margin-top: 100px;" >
+<main class="contenu-scrollable" >
     <form method="POST" action="Inscription.php" class="formulaire-inscription">
         <div class="champ">
             <br>
