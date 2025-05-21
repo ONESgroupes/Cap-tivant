@@ -32,7 +32,7 @@ $estConnecte = isset($_SESSION['user_id']);
             z-index: 1; /* plus élevé que la barre */
             margin: 20px;
             padding: 10px 20px;
-            background-color: #c5d8d3;
+            background-color: #ffffff;
             color: white;
             border: none;
             border-radius: 5px;
