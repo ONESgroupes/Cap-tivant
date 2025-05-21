@@ -64,3 +64,13 @@ body {
     border: none;
     cursor: pointer;
 }
+.btn {
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 10px;
+    margin: 10px;
+    background-color: rgba(242, 144, 102, 0.8);
+    color: white;
+    border: none;
+    cursor: pointer;
+}

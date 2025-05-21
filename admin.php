@@ -94,7 +94,7 @@ $tableLabels = [
 
 <div class="tables-container" style=" margin-top: 150px">
     <div class="menu-tables" style="text-align: center;">
-        <h2 style="color: #f29066;">Choisissez une table</h2>
+        <h2 style="color: #f29066;">Choisissez une catégorie</h2>
         <?php foreach ($tables as $tableName): ?>
             <button onclick="afficherTable('<?= htmlspecialchars($tableName) ?>')" class="btn">
                 <?= htmlspecialchars($tableLabels[$tableName] ?? $tableName) ?>

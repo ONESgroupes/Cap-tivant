@@ -36,6 +36,20 @@ if ($depart && $arrivee) {
         $params[':personnes'] = $personnes;
     }
 
+    if ($type) {
+        // On simplifie pour éviter les problèmes d'accents et de majuscules
+        $type = strtolower(trim($type));
+
+        if ($type === 'moteur') {
+            $query .= " AND LOWER(REPLACE(REPLACE(REPLACE(b.categorie, 'à', 'a'), 'â', 'a'), 'é', 'e')) LIKE '%moteur%'";
+        } elseif ($type === 'voile') {
+            $query .= " AND LOWER(REPLACE(REPLACE(REPLACE(b.categorie, 'à', 'a'), 'â', 'a'), 'é', 'e')) LIKE '%voile%'";
+        }
+    }
+
+
+
+
     $stmt = $pdo->prepare($query);
     $stmt->execute($params);
     $bateauxDisponibles = $stmt->fetchAll();

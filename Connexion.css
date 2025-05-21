@@ -70,33 +70,6 @@ body {
     cursor: pointer;
 }
 
-.menu-overlay {
-    position: fixed;
-    top: 0;
-    left: -100%;
-    width: 80%;
-    height: 100%;
-    background-color: #c5d8d3;
-    z-index: 999;
-    transition: left 0.3s ease;
-}
-
-.menu-overlay.active {
-    left: 0;
-}
-
-.menu-content {
-    padding: 60px 20px;
-}
-
-.close-menu {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: 24px;
-    cursor: pointer;
-}
-
 .password-container {
     position: relative;
     display: flex;
