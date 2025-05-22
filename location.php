@@ -10,37 +10,14 @@ $estConnecte = isset($_SESSION['user_id']);
     <title id="page-title">Location</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="location.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
     <script src="ports-info.js"></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #ffffff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu.png" alt="Menu">
 </div>
@@ -55,13 +32,17 @@ $estConnecte = isset($_SESSION['user_id']);
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a id="a-propos-link" href="a-propos.php" class="top-infos">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
-
-<div class="top-bar-background"></div>
 
 <div class="top-center">
     <div class="logo-block">
@@ -153,8 +134,10 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;
         document.getElementById("a-propos-link").textContent = commun.info;
-        document.getElementById("compte-link").textContent = commun.compte;
-
+        const lienCompte = document.getElementById("lien-compte");
+        if (lienCompte) {
+            lienCompte.textContent = commun.compte;
+        }
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("lang-dropdown").innerHTML = langue === "en"
             ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
@@ -169,28 +152,22 @@ $estConnecte = isset($_SESSION['user_id']);
 
     let typeSelectionne = "";
     function selectType(button) {
-        const boutonClique = button.textContent.trim().toLowerCase();
         const lienRecherche = document.getElementById("lien-recherche");
 
-        if (button.classList.contains("active")) {
-            button.classList.remove("active");
-            typeSelectionne = "";
-            lienRecherche.href = "offre.php";
-        } else {
-            document.querySelectorAll('.bouton-type').forEach(btn => btn.classList.remove('active'));
-            button.classList.add("active");
-            typeSelectionne = boutonClique;
+        document.querySelectorAll('.bouton-type').forEach(btn => btn.classList.remove('active'));
+        button.classList.add("active");
 
-            if (typeSelectionne === "moteur" || typeSelectionne === "motor") {
-                lienRecherche.href = "offre.php?type=moteur";
-            } else if (typeSelectionne === "à voile" || typeSelectionne === "sailing") {
-                lienRecherche.href = "offre.php?type=voile";
-            } else {
-                lienRecherche.href = "offre.php";
-            }
+        if (button.id === "btn-moteur") {
+            typeSelectionne = "moteur";
+        } else if (button.id === "btn-voile") {
+            typeSelectionne = "voile";
+        } else {
+            typeSelectionne = "";
         }
+
         mettreAJourLienRecherche();
     }
+
     function mettreAJourLienRecherche() {
         const lieu = document.getElementById("lieu").value.trim();
         const personnes = document.getElementById("personnes").value.trim();

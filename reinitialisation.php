@@ -44,8 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $redirect = true;
     }
 }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -55,26 +53,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Réinitialisation du mot de passe</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="mdp-oublier.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
 </head>
 <body>
-
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
-
+<div class="top-right">
+    <div class="language-selector">
+        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown"></div>
+    </div>
+    <a href="a-propos.php" id="lien-apropos" style="color: #e0e0d5; text-decoration: none;"></a>
+    <a href="favoris.php">
+        <img src="images/panier.png" alt="Panier">
+    </a>
+</div>
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo" >
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
-        <h1 class="page-title">Réinitialiser votre mot de passe</h1>
+        <h1 class="page-title" id="titre">Réinitialiser votre mot de passe</h1>
     </div>
 
     <div class="formulaire-connexion" id="confirmation">
@@ -85,75 +93,93 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <?php if (empty($message) || strpos($message, '✅') !== 0): ?>
-            <?php if (!empty($email)): ?>
-                <p style="text-align:center; margin-bottom:20px;">Réinitialisation pour : <strong><?= htmlspecialchars($email) ?></strong></p>
-            <?php endif; ?>
-            <form method="POST" action="">
-                <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
-                <div class="champ">
-                    <div class="password-container">
-                        <input type="password" name="new_password" id="new_password"
-                               placeholder="Nouveau mot de passe (12 caractères min, majuscule, minuscule)"
-                               required
-                               pattern="^(?=.*[a-z])(?=.*[A-Z]).{12,}$"
-                               title="12 caractères minimum avec au moins une majuscule et une minuscule">
-                        <span toggle="#new_password" class="toggle-password">👁️</span>
-                    </div>
-                    <p class="password-hint" style="font-size: 0.8em; color: #666; margin-top: 5px;">
-                        Le mot de passe doit contenir au moins 12 caractères, une majuscule et une minuscule
-                    </p>
-                </div>
-                <div class="logo-block">
-                    <div class="connexion">
-                        <button type="submit" style="color: white; background: none; border: none;">Valider</button>
-                    </div>
-                </div>
-            </form>
-        <?php else: ?>
-            <div style="text-align:center; margin-top:20px;">
-                <a href="Connexion.php" class="btn" style="color:white; background-color:#577550; padding:10px 20px; border-radius:10px; text-decoration:none;">Retour à la connexion</a>
-            </div>
+        <?php if (!empty($email)): ?>
+            <p style="text-align:center; margin-bottom:20px;">Réinitialisation pour : <strong><?= htmlspecialchars($email) ?></strong></p>
         <?php endif; ?>
+        <form method="POST" action="">
+            <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
+            <div class="champ">
+                <input type="password" id="nv" name="new_password" placeholder="Nouveau mot de passe" required>
+            </div>
+            <div class="logo-block">
+                <div class="connexion">
+                    <button type="submit" id="valider" style="color: white; background: none; border: none; font-size: 17px; font-family: 'DM Serif Display', cursive; cursor: pointer>Valider</button>
+                            </div>
+                            </div>
+                            </form>
+                    <?php else: ?>
+                            <div style="text-align:center; margin-top:20px;">
+                    <a href="Connexion.php" class="btn" style="color:white; background-color:#577550; padding:10px 20px; border-radius:10px; text-decoration:none;">Retour à la connexion</a>
+                </div>
+                <?php endif; ?>
+            </div>
     </div>
-</div>
 
-<div class="bouton-bas">
-    <a href="MentionsLegales.php" class="bottom-text" style="color: #577550">Mentions légales</a>
-    <span class="bottom-text" style="color: #577550">&bull;</span>
-    <a href="Contact.php" class="bottom-text" style="color: #577550">Contact</a>
-</div>
+    <div class="bouton-bas">
+        <a href="MentionsLegales.php" class="bottom-text" id="lien-mentions" style="color: #577550">Mentions légales</a>
+        <span class="bottom-text" style="color: #577550">&bull;</span>
+        <a href="Contact.php" class="bottom-text" id="lien-contact" style="color: #577550">Contact</a>
+    </div>
 
-<?php if (!empty($redirect)): ?>
+
+    <?php if (!empty($redirect)): ?>
+        <script>
+            setTimeout(function () {
+                window.location.href = 'Connexion.php';
+            }, 3000); // Redirection après 3 secondes
+        </script>
+    <?php endif; ?>
     <script>
-        setTimeout(function () {
-            window.location.href = 'Connexion.php';
-        }, 3000); // Redirection après 3 secondes
-    </script>
-<?php endif; ?>
-<script>
-    // Fonctionnalité œil pour mot de passe
-    document.querySelectorAll('.toggle-password').forEach(function(element) {
-        element.addEventListener('click', function() {
-            const input = document.querySelector(this.getAttribute('toggle'));
-            if (input.type === 'password') {
-                input.type = 'text';
-            } else {
-                input.type = 'password';
+
+        function toggleMenu() {
+            const menu = document.getElementById("menu-overlay");
+            menu.classList.toggle("active");
+        }
+
+        function toggleLangDropdown() {
+            const dropdown = document.getElementById("lang-dropdown");
+            dropdown.style.display = (dropdown.style.display === "block") ? "none" : "block";
+        }
+
+        function changerLangue(langue) {
+            localStorage.setItem("langue", langue);
+            location.reload();
+        }
+
+        window.onload = function () {
+            const langue = localStorage.getItem("langue") || "fr";
+            const texte = langue === "en" ? ReinitialisationEN : ReinitialisationFR;
+            const texteCommun = langue === "en" ? CommunEN : CommunFR;
+
+            document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
+            document.getElementById("titre").textContent = texte.titre;
+
+            document.getElementById("nv").placeholder = texte.nv;
+            document.getElementById("valider").textContent = texte.valider;
+            document.getElementById("lien-apropos").textContent = texteCommun.info;
+            document.getElementById("lien-mentions").textContent = texteCommun.mentions;
+            document.getElementById("lien-contact").textContent = texteCommun.contact;
+
+            const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
+            const menuContent = document.getElementById("menu-links");
+            menuContent.innerHTML = texteCommun.menu.map((item, index) => {
+                return `<a href="${liens[index]}.php">${item}</a>`;
+            }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+
+            const dropdown = document.getElementById("lang-dropdown");
+            dropdown.innerHTML = langue === "en"
+                ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
+                : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
+        };
+
+        document.addEventListener("click", function(event) {
+            const dropdown = document.getElementById("lang-dropdown");
+            const icon = document.getElementById("current-lang");
+            if (!dropdown.contains(event.target) && !icon.contains(event.target)) {
+                dropdown.style.display = "none";
             }
         });
-    });
-
-    // Validation en temps réel
-    document.getElementById('new_password').addEventListener('input', function(e) {
-        const password = e.target.value;
-        const isValid = password.length >= 12 && /[A-Z]/.test(password) && /[a-z]/.test(password);
-
-        if (password.length > 0) {
-            e.target.style.borderColor = isValid ? 'green' : 'red';
-        } else {
-            e.target.style.borderColor = '';
-        }
-    });
-</script>
+    </script>
+    <script src="info-bateau.js"></script>
 </body>
 </html>

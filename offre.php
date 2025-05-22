@@ -37,29 +37,14 @@ if ($depart && $arrivee) {
     }
 
     if ($type) {
-        // On simplifie pour éviter les problèmes d'accents et de majuscules
-        $type = strtolower(trim($type));
-
-        if ($type === 'moteur') {
-            $query .= " AND LOWER(REPLACE(REPLACE(REPLACE(b.categorie, 'à', 'a'), 'â', 'a'), 'é', 'e')) LIKE '%moteur%'";
-        } elseif ($type === 'voile') {
-            $query .= " AND LOWER(REPLACE(REPLACE(REPLACE(b.categorie, 'à', 'a'), 'â', 'a'), 'é', 'e')) LIKE '%voile%'";
-        }
+        $query .= " AND b.type = :type";
+        $params[':type'] = $type;
     }
-
-
-
 
     $stmt = $pdo->prepare($query);
     $stmt->execute($params);
     $bateauxDisponibles = $stmt->fetchAll();
 
-
-    $stmt->execute([
-        ':date_debut' => $depart,
-        ':date_fin' => $arrivee
-    ]);
-    $bateauxDisponibles = $stmt->fetchAll();
 } else {
     $bateauxDisponibles = $pdo->query("SELECT * FROM bateaux")->fetchAll();
 }
@@ -75,55 +60,30 @@ if ($depart && $arrivee) {
     <title id="page-title">Offres</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="offre.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
     <script>
         const bateauxDisponibles = <?= json_encode($bateauxDisponibles, JSON_UNESCAPED_UNICODE) ?>;
     </script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body style="background-color: #c5d8d3;">
-
+<div class="navbar-barre"></div>
 <!-- Menu -->
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
-<div class="top-bar-background"></div>
 
 <!-- En-tête -->
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Offres</h1>
@@ -136,8 +96,14 @@ if ($depart && $arrivee) {
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
+    <a id="a-propos-link" href="a-propos.php" style="color: #e0e0d5; text-decoration: none;">À propos</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -199,9 +165,10 @@ if ($depart && $arrivee) {
 
         if (typeParam === "moteur" || typeParam === "voile") {
             filteredBateaux = filteredBateaux.filter(b =>
-                b.categorie && b.categorie.toLowerCase().trim() === typeParam
+                b.type && b.type.toLowerCase().trim() === typeParam
             );
         }
+
 
         // Remplir les textes dynamiques
         document.getElementById("page-title").textContent = texte.titre;
@@ -209,12 +176,14 @@ if ($depart && $arrivee) {
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;
         document.getElementById("a-propos-link").textContent = commun.info;
-        document.getElementById("compte-link").textContent = commun.compte;
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("lang-dropdown").innerHTML = langue === "en"
             ? `<img src="images/drapeau-francais.png" alt="Français" class="drapeau-option" onclick="changerLangue('fr')">`
             : `<img src="images/drapeau-anglais.png" alt="Anglais" class="drapeau-option" onclick="changerLangue('en')">`;
-
+        const lienCompte = document.getElementById("lien-compte");
+        if (lienCompte) {
+            lienCompte.textContent = commun.compte;
+        }
         const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
         const menuContent = document.getElementById("menu-links");
         menuContent.innerHTML = commun.menu.map((item, index) => {
@@ -224,27 +193,45 @@ if ($depart && $arrivee) {
         const container = document.getElementById('carrousel-container');
 
         filteredBateaux.forEach((bateau, index) => {
+            // Traduction à la volée :
+            const personnes = langue === "en"
+                ? bateau.personnes.replace("personnes", "people").replace("personne", "person")
+                : bateau.personnes;
+
+            const longueur = langue === "en"
+                ? bateau.longueur.replace("mètres", "meters").replace("mètre", "meter")
+                : bateau.longueur;
+
+            const cabines = langue === "en"
+                ? (bateau.cabines || "").replace("cabines", "cabins").replace("cabine", "cabin")
+                : bateau.cabines;
+
+            const prix = langue === "en"
+                ? (bateau.prix || "").replace("/semaine", "/week")
+                : bateau.prix;
+
             const div = document.createElement("div");
             div.className = `carrousel ${bateau.categorie}`;
             div.setAttribute('data-id', index);
             div.innerHTML = `
-            <button class="prev" onclick="changeSlide(this, -1)">❮</button>
-            <div class="slides">
-                <a href="info-bateau.php?id=${bateau.id}">
-                    <img src="${bateau.image1 || 'images/default-boat.jpg'}" class="slide active">
-                    ${bateau.image2 ? `<img src="${bateau.image2}" class="slide">` : ''}
-                    <div class="background">
-                        <a class="description">${bateau.port}, ${bateau.personnes}, ${bateau.longueur}</a>
-                        <div class="ligne-info">
-                            <p class="description" style="color: #000000"><strong>${bateau.prix}</strong></p>
-                        </div>
+        <button class="prev" onclick="changeSlide(this, -1)">❮</button>
+        <div class="slides">
+            <a href="info-bateau.php?id=${bateau.id}">
+                <img src="${bateau.image1 || 'images/default-boat.jpg'}" class="slide active">
+                ${bateau.image2 ? `<img src="${bateau.image2}" class="slide">` : ''}
+                <div class="background">
+                    <a class="description">${bateau.port}, ${personnes}, ${longueur}</a>
+                    <div class="ligne-info">
+                        <p class="description" style="color: #000000"><strong>${prix}</strong></p>
                     </div>
-                </a>
-            </div>
-            <button class="next" onclick="changeSlide(this, 1)">❯</button>
-        `;
+                </div>
+            </a>
+        </div>
+        <button class="next" onclick="changeSlide(this, 1)">❯</button>
+    `;
             container.appendChild(div);
         });
+
 
         if (filteredBateaux.length === 0) {
             container.innerHTML = `<p style='text-align:center; font-size:1.2em; margin-top: 100px'>${texte.aucunBateau}</p>`;

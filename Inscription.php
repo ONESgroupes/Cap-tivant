@@ -93,40 +93,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title id="page-title">Inscription</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="inscription.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
@@ -138,8 +113,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550">Mon Compte</a>
+    <a id="a-propos-link" href="a-propos.php" style="color: #e0e0d5; text-decoration: none;">À propos</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -149,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Inscription</h1>
@@ -208,9 +189,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="conditions-general">
             <label class="checkbox-container">
-                <input type="checkbox" id="newsletter" name="newsletter">
+                <input type="checkbox" name="newsletter">
                 <span class="checkmark"></span>
-                <span class="conditions">Je souhaite m'inscrire à la newsletter</span>
+                <span class="conditions"  id="newsletter">Je souhaite m'inscrire à la newsletter</span>
             </label>
         </div>
         <div class="conditions-general">
@@ -240,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="conditions-general">
         <div class="champ-obligatoire">
             <span class="etoile">*</span>
-            <span class="conditions">Ce champ est obligatoire</span>
+            <span class="conditions"  id="champs">Ce champ est obligatoire</span>
         </div>
     </div>
 </main>
@@ -279,9 +260,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const langue = localStorage.getItem("langue") || "fr";
         const texte = langue === "en" ? InscriptionEN : InscriptionFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
-        const lienCompte = document.getElementById("compte-link");
-        if (lienCompte && commun && commun.compte) {
-            lienCompte.textContent = commun.compte;
+        const compteLink = document.getElementById("lien-compte");
+        if (compteLink) {
+            compteLink.textContent = commun.compte;
         }
 
         document.getElementById("page-title").textContent = texte.titre;
@@ -294,6 +275,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         document.getElementById("conditions-text").textContent = texte.conditions;
         document.getElementById("btn-inscription").textContent = texte.bouton;
         document.getElementById("lien-connexion").textContent = texte.lienConnexion;
+        document.getElementById("champs").textContent = texte.champs;
+        document.getElementById("newsletter").textContent = texte.newsletter;
 
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-mentions").href = "MentionsLegales.php";
@@ -330,5 +313,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 </script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userLang = localStorage.getItem("langue") || "fr";
+        const script = document.createElement('script');
+        script.src = `https://www.google.com/recaptcha/api.js?hl=${userLang}`;
+        script.async = true;
+        script.defer = true;
+        document.body.appendChild(script);
+    });
+</script>
+
 </body>
 </html>

@@ -9,10 +9,12 @@ $estConnecte = isset($_SESSION['user_id']);
     <title id="page-title">Paiement</title> <!-- Titre par défaut -->
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="payement.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
 </head>
+<div class="navbar-barre"></div>
 <script>
     const estConnecte = <?= json_encode($estConnecte) ?>;
 </script>
@@ -60,7 +62,13 @@ $estConnecte = isset($_SESSION['user_id']);
         </div>
     </div>
     <a href="a-propos.php" style="color: #E0E0D5; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="panier">
     </a>
@@ -264,6 +272,10 @@ $estConnecte = isset($_SESSION['user_id']);
             if (document.getElementById("longueur")) document.getElementById("longueur").textContent = bateau.longueur || 'N/A';
             if (document.getElementById("prix")) document.getElementById("prix").textContent = bateau.prix || 'N/A';
             if (document.getElementById("avis")) document.getElementById("avis").textContent = genererAvisTexte(moyenne, total);
+            const lienCompte = document.getElementById("lien-compte");
+            if (lienCompte) {
+                lienCompte.textContent = texteCommun.compte;
+            }
 
             const lienInfoBateau = document.getElementById("lien-info-bateau");
             if(lienInfoBateau) lienInfoBateau.href = `info-bateau.php?id=${bateau.id}`;

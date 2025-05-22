@@ -71,7 +71,9 @@ $tableLabels = [
 <body>
 <div class="top-center">
     <div class="logo-block">
-        <img src="images/logo.png" alt="Logo">
+        <a href="PageAccueil.php">
+            <img src="images/logo.png" alt="Logo" >
+        </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page" style="color: #e0e0d5">Admin</h1>
     </div>
@@ -108,7 +110,7 @@ $tableLabels = [
             'default' => ['id', 'created_at'],
             'a_propos' => ['id', 'created_at', 'titre_fr', 'titre_en'],
             'cgu' => ['id', 'created_at', 'titre_fr', 'titre_en'],
-            'bateaux' => ['id', 'created_at', 'image1', 'image2', 'categorie'],
+            'bateaux' => ['id', 'created_at', 'image1', 'image2', 'type'],
             'users' => ['id', 'created_at', 'password_hash', 'admin', 'newsletter', 'address', 'postal_code', 'city', 'country'],
         ];
 

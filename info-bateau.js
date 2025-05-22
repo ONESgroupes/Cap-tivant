@@ -48,78 +48,6 @@ const bateaux = [
         port: "Marseille",
         categorie: "moteur",
     },
-    {
-        id: 5,
-        titre: "White Shark - 2021",
-        image1: "images/whiteshark1.png",
-        image2: "images/whiteshark2.png",
-        personnes: "8 personnes",
-        cabines: "1 cabines",
-        longueur: "7 mètres",
-        prix: "2695€/semaine",
-        port: "Concarneau",
-        categorie: "moteur",
-    },
-    {
-        id: 6,
-        titre: "Béténeau - 1985",
-        image1: "images/Béténeau1.png",
-        image2: "images/Béténeau2.png",
-        personnes: "6 personnes",
-        cabines: "2 cabines",
-        longueur: "9 mètres",
-        prix: "1500€/semaine",
-        port: "Lorient",
-        categorie: "voile",
-    },
-    {
-        id: 7,
-        titre: "Voilier - 2015",
-        image1: "images/voilier1.png",
-        image2: "images/voilier2.png",
-        personnes: "8 personnes",
-        cabines: "3 cabines",
-        longueur: "11 mètres",
-        prix: "2001€/semaine",
-        port: "Marseille",
-        categorie: "voile",
-    },
-    {
-        id: 8,
-        titre: "Dream 52 - 2002",
-        image1: "images/dream1.png",
-        image2: "images/dream2.png",
-        personnes: "5 personnes",
-        cabines: "2 cabines",
-        longueur: "16 mètres",
-        prix: "2240€/semaine",
-        port: "Vannes",
-        categorie: "voile",
-    },  {
-        id: 9,
-        titre: "Ocean Breeze 45 - 2010",
-        image1: "images/oceanbreeze1.png",
-        image2: "images/oceanbreeze2.png",
-        personnes: "6 personnes",
-        cabines: "3 cabines",
-        longueur: "14 mètres",
-        prix: "1980€/semaine",
-        port: "Bordeaux",
-        categorie: "voile",
-    },
-    {
-        id: 10,
-        titre: "Speed Cruiser 38 - 2015",
-        image1: "images/speedcruiser1.png",
-        image2: "images/speedcruiser2.png",
-        personnes: "4 personnes",
-        cabines: "1 cabine",
-        longueur: "12 mètres",
-        prix: "2750€/semaine",
-        port: "Bordeaux",
-        categorie: "moteur",
-    }
-
 ];
 
 const bateauxEN = [
@@ -171,76 +99,6 @@ const bateauxEN = [
         port: "Marseille",
         categorie: "moteur",
     },
-    {    id: 5,
-        titre: "White Shark - 2021",
-        image1: "images/whiteshark1.png",
-        image2: "images/whiteshark2.png",
-        personnes: "8 people",
-        cabines: "1 cabins",
-        longueur: "7 meters",
-        prix: "2695€/week",
-        port: "Concarneau",
-        categorie: "moteur",
-    },{
-        id: 6,
-        titre: "Béténeau - 1985",
-        image1: "images/Béténeau1.png",
-        image2: "images/Béténeau2.png",
-        personnes: "6 people",
-        cabines: "2 cabins",
-        longueur: "9 meters",
-        prix: "1500€/week",
-        port: "Lorient",
-        categorie: "voile",
-    },
-    {
-        id: 7,
-        titre: "Voilier - 2015",
-        image1: "images/voilier1.png",
-        image2: "images/voilier2.png",
-        personnes: "8 people",
-        cabines: "3 cabins",
-        longueur: "11 meters",
-        prix: "2001€/week",
-        port: "Marseille",
-        categorie: "voile",
-    },
-    {
-        id: 8,
-        titre: "Dream 52 - 2002",
-        image1: "images/dream1.png",
-        image2: "images/dream2.png",
-        personnes: "5 people",
-        cabines: "2 cabins",
-        longueur: "16 meters",
-        prix: "2240€/week",
-        port: "Vannes",
-        categorie: "voile",
-    }, {
-        id: 9,
-        titre: "Ocean Breeze 45 - 2010",
-        image1: "images/oceanbreeze1.png",
-        image2: "images/oceanbreeze2.png",
-        personnes: "6 people",
-        cabines: "3 cabins",
-        longueur: "14 meters",
-        prix: "1980€/week",
-        port: "Bordeaux",
-        categorie: "voile",
-    },
-    {
-        id: 10,
-        titre: "Speed Cruiser 38 - 2015",
-        image1: "images/speedcruiser1.png",
-        image2: "images/speedcruiser2.png",
-        personnes: "4 people",
-        cabines: "1 cabin",
-        longueur: "12 meters",
-        prix: "2750€/week",
-        port: "Bordeaux",
-        categorie: "moteur",
-    }
-
 ];
 
 
@@ -445,7 +303,9 @@ const InscriptionFR = {
     conditions: "Accepter les conditions d'utilisations",
     bouton: "S'inscrire",
     lienConnexion: "Se connecter",
-
+    newsletter: "Je souhaite m'inscrire à la newsletter",
+    captcha: "Je ne suis pas un robot",
+    champs: "Ce champs est obligatoire"
 };
 
 const InscriptionEN = {
@@ -457,28 +317,31 @@ const InscriptionEN = {
     confirmerMdp: "Confirm your password",
     conditions: "Accept the terms of use",
     bouton: "Sign up",
-    lienConnexion: "Log in"
+    lienConnexion: "Log in",
+    newsletter: "I want to subscribe to the newsletter",
+    captcha: "I am not a robot",
+    champs: "This field is required"
 };
 
 const LocationFR = {
     titre: "Location",
-    lieu: "Lieu de location",
     depart: "Date de départ",
-    arrive:"Date d'arrivée",
-    personnes:"Nombre minimum de personnes",
+    arrive: "Date d'arrivée",
+    lieu: "Lieu de location",
     moteur: "Moteur",
     voile: "À voile",
+    personnes: "Nombre minimal de personnes",
     recherche: "Recherche"
 };
 
 const LocationEN = {
     titre: "Rental",
+    depart: "Departure date",
+    arrive: "Date of arrival",
     lieu: "Rental place",
-    depart: "Date of departure",
-    arrive:'Date of arrival',
-    personnes:'Minimal number of people',
     moteur: "Motor",
     voile: "Sailing",
+    personnes: "Minimum number of people",
     recherche: "Search"
 };
 
@@ -486,56 +349,16 @@ const MdpFR = {
     titre: "Réinitialiser votre mot de passe",
     placeholder: "E-mail lié au compte",
     bouton: "Recevoir le lien de connexion",
-    retour: "Retour à la connexion"
+    retour: "Retour à la connexion",
+    lien: "✔️ Un lien a été envoyé à l'adresse :"
 };
 
 const MdpEN = {
     titre: "Reset your password",
     placeholder: "Email linked to account",
     bouton: "Send login link",
-    retour: "Back to login"
-};
-
-const MentionsFR = {
-    titre: "Mentions légales",
-    texte: `
-        <p>Compagnie Cap’Tivant, Société Anonyme au capital de 2 500 000€ immatriculée au Registre du Commerce et des Sociétés de Paris sous le numéro B 542 056 385.</p>
-        <p>Numéro de TVA intracommunautaire : FR66572826359</p>
-        <p>SIRET : 57006875500219</p>
-        <p>Adresse du Siège Social : Port de la conférence, 75008 Paris</p>
-        <p>Contact : Téléphone : +33 1 43 25 86 10</p>
-        <p>Hébergeur : OVH</p>
-        <p><strong>Crédits photos :</strong></p>
-        <ul>
-            <li>Page Accueil - Belle vue © LR Photographies/Fotolia</li>
-            <li>Page Nos offres – Bateaux à louer © Erika / Fotolia</li>
-            <li>Page Nos ports – France © Cartographie / Fotolia</li>
-        </ul>
-        <p><strong>Données personnelles</strong></p>
-        <p>La Compagnie Cap’Tivant a mis en place une politique de confidentialité pour protéger vos données personnelles.</p>
-        <p>DPO : Patricia Conde Cespedes</p>
-    `
-};
-
-const MentionsEN = {
-    titre: "Legal Notice",
-    texte: `
-        <p>Cap’Tivant Company, Public Limited Company with a capital of €2,500,000 registered in the Paris Trade and Companies Register under number B 542 056 385.</p>
-        <p>EU VAT number: FR66572826359</p>
-        <p>SIRET: 57006875500219</p>
-        <p>Head office address: Port de la Conférence, 75008 Paris</p>
-        <p>Contact: Phone: +33 1 43 25 86 10</p>
-        <p>Host: OVH</p>
-        <p><strong>Photo credits:</strong></p>
-        <ul>
-            <li>Homepage - Beautiful view © LR Photographies/Fotolia</li>
-            <li>Offers page – Boats for rent © Erika / Fotolia</li>
-            <li>Ports page – France © Cartography / Fotolia</li>
-        </ul>
-        <p><strong>Personal data</strong></p>
-        <p>Cap’Tivant has implemented a privacy policy to protect your personal data.</p>
-        <p>DPO: Patricia Conde Cespedes</p>
-    `
+    retour: "Back to login",
+    lien: "✔️ A link has been sent to the address :"
 };
 
 const CompteFR = {
@@ -544,13 +367,16 @@ const CompteFR = {
     labelAdresse: "Mon adresse",
     nom: "Nom",
     prenom: "Prénom",
+    rue: "Rue",
     adresse: "Adresse",
     codePostal: "Code postal",
     email: "E-mail",
     ville: "Ville",
     pays: "Pays",
+    telephone: "Numéro de téléphone",
     mdp: "Mot de passe",
-    bouton: "Modifier"
+    bouton: "Modifier",
+    deconnexion: "Se déconnecter"
 };
 
 const CompteEN = {
@@ -559,13 +385,16 @@ const CompteEN = {
     labelAdresse: "My Address",
     nom: "Last name",
     prenom: "First name",
+    rue: "Street",
     adresse: "Address",
     codePostal: "Postal code",
     email: "Email",
     ville: "City",
     pays: "Country",
+    telephone: "Phone number",
     mdp: "Password",
-    bouton: "Update"
+    bouton: "Update",
+    deconnexion: "Log out"
 };
 
 const OffreFR = {
@@ -633,4 +462,16 @@ const PortsFR = {
 const PortsEN = {
     titre: "Our Ports",
     disponible: "Boat available"
+}
+
+const ReinitialisationFR ={
+    titre: "Réinitialiser votre mot de passe",
+    nv: "Nouveau mot de passe",
+    valider: "Valider",
+}
+
+const ReinitialisationEN ={
+    titre: "Reset your password",
+    nv: "New password",
+    valider: "Confirm",
 }

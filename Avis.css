@@ -11,15 +11,16 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    padding: 40px;
     gap: 30px;
+    justify-content: center;
     max-width: 600px;
-    margin: 180px auto;
-    max-height: 400px; /* limite de hauteur */
-    overflow-y: auto;  /* active le scroll vertical */
+    max-height: 500px;
+    overflow-y: auto;
     border-radius: 20px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+
 
 /* Apparence de la barre de défilement (Chrome/Edge) */
 #avis-container::-webkit-scrollbar {
@@ -27,7 +28,7 @@ body {
 }
 
 #avis-container::-webkit-scrollbar-thumb {
-    background-color: #ffffff;
+    background-color: #577550;
     border-radius: 4px;
 }
 
@@ -37,6 +38,9 @@ body {
 
 /* Carte individuelle d’un avis */
 .avis-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
     background-color: white;
     border-radius: 20px;
     padding: 24px;
@@ -44,26 +48,14 @@ body {
     max-width: 700px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     text-align: center;
-    font-family: 'DM Serif Display', serif;
+    transition: transform 0.2s;
 }
 
-.avis-card h3 {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: #ffffff;
+.avis-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
-.avis-card p {
-    margin: 10px 0;
-    color: #333;
-    font-size: 0.95em;
-}
-
-/* Date de l’avis (dernier paragraphe) */
-.avis-card p:last-child {
-    font-size: 0.75em;
-    color: gray;
-}
 
 /* Étoiles */
 .etoiles {

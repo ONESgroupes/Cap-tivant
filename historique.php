@@ -29,73 +29,41 @@ if ($estConnecte) {
     <title id="page-title">Historique</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="historique.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
-
-
+<div class="navbar-barre"></div>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
 
 <div class="top-right">
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <?php if ($estConnecte): ?>
-            <a href="MonCompte.php" style="color: #577550; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
-                <?= htmlspecialchars($_SESSION['first_name']) ?>
-            </a>
-        <?php endif; ?>
-
-        <div class="language-selector">
-            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-            <div id="lang-dropdown" class="lang-dropdown"></div>
-        </div>
-
-        <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none; white-space: nowrap;">À propos</a>
-
-        <?php if (!$estConnecte): ?>
-            <a id="lien-compte" href="Connexion.php" style="color: #577550; text-decoration: none; white-space: nowrap;">Mon Compte</a>
-        <?php endif; ?>
-
-        <a href="favoris.php">
-            <img src="images/panier.png" alt="Panier" style="min-width: 20px;">
-        </a>
+    <div class="language-selector">
+        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #e0e0d5; text-decoration: none;">A propos</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
+    <a href="favoris.php">
+        <img src="images/panier.png" alt="Panier">
+    </a>
 </div>
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Historique</h1>
@@ -137,9 +105,6 @@ if ($estConnecte) {
         <?php endforeach; ?>
     <?php endif; ?>
 </div>
-
-<div class="top-bar-background"></div>
-
 
 <div class="bouton-bas">
     <a id="lien-mentions" class="bottom-text lien-langue" data-page="MentionsLegales" style="color: #577550">Mentions légales</a>
@@ -241,7 +206,6 @@ if ($estConnecte) {
     `;
         document.body.appendChild(popup);
     }
-
 
 
     function validerAvis(titreBateau) {

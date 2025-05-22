@@ -12,39 +12,16 @@ $estConnecte = isset($_SESSION['user_id']);
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="offre.css">
     <link rel="stylesheet" href="info-bateau.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="ports-info.js"></script>
     <script src="info-bateau.js" defer></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu.png" alt="Menu">
 </div>
@@ -52,8 +29,6 @@ $estConnecte = isset($_SESSION['user_id']);
     <a href="offre.php" id="retour-offre" style="color: rgba(224,224,213,0.65)"></a>
     <label id="titre-bateau-label" style="font-size: 0.85em; color: rgba(224,224,213,0.65); font-family: 'DM Serif Display', serif;"></label>
 </div>
-<div class="top-bar-background"></div>
-
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
@@ -80,7 +55,13 @@ $estConnecte = isset($_SESSION['user_id']);
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
     <a href="a-propos.php" id="menu-apropos" style="color: #e0e0d5; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos">Mon Compte</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php"><img src="images/panier.png" alt="Panier"></a>
 </div>
 
@@ -113,9 +94,9 @@ $estConnecte = isset($_SESSION['user_id']);
         const commun = langue === 'en' ? CommunEN : CommunFR;
         const listeBateaux = langue === 'en' ? bateauxEN : bateaux;
         const texte = langue === 'en' ? InfoBateauEN : InfoBateauFR;
-        const lienCompte = document.getElementById("compte-link");
-        if (lienCompte && commun && commun.compte) {
-            lienCompte.textContent = commun.compte;
+        const compteLink = document.getElementById("lien-compte");
+        if (compteLink) {
+            compteLink.textContent = commun.compte;
         }
 
         document.getElementById("current-lang").src = langue === 'en' ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";

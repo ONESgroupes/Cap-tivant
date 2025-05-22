@@ -10,45 +10,25 @@ $estConnecte = isset($_SESSION['user_id']);
     <title id="page-title">Réinitialiser votre mot de passe</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="mdp-oublier.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js"></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <?php
 if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
     $email = htmlspecialchars($_GET['email']);
-    echo "<p style='color: rgb(87,117,80); text-align:center; font-weight:bold; margin-top: 200px'>✔️ Un lien a été envoyé à l'adresse : $email</p>";
+    echo "<div style='display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 150px'>";
+    echo "<p id='lien' style='color: rgb(87,117,80); font-weight: bold; font-size: 1.3em; margin-bottom: 10px;'></p>";
+    echo "<p style='font-size: 1.1em;'>$email</p>";
+    echo "</div>";
 }
 ?>
 
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
@@ -60,17 +40,16 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">Aà propos</a>
+    <a id="a-propos-link" href="a-propos.php" style="color: #e0e0d5; text-decoration: none;">À propos</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
 </div>
-<div class="top-bar-background"></div>
 
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page"></h1>
@@ -83,12 +62,12 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
         </div>
         <div class="logo-block">
             <div class="connexion">
-                <button type="submit" style="color: white; text-decoration: none; background:none; border:none;font-size: 20px;">
+                <button type="submit" style="color: white; text-decoration: none; background:none; border:none; font-size: 17px; font-family: 'DM Serif Display'; cursor: pointer" id="bouton">
                     Envoyer un lien
                 </button>
             </div>
-            <div class="retour" style="margin-top: 30px;font-size: 20px;">
-                <a href="Connexion.php" style="color: #ee9c72; text-decoration: none;">Retour à la connexion</a>
+            <div class="retour" style="margin-top: 10px;">
+                <a href="Connexion.php" style="color: #ee9c72; text-decoration: none; font-size: 17px;" id="retour">Retour à la connexion</a>
             </div>
         </div>
 
@@ -133,6 +112,9 @@ if (isset($_GET['success']) && $_GET['success'] == 1 && isset($_GET['email'])) {
         document.getElementById("page-title").textContent = texte.titre;
         document.getElementById("titre-page").textContent = texte.titre;
         document.getElementById("email").placeholder = texte.placeholder;
+        document.getElementById("bouton").textContent = texte.bouton;
+        document.getElementById("retour").textContent = texte.retour;
+        document.getElementById("lien").textContent = texte.lien;
 
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;

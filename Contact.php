@@ -90,42 +90,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title id="page-title">Contact</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="Contact.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
     <script>
         const estConnecte = <?= json_encode($estConnecte) ?>;
     </script>
-
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
@@ -138,8 +114,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #e0e0d5; text-decoration: none;">À propos</a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -148,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Nous contacter</h1>
@@ -176,21 +158,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php else: ?>
 
 
-    <form method="POST" action="Contact.php" class="formulaire-connexion">
-        <div class="champ-double">
-            <input type="text" name="name" id="nom" placeholder="Nom" required>
-            <input type="email" name="email" id="mail" placeholder="E-mail" required>
-        </div>
-        <div class="champ">
-            <input type="text" name="phone" id="tel" placeholder="Entrez votre téléphone">
-            <br>
-            <label for="msg" id="label-msg">Message</label>
-        </div>
-        <div class="champ-msg">
-            <textarea name="message" id="msg" placeholder="Entrez votre message" required></textarea>
-        </div>
-        <button type="submit" id="btn-envoyer" class="connexion">Envoyer</button>
-    </form>
+        <form method="POST" action="Contact.php" class="formulaire-connexion">
+            <div class="champ-double">
+                <input type="text" name="name" id="nom" placeholder="Nom" required>
+                <input type="email" name="email" id="mail" placeholder="E-mail" required>
+            </div>
+            <div class="champ">
+                <input type="text" name="phone" id="tel" placeholder="Entrez votre téléphone">
+                <br>
+                <label for="msg" id="label-msg">Message</label>
+            </div>
+            <div class="champ-msg">
+                <textarea name="message" id="msg" placeholder="Entrez votre message" required></textarea>
+            </div>
+            <button type="submit" id="btn-envoyer" class="connexion">Envoyer</button>
+        </form>
     <?php endif; ?>
 </div>
 
@@ -233,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const texte = langue === "en" ? ContactEN : ContactFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
 
-        const compteLink = document.getElementById("compte-link");
+        const compteLink = document.getElementById("lien-compte");
         if (compteLink) {
             compteLink.textContent = commun.compte;
         }

@@ -10,54 +10,29 @@ $estConnecte = isset($_SESSION['user_id']);
     <title id="page-title"></title>
     <link rel="stylesheet" href="ports.css">
     <link rel="stylesheet" href="PageAccueil.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #ffffff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
+<div class="navbar-barre"></div>
 <body style="background-color: #c5d8d3;">
 
 <!-- Menu gauche -->
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
 
-<div class="top-bar-background"></div>
-
 <!-- Logo au centre -->
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo" >
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Nos Ports</h1>
@@ -65,31 +40,24 @@ $estConnecte = isset($_SESSION['user_id']);
 </div>
 
 <!-- Haut droit -->
-<!-- Haut droit -->
 <div class="top-right">
-    <div style="display: flex; align-items: center; gap: 15px;">
-        <?php if ($estConnecte): ?>
-            <a href="MonCompte.php" style="color: #577550; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
-                <?= htmlspecialchars($_SESSION['first_name']) ?>
-            </a>
-        <?php endif; ?>
-
-        <div class="language-selector">
-            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-            <div id="lang-dropdown" class="lang-dropdown"></div>
-        </div>
-
-        <a id="lien-apropos" href="a-propos.php" style="color: #577550; text-decoration: none; white-space: nowrap;">À propos</a>
-
-        <?php if (!$estConnecte): ?>
-            <a id="lien-compte" href="Connexion.php" style="color: #577550; text-decoration: none; white-space: nowrap;">Mon Compte</a>
-        <?php endif; ?>
-
-        <a href="favoris.php">
-            <img src="images/panier.png" alt="Panier" style="min-width: 20px;">
-        </a>
+    <div class="language-selector">
+        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+        <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
+    <a href="a-propos.php" id="lien-apropos" style="color: #e0e0d5; text-decoration: none;"></a>
+    <?php if ($estConnecte): ?>
+        <span style="color: #e0e0d5; font-weight: bold; margin-right: 15px;">
+        <?= htmlspecialchars($_SESSION['first_name']) ?>
+    </span>
+    <?php else: ?>
+        <a id="lien-compte" href="Connexion.php" style="color: #e0e0d5; text-decoration: none;">Mon Compte</a>
+    <?php endif; ?>
+    <a href="favoris.php">
+        <img src="images/panier.png" alt="Panier">
+    </a>
 </div>
+
 <!-- Contenu principal -->
 <main>
     <div class="carte-container">
@@ -129,11 +97,15 @@ $estConnecte = isset($_SESSION['user_id']);
 
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("titre-page").textContent = texte.titre;
-        document.getElementById("lien-compte").textContent = texteCommun.compte;
 
         document.getElementById("lien-apropos").textContent = texteCommun.info;
         document.getElementById("lien-mentions").textContent = texteCommun.mentions;
         document.getElementById("lien-contact").textContent = texteCommun.contact;
+        const lienCompte = document.getElementById("lien-compte");
+        if (lienCompte) {
+            lienCompte.textContent = texteCommun.compte;
+        }
+
 
         const menuContent = document.getElementById("menu-links");
         const liens = ["location", "ports", lienCompte, "historique", "faq", "avis"];

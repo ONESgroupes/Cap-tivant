@@ -74,37 +74,27 @@ $estConnecte = isset($_SESSION['user_id']);
     <title id="page-title">Mon Compte</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="MonCompte.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
-    <div class="menu-content">
-        <a href="location.php">LOCATION</a>
-        <a href="ports.php">NOS PORTS</a>
-        <a href="MonCompte.php">MON COMPTE</a>
-        <a href="historique.php">HISTORIQUE</a>
-        <a href="faq.php">FAQ</a>
-        <a href="Avis.php">AVIS</a>
-        <span onclick="toggleMenu()" class="close-menu">✕</span>
-    </div>
+    <div class="menu-content" id="menu-links"></div>
 </div>
+
 <div class="top-right">
-    <?php if ($estConnecte): ?>
-        <span style="color: #577550; font-weight: bold; margin-right: 15px;">
-            <?= htmlspecialchars($_SESSION['first_name']) ?>
-        </span>
-    <?php endif; ?>
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="a-propos-link" href="a-propos.php" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="a-propos-link" href="a-propos.php" style="color: #e0e0d5; text-decoration: none;">À propos</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -112,7 +102,7 @@ $estConnecte = isset($_SESSION['user_id']);
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo" >
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Mon Compte</h1>
@@ -156,7 +146,7 @@ $estConnecte = isset($_SESSION['user_id']);
     <?php if ($estConnecte): ?>
         <div style="text-align: center; margin-top: 20px;">
             <form method="post" action="deconnexion.php">
-                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 20px;">Se déconnecter</button></strong>
+                <strong><button type="submit" style="color: #ee9c72; font-family: 'DM Serif Display', cursive; cursor: pointer; background: none; border: none; outline: none; font-size: 20px;" id="btn-deconnexion">Se déconnecter</button></strong>
             </form>
         </div>
     <?php endif; ?>
@@ -209,6 +199,7 @@ $estConnecte = isset($_SESSION['user_id']);
         document.getElementById("rue").placeholder = texte.rue;
         document.getElementById("pays").placeholder = texte.pays;
         document.getElementById("btn-modifier").textContent = texte.bouton;
+        document.getElementById("btn-deconnexion").textContent = texte.deconnexion;
 
         document.getElementById("lien-mentions").textContent = commun.mentions;
         document.getElementById("lien-contact").textContent = commun.contact;

@@ -36,26 +36,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-
-    <style>
-        .password-container {
-            position: relative;
-        }
-        .toggle-password {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-        }
-    </style>
-
     <meta charset="UTF-8">
     <title id="page-title">Connexion</title>
     <link rel="stylesheet" href="PageAccueil.css">
     <link rel="stylesheet" href="Connexion.css">
+    <link rel="stylesheet" href="nav-barre.css">
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
@@ -114,9 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             const liens = ["location", "ports", "MonCompte", "historique", "faq", "avis"];
             const menuContent = document.getElementById("menu-links");
-            menuContent.innerHTML = commun.menu.map((item, index) => {
-                return `<a href="${liens[index]}.php">${item}</a>`;
-            }).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
+            menuContent.innerHTML = commun.menu.map((item, index) => `<a class="lien-langue" data-page="${liens[index]}">${item}</a>`).join('') + '<span onclick="toggleMenu()" class="close-menu">✕</span>';
 
             document.querySelectorAll(".lien-langue").forEach(lien => {
                 const page = lien.getAttribute("data-page");
@@ -128,50 +111,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             lienApropos.setAttribute("href", "a-propos.php");
         });
     </script>
-    <style>
-        /* Barre de fond en haut */
-        .top-bar-background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 50px; /* ajuste la hauteur comme tu veux */
-            background-color: #20548e; /* couleur de fond */
-            z-index: 0; /* envoie derrière les autres éléments */
-        }
-
-        /* Exemple de bouton au-dessus de la barre */
-        .button-top {
-            position: relative;
-            z-index: 1; /* plus élevé que la barre */
-            margin: 20px;
-            padding: 10px 20px;
-            background-color: #c5d8d3;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
+<div class="navbar-barre"></div>
 <div class="top-left" onclick="toggleMenu()">
-    <img src="images/menu-vert.png" alt="Menu">
+    <img src="images/menu.png" alt="Menu">
 </div>
 
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
 
-<div class="top-bar-background"></div>
-
-
 <div class="top-right">
     <div class="language-selector">
         <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
         <div id="lang-dropdown" class="lang-dropdown"></div>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
+    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #e0e0d5; text-decoration: none;">À propos</a>
     <a href="favoris.php">
         <img src="images/panier.png" alt="Panier">
     </a>
@@ -180,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">
-            <img src="images/logo-transparent.png" alt="Logo" style="width: 30px;">
+            <img src="images/logo.png" alt="Logo">
         </a>
         <p class="logo-slogan">Cap'Tivant</p>
         <h1 class="page-title" id="titre-page">Connexion</h1>
@@ -193,10 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="champ">
             <img src="images/mdp.png" alt="mot de passe">
-            <div class="password-container">
-                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('password')">
-            </div>
+            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
         </div>
         <button type="submit" class="connexion" id="btn-connexion">Se connecter</button>
     </form>
@@ -216,23 +169,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <span class="bottom-text" style="color: #577550">•</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
-
-<script>
-    // Fonctionnalité œil pour mot de passe
-    function togglePasswordVisibility(inputId) {
-        const input = document.getElementById(inputId);
-        const icon = document.querySelector(`[onclick="togglePasswordVisibility('${inputId}')"]`);
-
-        if (input.type === "password") {
-            input.type = "text";
-            icon.src = "images/eye-open.png";
-            icon.alt = "Masquer mot de passe";
-        } else {
-            input.type = "password";
-            icon.src = "images/eye-closed.png";
-            icon.alt = "Afficher mot de passe";
-        }
-    }
-</script>
 </body>
 </html>
