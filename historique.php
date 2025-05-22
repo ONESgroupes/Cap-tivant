@@ -143,14 +143,9 @@ if ($estConnecte) {
         const texte = langue === "en" ? HistoriqueEN : HistoriqueFR;
         const commun = langue === "en" ? CommunEN : CommunFR;
 
-        document.title = texte.titre;
-        document.getElementById("titre-page").textContent = texte.titre;
-        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
-        document.getElementById("lien-compte").textContent = commun.compte;
 
-        document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
+
+
 
         document.querySelectorAll(".label-port").forEach(el => el.textContent = texte.port + " :");
         document.querySelectorAll(".label-personnes").forEach(el => el.textContent = texte.personnes + " :");
