@@ -89,15 +89,45 @@ try {
             }
         });
     </script>
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
+
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #c5d8d3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="background-color: #c5d8d3;">
 <div class="top-left" onclick="toggleMenu()">
     <img src="images/menu-vert.png" alt="Menu">
 </div>
 
+
+
+
+
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
+
 
 <div class="top-center">
     <div class="logo-block">
@@ -112,6 +142,8 @@ try {
 <div class="banniere">
     <div class="texte banniere1">Équipage Cap'Tivant</div>
 </div>
+
+<div class="top-bar-background"></div>
 
 <div class="description" style="max-width: 800px; margin: 0 auto; padding: 20px; font-family: 'Questrial', sans-serif; font-size: 1.1em;">
     <?= nl2br($contenu['texte']) ?>

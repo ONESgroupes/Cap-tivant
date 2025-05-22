@@ -97,8 +97,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         const estConnecte = <?= json_encode($estConnecte) ?>;
     </script>
 
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
 
-
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #c5d8d3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -108,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
+<div class="top-bar-background"></div>
 
 <div class="top-right">
     <div style="display: flex; align-items: center; gap: 15px;">

@@ -18,6 +18,31 @@ $estConnecte = isset($_SESSION['user_id']);
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="ports-info.js"></script>
     <script src="info-bateau.js" defer></script>
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
+
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #c5d8d3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -27,6 +52,8 @@ $estConnecte = isset($_SESSION['user_id']);
     <a href="offre.php" id="retour-offre" style="color: rgba(224,224,213,0.65)"></a>
     <label id="titre-bateau-label" style="font-size: 0.85em; color: rgba(224,224,213,0.65); font-family: 'DM Serif Display', serif;"></label>
 </div>
+<div class="top-bar-background"></div>
+
 <div class="top-center">
     <div class="logo-block">
         <a href="PageAccueil.php">

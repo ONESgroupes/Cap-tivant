@@ -95,7 +95,7 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
             top: 0;
             left: 0;
             width: 100%;
-            height: 60px; /* ajuste la hauteur comme tu veux */
+            height: 50px; /* ajuste la hauteur comme tu veux */
             background-color: #20548e; /* couleur de fond */
             z-index: 0; /* envoie derrière les autres éléments */
         }

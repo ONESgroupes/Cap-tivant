@@ -21,6 +21,31 @@ $avis = $stmt->fetchAll();
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="info-bateau.js" defer></script>
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
+
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #c5d8d3;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
 <div class="top-left" onclick="toggleMenu()">
@@ -58,6 +83,7 @@ $avis = $stmt->fetchAll();
         </a>
     </div>
 </div>
+<div class="top-bar-background"></div>
 
 <div class="top-center">
     <div class="logo-block">

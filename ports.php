@@ -14,6 +14,31 @@ $estConnecte = isset($_SESSION['user_id']);
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <style>
+        /* Barre de fond en haut */
+        .top-bar-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px; /* ajuste la hauteur comme tu veux */
+            background-color: #20548e; /* couleur de fond */
+            z-index: 0; /* envoie derrière les autres éléments */
+        }
+
+        /* Exemple de bouton au-dessus de la barre */
+        .button-top {
+            position: relative;
+            z-index: 1; /* plus élevé que la barre */
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body style="background-color: #c5d8d3;">
 
@@ -25,6 +50,8 @@ $estConnecte = isset($_SESSION['user_id']);
 <div id="menu-overlay" class="menu-overlay">
     <div class="menu-content" id="menu-links"></div>
 </div>
+
+<div class="top-bar-background"></div>
 
 <!-- Logo au centre -->
 <div class="top-center">
