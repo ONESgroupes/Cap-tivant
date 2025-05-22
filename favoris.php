@@ -91,12 +91,31 @@ if ($estConnecte) {
     <div class="menu-content" id="menu-links"></div>
 </div>
 <div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown"></div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <?php if ($estConnecte): ?>
+            <!-- Affiche le prénom avec lien vers le compte -->
+            <a href="MonCompte.php" style="color: #577550; font-weight: bold; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
+                <?= htmlspecialchars($_SESSION['first_name']) ?>
+            </a>
+        <?php else: ?>
+            <!-- Affiche lien Mon Compte seulement si non connecté -->
+            <a href="Connexion.php" class="top-infos" style="color: #577550; white-space: nowrap;">Mon Compte</a>
+        <?php endif; ?>
+
+        <!-- Sélecteur de langue -->
+        <div class="language-selector">
+            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+            <div id="lang-dropdown" class="lang-dropdown"></div>
+        </div>
+
+        <!-- Lien À propos -->
+        <a id="a-propos-link" href="a-propos.php" class="top-infos" style="color: #577550; white-space: nowrap;">À propos</a>
+
+        <!-- Panier -->
+        <a href="favoris.php">
+            <img src="images/panier.png" alt="Panier">
+        </a>
     </div>
-    <a id="lien-apropos" class="lien-langue" data-page="a-propos" style="color: #577550; text-decoration: none;">À propos</a>
-    <a id="lien-compte" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos" style="color: #577550;">Mon Compte</a>
 </div>
 <div class="top-center">
     <div class="logo-block">
@@ -185,11 +204,7 @@ if ($estConnecte) {
             el.textContent = favorisTxt.retirer;
         });
 
-        document.getElementById("lien-apropos").textContent = commun.info;
-        document.getElementById("lien-compte").textContent = commun.compte;
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
-        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
+
 
         const langDropdown = document.getElementById("lang-dropdown");
         langDropdown.innerHTML = langue === "en"

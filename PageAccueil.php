@@ -6,6 +6,7 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
 <!DOCTYPE html>
 <html lang="fr" class="<?= $accessibilityMode ? 'accessibility-mode' : '' ?>">
 <head>
+
     <meta charset="UTF-8">
     <title id="page-title"></title>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
@@ -199,16 +200,33 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
 
 <!-- Haut de page -->
 <div class="top-right">
-    <div class="language-selector">
-        <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
-        <div id="lang-dropdown" class="lang-dropdown"></div>
+    <div style="display: flex; align-items: center; gap: 15px;">
+        <?php if ($estConnecte): ?>
+            <!-- Affiche le prénom avec lien vers le compte -->
+            <a href="MonCompte.php" style="color: #ffffff; white-space: nowrap; font-family: 'DM Serif Display', cursive; text-decoration: none;">
+                <?= htmlspecialchars($_SESSION['first_name']) ?>
+            </a>
+        <?php else: ?>
+            <!-- Affiche lien Mon Compte seulement si non connecté -->
+            <a href="Connexion.php" class="top-infos" style="color: #ffffff; white-space: nowrap;">Mon Compte</a>
+        <?php endif; ?>
+
+        <!-- Sélecteur de langue -->
+        <div class="language-selector">
+            <img id="current-lang" src="images/drapeau-francais.png" alt="Langue" onclick="toggleLangDropdown()" class="drapeau-icon">
+            <div id="lang-dropdown" class="lang-dropdown"></div>
+        </div>
+
+        <!-- Lien À propos -->
+        <a id="a-propos-link" href="a-propos.php" class="top-infos" style="color: #FFFFFFFF; white-space: nowrap;">À propos</a>
+
+        <!-- Panier -->
+        <a href="favoris.php">
+            <img src="images/panier.png" alt="Panier">
+        </a>
     </div>
-    <a id="a-propos-link" href="a-propos.php" class="top-infos"></a>
-    <a id="compte-link" href="<?= $estConnecte ? 'MonCompte.php' : 'Connexion.php' ?>" class="top-infos"></a>
-    <a href="favoris.php">
-        <img src="images/panier.png" alt="Panier">
-    </a>
 </div>
+
 
 <div class="top-center">
     <img src="images/logo.png" alt="Logo">
@@ -324,10 +342,6 @@ $accessibilityMode = isset($_SESSION['accessibility_mode']) ? $_SESSION['accessi
         document.getElementById("texte-principal").textContent = texte.textePrincipal;
         document.getElementById("texte-secondaire").textContent = texte.texteSecondaire;
 
-        document.getElementById("lien-mentions").textContent = commun.mentions;
-        document.getElementById("lien-contact").textContent = commun.contact;
-        document.getElementById("a-propos-link").textContent = commun.info;
-        document.getElementById("compte-link").textContent = commun.compte;
 
         document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
         document.getElementById("lang-dropdown").innerHTML = langue === "en"

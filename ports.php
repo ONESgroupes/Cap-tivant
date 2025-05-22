@@ -100,13 +100,7 @@ $estConnecte = isset($_SESSION['user_id']);
         const texte = langue === "en" ? PortsEN : PortsFR;
         const texteCommun = langue === "en" ? CommunEN : CommunFR;
 
-        document.getElementById("current-lang").src = langue === "en" ? "images/drapeau-anglais.png" : "images/drapeau-francais.png";
-        document.getElementById("titre-page").textContent = texte.titre;
-        document.getElementById("lien-compte").textContent = texteCommun.compte;
 
-        document.getElementById("lien-apropos").textContent = texteCommun.info;
-        document.getElementById("lien-mentions").textContent = texteCommun.mentions;
-        document.getElementById("lien-contact").textContent = texteCommun.contact;
 
         const menuContent = document.getElementById("menu-links");
         const liens = ["location", "ports", lienCompte, "historique", "faq", "avis"];
