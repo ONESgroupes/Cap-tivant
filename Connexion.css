@@ -11,12 +11,7 @@ body {
     gap: 30px;
 }
 
-.champ {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
+
 
 .champ img {
     width: 24px;
@@ -59,4 +54,54 @@ body {
     font-size: 0.7em;
     color: rgba(0, 0, 0, 0.62);
     font-family: 'DM Serif Display', cursive;
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+}
+
+.password-container input {
+    flex: 1;
+    padding-right: 40px; /* Pour ne pas que le texte cache l’icône */
+}
+
+.toggle-password {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+
+.champ {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.input-container {
+    position: relative;
+    width: 300px; /* largeur fixe pour centrer */
+}
+
+.input-container input {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border-radius: 30px;
+    border: none;
+    font-size: 16px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.eye-icon {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
 }

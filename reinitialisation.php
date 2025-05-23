@@ -99,7 +99,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <form method="POST" action="">
             <input type="hidden" name="token" value="<?= htmlspecialchars($token) ?>">
             <div class="champ">
-                <input type="password" id="nv" name="new_password" placeholder="Nouveau mot de passe" required>
+                <div class="input-container">
+                    <input style="margin-left: 30px" type="password" id="nv" name="new_password" placeholder="Nouveau mot de passe" required>
+                    <img src="images/eye-closed.png" alt="Afficher mot de passe" class="eye-icon" onclick="togglePasswordVisibility('nv')">
+                </div>
             </div>
             <div class="logo-block">
                 <div class="connexion">
@@ -120,7 +123,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <span class="bottom-text" style="color: #577550">&bull;</span>
         <a href="Contact.php" class="bottom-text" id="lien-contact" style="color: #577550">Contact</a>
     </div>
-
 
     <?php if (!empty($redirect)): ?>
         <script>
@@ -179,6 +181,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 dropdown.style.display = "none";
             }
         });
+        function togglePasswordVisibility(inputId) {
+            const input = document.getElementById(inputId);
+            const icon = document.querySelector(`[onclick="togglePasswordVisibility('${inputId}')"]`);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.src = "images/eye-open.png";
+                icon.alt = "Masquer mot de passe";
+            } else {
+                input.type = "password";
+                icon.src = "images/eye-closed.png";
+                icon.alt = "Afficher mot de passe";
+            }
+        }
+
     </script>
     <script src="info-bateau.js"></script>
 </body>
