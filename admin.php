@@ -217,6 +217,8 @@ $tableLabels = [
                                         >
     <?= htmlspecialchars(($tableName === 'cgu') ? strip_tags($row[$col]) : $row[$col]) ?>
 </span>
+                                        <span style="color: #aaa; margin-left: 5px;">✏️</span>
+
 
 
                                         <?php if (str_starts_with($col, 'texte')): ?>
