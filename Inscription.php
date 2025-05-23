@@ -161,17 +161,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <img src="images/mdp.png" alt="mot de passe">
 
             <div class="champ-obligatoire">
-                <span class="etoile">*</span>
+                <span class="etoile" style="margin-left: 30px" >*</span>
                 <div class="password-container">
-                    <input type="password" id="mdp" name="mdp" placeholder="Enter your password" required>
+                    <input style="margin-left: 30px" type="password" id="mdp" name="mdp" placeholder="Enter your password" required>
                     <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('mdp')">
                 </div>
             </div>
 
             <div class="champ-obligatoire">
-                <span class="etoile">*</span>
+                <span class="etoile" style="margin-left: 30px" >*</span>
                 <div class="password-container">
-                    <input type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirm your password" required>
+                    <input style="margin-left: 30px" type="password" id="mdp-confirm" name="mdp_confirm" placeholder="Confirm your password" required>
                     <img src="images/eye-closed.png" alt="Afficher mot de passe" class="toggle-password" onclick="togglePasswordVisibility('mdp-confirm')">
                 </div>
             </div>

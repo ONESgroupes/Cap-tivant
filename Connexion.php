@@ -149,7 +149,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="champ">
             <img src="images/mdp.png" alt="mot de passe">
-            <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+            <div class="input-container">
+                <input  style="margin-left: 30px" type="password" id="password" name="password" placeholder="Enter your password" required>
+                <img src="images/eye-closed.png" alt="Afficher mot de passe" class="eye-icon" onclick="togglePasswordVisibility('password')">
+            </div>
         </div>
         <button type="submit" class="connexion" id="btn-connexion">Se connecter</button>
     </form>
@@ -169,5 +172,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <span class="bottom-text" style="color: #577550">•</span>
     <a id="lien-contact" class="bottom-text lien-langue" data-page="Contact" style="color: #577550">Contact</a>
 </div>
+<script>
+    function togglePasswordVisibility(inputId) {
+        const input = document.getElementById(inputId);
+        const icon = document.querySelector(`[onclick="togglePasswordVisibility('${inputId}')"]`);
+
+        if (input.type === "password") {
+            input.type = "text";
+            icon.src = "images/eye-open.png";
+            icon.alt = "Masquer mot de passe";
+        } else {
+            input.type = "password";
+            icon.src = "images/eye-closed.png";
+            icon.alt = "Afficher mot de passe";
+        }
+    }
+</script>
+
 </body>
 </html>
