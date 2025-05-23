@@ -120,8 +120,8 @@ try {
     
     <div class="footer">
         <p>
-            <a href="https://www.cap-tivant.com" style="color: #577550;">Notre site / Our Website</a> |
-            <a href="https://www.cap-tivant.com/contact" style="color: #577550;">Contact</a>
+            <a href="http://localhost/cap-tivant/PageAccueil.php" style="color: #577550;">Notre site / Our Website</a> |
+            <a href="http://localhost/cap-tivant/Contact.php" style="color: #577550;">Contact</a>
         </p>
     </div>
 </body>
