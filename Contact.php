@@ -52,23 +52,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'paule.rochette2004@gmail.com';
-            $mail->Password = 'vnwumyeurcexvkwh';
+            $mail->Username = 'taysiir.deda92@gmail.com';
+            $mail->Password = 'mymm kptf chqk pahf';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
             $mail->setFrom($email, $nom);
             $mail->addReplyTo($email, $nom);
 
-            $mail->addAddress('paule.rochette2004@gmail.com', 'Cap-Tivant');
+            $mail->setFrom('taysiir.deda92@gmail.com', 'Cap-Tivant');
+
+            // Destinataire
+            $mail->addAddress('taysiir.deda92@gmail.com', 'Cap-Tivant');
+
+            // Répondre à : l’utilisateur
+            $mail->addReplyTo($email, $nom);
+
 
             $mail->isHTML(true);
-            $mail->Subject = '📩 Nouveau message depuis le formulaire de contact';
+            $mail->Subject = 'Nouveau message recu via le site Cap-Tivant';
+
+            // Corps HTML du mail
             $mail->Body = "
-                <strong>Nom :</strong> $nom<br>
-                <strong>Email :</strong> $email<br>
-                <strong>Téléphone :</strong> $tel<br><br>
-                <strong>Message :</strong><br>" . nl2br(htmlspecialchars($message));
+    <html>
+    <head>
+      <style>
+        body { font-family: Arial, sans-serif; background-color: #f2f2f2; padding: 20px; }
+        .container {
+          background-color: #ffffff;
+          border-radius: 10px;
+          padding: 20px;
+          border: 1px solid #dddddd;
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        h2 { color: #004080; }
+        p { line-height: 1.5; }
+        .footer {
+          margin-top: 30px;
+          font-size: 13px;
+          color: #888;
+        }
+      </style>
+    </head>
+    <body>
+      <div class='container'>
+        <h2>Message de $nom</h2>
+        <p><strong>Nom :</strong> $nom</p>
+        <p><strong>Email :</strong> $email</p>
+        <p><strong>Telephone :</strong> " . ($tel ?: 'Non fourni') . "</p>
+        <hr>
+        <p><strong>Message :</strong><br>" . nl2br(htmlspecialchars($message)) . "</p>
+
+        <div class='footer'>
+          Ce message a ete envoye depuis le formulaire de contact Cap-Tivant.
+        </div>
+      </div>
+    </body>
+    </html>
+    ";
+
 
             $mail->send();
             $success = "Votre message a bien été envoyé.";
