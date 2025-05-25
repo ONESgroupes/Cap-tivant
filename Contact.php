@@ -52,18 +52,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'taysiir.deda92@gmail.com';
-            $mail->Password = 'mymm kptf chqk pahf';
+            $mail->Username = 'paule.rochette2004@gmail.com';
+            $mail->Password = 'vnwumyeurcexvkwh';
             $mail->SMTPSecure = 'tls';
             $mail->Port = 587;
 
             $mail->setFrom($email, $nom);
             $mail->addReplyTo($email, $nom);
 
-            $mail->setFrom('taysiir.deda92@gmail.com', 'Cap-Tivant');
+            $mail->setFrom('paule.rochette2004@gmail.com', 'Cap-Tivant');
 
             // Destinataire
-            $mail->addAddress('taysiir.deda92@gmail.com', 'Cap-Tivant');
+            $mail->addAddress('paule.rochette2004@gmail.com', 'Cap-Tivant');
 
             // Répondre à : l’utilisateur
             $mail->addReplyTo($email, $nom);
